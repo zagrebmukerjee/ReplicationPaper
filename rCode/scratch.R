@@ -36,7 +36,7 @@ natlLevelRaw <- bind_rows(
   rename(race = name)
 
 
-natlLevel <- natlLevelRaw %>%  filter(year > 2012 & year < 2019) %>% 
+natlLevel <- natlLevelRaw %>%  filter(year > 2012 & year < 2015) %>% 
   group_by(race,type ) %>%  summarize(value = mean(value)) %>% 
   pivot_wider(id_cols = race, names_from = type,  values_from = value )
 
