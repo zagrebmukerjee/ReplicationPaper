@@ -73,6 +73,7 @@ finalBartik <- mfgWhite %>%  left_join(mfgNonwhite) %>%
 MATest <- countyLevel %>%  filter(state_fips == 25) %>%  filter(year == 2016) %>% select(state_fips, pan_id, bartik_leo5_w2) %>% 
   arrange(desc(bartik_leo5_w2))
 
-finalBartik$bartikFinalWhite * 100
+finalBartik %>%  arrange(county) %>% mutate(bartRank = rank(bartikFinalWhite))
+MATest %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2 * 10) %>% mutate(bartRank = rank(bartik_leo5_w2))
 
-MATest$bartik_leo5_w2*1000
+
