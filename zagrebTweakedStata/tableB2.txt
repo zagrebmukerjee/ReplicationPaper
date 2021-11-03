@@ -1,0 +1,16 @@
+		(1)	(2)
+VARIABLES	LABELS	Manufacturing Layoffs	White Manufacturing Layoffs
+			
+bartik_leo5	Bartik instrument (total)	106.621***	
+		(4.609)	
+bartik_leo5_w2	Bartik instrument (white)		108.205***
+			(7.067)
+			
+Observations		3,068	2,767
+Unemployment Control		Yes	Yes
+Demography Controls		Yes	Yes
+White Population Share		No	No
+Service Layoffs		No	No
+State fixed effects		Yes	Yes
+Robust standard errors in parentheses			
+*** p<0.01, ** p<0.05, * p<0.1			

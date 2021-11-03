@@ -1,0 +1,39 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\zagre\Documents\Research\ReplicationPaper\OriginalMaterial
+> s\county_logfile.log
+  log type:  text
+ opened on:   1 Nov 2021, 14:03:11
+
+. 
+. * Setting the county-year panel
+. xtset pan_id year
+
+Panel variable: pan_id (strongly balanced)
+ Time variable: year, 2008 to 2016, but with gaps
+         Delta: 1 unit
+
+. 
+. 
+. ########## MAIN TEXT
+Unknown #command
+. * Table 2 (county-level analysis)
+. *1
+. xi: ivreg2 ddem_votes_pct1 LAU_unemp_rate_4y pers_m_total_share_4y pers_coll_s
+> hare_4y (msl_pc4y2= bartik_leo5) i.id_state if year==2016, r partial(i.id_stat
+> e) first
+i.id_state        _Iid_state_1-49     (naturally coded; _Iid_state_1 omitted)
+Error: must have ranktest version 01.3.02 or greater installed
+To install, from within Stata type ssc install ranktest
+r(601);
+
+end of do-file
+
+r(601);
+
+. ssc install ranktest
+checking ranktest consistency and verifying not already installed...
+installing into C:\Users\zagre\ado\plus\...
+installation complete.
+
+. exit, clear

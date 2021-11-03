@@ -1,0 +1,19 @@
+		(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	LABELS	Change of Democratic Vote Share	Change of Democratic Vote Share	Change of Democratic Vote Share	Change of Democratic Vote Share	Change of Democratic Vote Share	Change of Democratic Vote Share
+							
+msl_w_pc4y2	White Manufacturing Layoffs				-0.381***	-0.332***	-0.308***
+					(0.071)	(0.078)	(0.080)
+msl_nw_pc4y2	Non-white Manufacturing Layoffs				0.245***	0.207***	0.210***
+					(0.053)	(0.054)	(0.054)
+msl_pc4y2	Manufacturing Layoffs	-0.143***	-0.118***	-0.098**			
+		(0.043)	(0.043)	(0.045)			
+							
+Observations		721	721	720	688	688	687
+R-squared		0.360	0.384	0.383	0.415	0.421	0.420
+Unemployment Control		Yes	Yes	Yes	Yes	Yes	Yes
+Demography Controls		Yes	Yes	Yes	Yes	Yes	Yes
+White Population Share		No	Yes	Yes	No	Yes	Yes
+Service Layoffs		No	No	Yes	No	No	Yes
+State fixed effects		Yes	Yes	Yes	Yes	Yes	Yes
+Robust standard errors in parentheses							
+*** p<0.01, ** p<0.05, * p<0.1							
