@@ -45,12 +45,14 @@ aggregate <- totalData %>%  left_join(mfgData) %>%
     mfgEmp = as.numeric(mfgEmp)
     )  
 
-mfgWhite <- aggregate %>%  filter(time == "2011-Q1") %>% 
+dateStr <- "2011-Q1"
+
+mfgWhite <- aggregate %>%  filter(time == dateStr) %>% 
   filter(race == "A1" & ethnicity == "A1") %>% 
   select(state, county, mfgEmpWhite = mfgEmp, totalEmpWhite = totalEmp) %>% 
   mutate(mfgShareWhite = mfgEmpWhite/totalEmpWhite)
 
-mfgNonwhite <- aggregate %>%  filter(time == "2011-Q1") %>% 
+mfgNonwhite <- aggregate %>%  filter(time == dateStr) %>% 
   filter(race != "A1" | ethnicity != "A1") %>% 
   filter(ethnicity != "A0" & race != "A0") %>%
   select(state, county, race, ethnicity, mfgEmp, totalEmp) %>% 
@@ -59,8 +61,14 @@ mfgNonwhite <- aggregate %>%  filter(time == "2011-Q1") %>%
   mutate(mfgShareNonwhite = mfgEmpNonwhite/totalEmpNonwhite)
 
 
-natlBartikWhite <- (natlBartik %>%  filter(race %in% c("white")))$bartikNatl
-natlBartikNonwhite <- (natlBartik %>%  filter(race %in% c("nonwhite")))$bartikNatl
+### Compare to B&W
+
+
+nationalEmp <- read.xlsx2("QWINationalByRE.xlsx",2) %>%  filter(date == dateStr)
+
+natlBartikWhite <- (natlBartik %>%  filter(race %in% c("white")))$layoff/as.numeric(nationalEmp$white)
+natlBartikNonwhite <- (natlBartik %>%  filter(race %in% c("nonwhite")))$layoff/as.numeric(nationalEmp$nonwhite)
+
 
 finalBartik <- mfgWhite %>%  left_join(mfgNonwhite) %>%
   mutate(natlBartikWhite = natlBartikWhite,
@@ -74,6 +82,30 @@ MATest <- countyLevel %>%  filter(state_fips == 25) %>%  filter(year == 2016) %>
   arrange(desc(bartik_leo5_w2))
 
 finalBartik %>%  arrange(county) %>% mutate(bartRank = rank(bartikFinalWhite))
-MATest %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2 * 10) %>% mutate(bartRank = rank(bartik_leo5_w2))
+MATest %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2) %>% mutate(bartRank = rank(bartik_leo5_w2))
+
+finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1
 
 
+### bartik on mfg only
+
+natlBartikWhite <- (natlBartik %>%  filter(race %in% c("white")))$bartikMfgNatl
+natlBartikNonwhite <- (natlBartik %>%  filter(race %in% c("nonwhite")))$bartikMfgNatl
+
+finalBartikMfgOnly <- mfgWhite %>%  left_join(mfgNonwhite) %>%
+  mutate(natlBartikWhite = natlBartikWhite,
+         natlBartikNonwhite = natlBartikNonwhite) %>% 
+  mutate(bartikFinalWhite = natlBartikWhite * mfgShareWhite,
+         bartikFinalNonwhite = natlBartikNonwhite * mfgShareNonwhite) %>% 
+  select(state, county, bartikFinalWhite) %>% 
+  arrange(desc(bartikFinalWhite))
+
+
+
+MATestMfgOnly <- countyLevel %>%  filter(state_fips == 25) %>%  filter(year == 2016) %>% select(state_fips, pan_id, bartik_leo5_w2) %>% 
+  arrange(desc(bartik_leo5_w2))
+
+finalBartikMfgOnly %>%  arrange(county) %>% mutate(bartRank = rank(bartikFinalWhite))
+MATestMfgOnly %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2 * 10) %>% mutate(bartRank = rank(bartik_leo5_w2))
+
+finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2/10-1

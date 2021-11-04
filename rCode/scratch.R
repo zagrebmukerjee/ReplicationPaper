@@ -14,13 +14,13 @@ tmp <- bind_cols(lapply(natlEmplRaw, as.numeric)) %>%
 tmp2 <- bind_cols(lapply(natlLayoffRaw, as.numeric)) %>%
   tibble() %>%  filter(if_any(everything(), ~ !is.na(.x))) 
 
-natlEmpl <- tmp %>% 
+natlMfgEmpl <- tmp %>% 
   mutate(year = seq(to = 2019, by = 1, length.out = nrow(tmp))) %>% 
   select(year, everything()) %>% 
   mutate(white = White.Alone,
          nonwhite = rowSums(across(!c(starts_with("year"), starts_with("White"))))) # wrong order...
 
-natlLayoff <- tmp2 %>% 
+natlMfgLayoff <- tmp2 %>% 
   mutate(year = seq(to = 2018, by = 1, length.out = nrow(tmp2))) %>% 
   select(year, everything())  %>% 
   mutate(white = White.Alone,
@@ -31,12 +31,12 @@ nRaces <- ncol(natlEmpl%>%  select(-year))
 raceNames <- colnames(natlEmpl %>%  select(-year))
 
 natlLevelRaw <- bind_rows(
-  natlEmpl %>% mutate(type = "empl") %>%  pivot_longer(cols = (!year & ! type)),
-  natlLayoff %>% mutate(type = "layoff") %>%  pivot_longer(cols = (!year & ! type))) %>% 
+  natlMfgEmpl %>% mutate(type = "empl") %>%  pivot_longer(cols = (!year & ! type)),
+  natlMfgLayoff %>% mutate(type = "layoff") %>%  pivot_longer(cols = (!year & ! type))) %>% 
   rename(race = name)
 
-
-natlLevel <- natlLevelRaw %>%  filter(year > 2012 & year < 2015) %>% 
+# this perfectly matches table 1
+natlLevel <- natlLevelRaw %>%  filter(year >= 2012 & year <= 2015) %>% 
   group_by(race,type ) %>%  summarize(value = mean(value)) %>% 
   pivot_wider(id_cols = race, names_from = type,  values_from = value )
 
@@ -47,7 +47,7 @@ countyLevel <-countyLevelRaw %>% rename(
 )
 
 # approximate nat'l component of bartik instrument by race
-natlBartik <- natlLevel %>% mutate(bartikNatl = layoff/empl)
+natlBartik <- natlLevel %>% mutate(bartikMfgNatl = layoff/empl)
 
 
 
