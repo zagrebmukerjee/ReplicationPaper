@@ -1,53 +1,111 @@
-library(tidyverse)
-library(xlsx)
-library(assertthat)
-library(haven)
+stateNum <- 25
 
-countyLevelRaw <- read_dta("OriginalMaterials/county_level.dta")
-natlEmplRaw <- read.xlsx2("OriginalMaterials/Table 1.xlsx",1) %>%  tibble()
-natlLayoffRaw <- read.xlsx2("OriginalMaterials/Table 1.xlsx",2) %>%  tibble()
+totalData <- getCensus(
+  name = QWIName,
+  vars = c("race", "geography", "industry", "Emp"),
+  region = "county:001",
+  seasonadj = "U",
+  regionin = paste0("state:25"), time = "from 2011 to 2015") %>% 
+  rename(totalEmp = Emp) %>% tibble() 
 
-# convert to #s and filter out totally empty rows
-tmp <- bind_cols(lapply(natlEmplRaw, as.numeric)) %>%
-  tibble() %>%  filter(if_any(everything(), ~ !is.na(.x))) 
+totalData %>%  distinct(industry) %>%  View()
 
-tmp2 <- bind_cols(lapply(natlLayoffRaw, as.numeric)) %>%
-  tibble() %>%  filter(if_any(everything(), ~ !is.na(.x))) 
 
-natlMfgEmpl <- tmp %>% 
-  mutate(year = seq(to = 2019, by = 1, length.out = nrow(tmp))) %>% 
-  select(year, everything()) %>% 
-  mutate(white = White.Alone,
-         nonwhite = rowSums(across(!c(starts_with("year"), starts_with("White"))))) # wrong order...
 
-natlMfgLayoff <- tmp2 %>% 
-  mutate(year = seq(to = 2018, by = 1, length.out = nrow(tmp2))) %>% 
-  select(year, everything())  %>% 
-  mutate(white = White.Alone,
-         nonwhite = rowSums(across(!c(starts_with("year"), starts_with("White")))))
+### bartik on mfg only
 
-stopifnot(ncol(natlEmpl)==ncol(natlLayoff))
-nRaces <- ncol(natlEmpl%>%  select(-year))
-raceNames <- colnames(natlEmpl %>%  select(-year))
+natlBartikWhite <- (natlBartik %>%  filter(race %in% c("white")))$bartikMfgNatl
+natlBartikNonwhite <- (natlBartik %>%  filter(race %in% c("nonwhite")))$bartikMfgNatl
 
-natlLevelRaw <- bind_rows(
-  natlMfgEmpl %>% mutate(type = "empl") %>%  pivot_longer(cols = (!year & ! type)),
-  natlMfgLayoff %>% mutate(type = "layoff") %>%  pivot_longer(cols = (!year & ! type))) %>% 
-  rename(race = name)
+finalBartikMfgOnly <- mfgWhite %>%  left_join(mfgNonwhite) %>%
+  mutate(natlBartikWhite = natlBartikWhite,
+         natlBartikNonwhite = natlBartikNonwhite) %>% 
+  mutate(bartikFinalWhite = natlBartikWhite * mfgShareWhite,
+         bartikFinalNonwhite = natlBartikNonwhite * mfgShareNonwhite) %>% 
+  select(state, county, bartikFinalWhite) %>% 
+  arrange(desc(bartikFinalWhite))
 
-# this perfectly matches table 1
-natlLevel <- natlLevelRaw %>%  filter(year >= 2012 & year <= 2015) %>% 
-  group_by(race,type ) %>%  summarize(value = mean(value)) %>% 
-  pivot_wider(id_cols = race, names_from = type,  values_from = value )
 
-countyLevel <-countyLevelRaw %>% rename(
-  mfgLayoffs = msl_pc4y2,
-  mfgLayoffsW = msl_w_pc4y2,
-  mfgLayoffsNW = msl_nw_pc4y2
+
+MATestMfgOnly <- countyLevel %>%  filter(state_fips == 25) %>%  filter(year == 2016) %>% select(state_fips, pan_id, bartik_leo5_w2) %>% 
+  arrange(desc(bartik_leo5_w2))
+
+finalBartikMfgOnly %>%  arrange(county) %>% mutate(bartRank = rank(bartikFinalWhite))
+MATestMfgOnly %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2 * 10) %>% mutate(bartRank = rank(bartik_leo5_w2))
+
+finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2/10-1
+
+
+
+
+mfgDataRaw %>%  filter((county == "009" & time == "2011-Q1")) %>% filter(race == "A1") %>% 
+  filter(ethnicity == "A1") %>%
+  mutate(mfgEmp = as.numeric(mfgEmp)) %>%  View()
+
+
+
+
+# industry: NAICS codes, 31-33 is mfg
+# allNaicsStr <- c("311", "312", "313", "314", "315", "316","321","322","323","324","325","326","327","331","332","333","334","335","336","337","339")
+
+
+# allNaicsStr <- c("31")
+
+sectorGet <- function(str){
+  getCensus(
+    name = QWIName,
+    vars = c("race", "ethnicity", "sex", "Emp"),
+    industry = str, 
+    region = "county:*",
+    seasonadj = "U",
+    regionin = paste0("state:", str_pad(stateNum, 2, pad = "0")), time = "from 2011 to 2015") %>% 
+    rename(mfgEmp = Emp)  %>% tibble()
+  
+}
+
+
+
+test <-   getCensus(
+  name = QWIName,
+  vars = c("ownercode", "Emp"),
+  industry = "31-33",
+  # ownercode = "A05",
+  region = "county:*",
+  seasonadj = "U",
+  regionin = paste0("state:", str_pad(stateNum, 2, pad = "0")), time = "from 2011 to 2015") %>% 
+  rename(mfgEmp = Emp)  %>% tibble()
+
+
+
+tmpFun2 <- function(stateNum){ getCensus(
+    name = QWIName,
+    vars = c("race", "ethnicity", "Emp"),
+    region = paste0("state:", str_pad(stateNum, 2, pad = "0")),
+    seasonadj = "U",
+    time = "2011-Q1") %>% 
+  rename(totalEmp = Emp) %>% tibble() 
+}
+
+tmpFun3 <- function(stateNum){ getCensus(
+  name = QWIName,
+  vars = c("race", "ethnicity", "Emp"),
+  industry = "31-33",
+  region = paste0("state:", str_pad(stateNum, 2, pad = "0")),
+  seasonadj = "U",
+  time = "2011-Q1") %>% 
+    rename(mfgEmp = Emp) %>% tibble() 
+}
+
+allEmpRaw <- lapply(statesList, tmpFun2)
+allMfgEmpRaw <- lapply(statesList, tmpFun3)
+
+aggNatlState <- bind_rows(allEmpRaw) %>%  left_join(bind_rows(allMfgEmpRaw))
+
+
+aggNatl <- aggNatlState %>%  group_by(race, ethnicity) %>%  summarize(
+  totalEmp = sum(as.numeric(totalEmp), na.rm = T), 
+  mfgEmp = sum(as.numeric(mfgEmp), na.rm = T)
 )
-
-# approximate nat'l component of bartik instrument by race
-natlBartik <- natlLevel %>% mutate(bartikMfgNatl = layoff/empl)
 
 
 
