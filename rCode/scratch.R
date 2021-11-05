@@ -76,36 +76,3 @@ test <-   getCensus(
   rename(mfgEmp = Emp)  %>% tibble()
 
 
-
-tmpFun2 <- function(stateNum){ getCensus(
-    name = QWIName,
-    vars = c("race", "ethnicity", "Emp"),
-    region = paste0("state:", str_pad(stateNum, 2, pad = "0")),
-    seasonadj = "U",
-    time = "2011-Q1") %>% 
-  rename(totalEmp = Emp) %>% tibble() 
-}
-
-tmpFun3 <- function(stateNum){ getCensus(
-  name = QWIName,
-  vars = c("race", "ethnicity", "Emp"),
-  industry = "31-33",
-  region = paste0("state:", str_pad(stateNum, 2, pad = "0")),
-  seasonadj = "U",
-  time = "2011-Q1") %>% 
-    rename(mfgEmp = Emp) %>% tibble() 
-}
-
-allEmpRaw <- lapply(statesList, tmpFun2)
-allMfgEmpRaw <- lapply(statesList, tmpFun3)
-
-aggNatlState <- bind_rows(allEmpRaw) %>%  left_join(bind_rows(allMfgEmpRaw))
-
-
-aggNatl <- aggNatlState %>%  group_by(race, ethnicity) %>%  summarize(
-  totalEmp = sum(as.numeric(totalEmp), na.rm = T), 
-  mfgEmp = sum(as.numeric(mfgEmp), na.rm = T)
-)
-
-
-

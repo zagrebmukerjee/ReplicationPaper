@@ -5,7 +5,7 @@ library(xlsx)
 library(assertthat)
 library(haven)
 
-source("rCode/nationalLevel.R")
+# source("rCode/nationalLevel.R")
 
 Sys.setenv(CENSUS_KEY="6ae2ddad490223ade51e50449164c5f1dc628bc1")
 readRenviron("~/.Renviron")
@@ -85,12 +85,11 @@ mfgNonwhite <- aggregate %>%  filter(time == dateStr) %>%
 
 ### Compare to B&W
 
-nationalEmp <- read.xlsx2("QWINationalByRE.xlsx",2) %>%  filter(date == dateStr)
+# nationalEmp <- read.xlsx2("QWINationalByRE.xlsx",2) %>%  filter(date == dateStr)
 
-natlBartikTotal <- sum((natlBartik %>%  filter(race %in% c("white", "nonwhite")))$layoff)/
-  (as.numeric(nationalEmp$white) + as.numeric(nationalEmp$nonwhite))
-natlBartikWhite <- (natlBartik %>%  filter(race %in% c("white")))$layoff/as.numeric(nationalEmp$white)
-natlBartikNonwhite <- (natlBartik %>%  filter(race %in% c("nonwhite")))$layoff/as.numeric(nationalEmp$nonwhite)
+natlBartik <- totalLayoffs/totalEmpl
+natlBartikWhite <- whiteLayoffs/whiteEmpl
+natlBartikNonwhite <- NA
 
 finalBartik <- mfgWhite %>%  left_join(mfgNonwhite) %>% left_join(mfgTotal) %>% 
   mutate(natlBartikWhite = natlBartikWhite,
@@ -112,14 +111,14 @@ finalBartik %>%  arrange(county) %>% mutate(bartRank = rank(bartikFinalWhite)) %
 MATest %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2) %>% mutate(bartRank = rank(bartik_leo5_w2))  %>% 
   arrange((bartRank)) %>%  mutate(whiteDiff = finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1)
 
-diffs <- 
-  # finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1
-  finalBartik$bartikFinalTotal/MATest$bartik_leo5-1
+# diffs <- 
+  finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1
+  # finalBartik$bartikFinalTotal/MATest$bartik_leo5-1
 
-# ggplot() + geom_point(mapping = aes(MATest$bartik_leo5_w2, finalBartik$bartikFinalWhite)) +
-#   geom_line(mapping = aes(MATest$bartik_leo5_w2,MATest$bartik_leo5_w2))
+ggplot() + geom_point(mapping = aes(MATest$bartik_leo5_w2, finalBartik$bartikFinalWhite)) +
+  geom_line(mapping = aes(MATest$bartik_leo5_w2,MATest$bartik_leo5_w2))
 
 
-ggplot() + geom_point(mapping = aes(MATest$bartik_leo5, finalBartik$bartikFinalTotal)) +
-  geom_line(mapping = aes(MATest$bartik_leo5,MATest$bartik_leo5))
+# ggplot() + geom_point(mapping = aes(MATest$bartik_leo5, finalBartik$bartikFinalTotal)) +
+  # geom_line(mapping = aes(MATest$bartik_leo5,MATest$bartik_leo5))
 
