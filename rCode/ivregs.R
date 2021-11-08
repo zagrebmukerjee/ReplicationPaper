@@ -10,29 +10,44 @@ countyLevel <-countyLevelRaw %>% rename(
 ) %>%  filter(year == 2016)
 
 
-# firstStageModel <- felm(
-#   data = countyLevel,
-#   formula = mfgLayoffs ~ bartik_leo5 +
-#     LAU_unemp_rate_4y + pers_m_total_share_4y +
-#     pers_coll_share_4y | id_state)
-
-# TODO: why do FELM and GLM differ
-
-firstStageModel <- glm(
+firstStageModel <- felm(
   data = countyLevel,
   formula = mfgLayoffs ~ bartik_leo5 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + id_state)
+    pers_coll_share_4y | id_state)
+
+countyLevelSubset <- countyLevel %>% mutate(logLayoffs = log(mfgLayoffs)) %>% 
+  filter(is.finite(logLayoffs))
+
+firstStageModelLog <- felm(
+  data = countyLevelSubset,
+  formula = logLayoffs ~ sqrt(bartik_leo5) +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y | id_state)
+
+
+# TODO: why do FELM and GLM differ
+
+# firstStageModel <- glm(
+#   data = countyLevel,
+#   formula = mfgLayoffs ~ bartik_leo5 +
+#     LAU_unemp_rate_4y + pers_m_total_share_4y +
+#     pers_coll_share_4y + id_state)
 
 rse1 <- coeftest(firstStageModel, sandwich)[,2]
 stargazer(firstStageModel, type = "text")
-sprintf( "%0.2f", rse1)
+stargazer(firstStageModel, type = "text", se = rse1)
+# sprintf( "%0.2f", rse1)
 
-# GIM(firstStageModel, B = 75, B2 = 75) # this takes so damn long
+# GIM(firstStageModel, B = 75, B2 = 75) # this takes so damn long! 
 
 ggplot(countyLevel, aes(x = bartik_leo5, y = mfgLayoffs)) + geom_point()
+ggplot(countyLevel, aes(x = bartik_leo5^.5, y = log(mfgLayoffs))) + geom_point()
 
 
 
 
+rse2 <- coeftest(firstStageModelLog, sandwich)[,2]
+stargazer(firstStageModelLog, type = "text")
+stargazer(firstStageModelLog, type = "text", se = rse2)
 

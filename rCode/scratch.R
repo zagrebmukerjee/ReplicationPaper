@@ -79,7 +79,7 @@ test <-   getCensus(
 
 
 
-library(profvis)
-profvis({
-  GIM(firstStageModel, B = 75, B2 = 75)
-})
+# library(profvis)
+# profvis({
+#   GIM(firstStageModel, B = 75, B2 = 75)
+# })
