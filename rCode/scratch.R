@@ -76,3 +76,10 @@ test <-   getCensus(
   rename(mfgEmp = Emp)  %>% tibble()
 
 
+
+
+
+library(profvis)
+profvis({
+  GIM(firstStageModel, B = 75, B2 = 75)
+})

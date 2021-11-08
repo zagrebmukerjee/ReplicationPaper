@@ -1,3 +1,4 @@
+source("rCode/preamble.R")
 
 totalEmpFun <- function(stateNum){ getCensus(
   name = QWIName,
@@ -20,12 +21,12 @@ mfgEmpFun <- function(stateNum){ getCensus(
 
 mfgLayoffFun <- function(stateNum){ getCensus(
   name = QWIName,
-  vars = c("race", "ethnicity", "FrmJbLsS"),
+  vars = c("race", "ethnicity", "FrmJbLsS", "FrmJbLs"),
   industry = "31-33",
   region = paste0("state:", str_pad(stateNum, 2, pad = "0")),
   seasonadj = "U",
   time = "from 2012 to 2015") %>% 
-    rename(mfgLayoffs = FrmJbLsS) %>% tibble() 
+    rename(mfgLayoffs = FrmJbLs) %>% tibble() 
 }
 
 # pull the stuff at state level
@@ -43,10 +44,6 @@ aggNatl <- aggNatlState %>%  group_by(race, ethnicity) %>%  summarize(
   mfgLayoffs = sum(as.numeric(mfgLayoffs), na.rm = T)/16
 ) %>%  filter(race != "A0", ethnicity != "A0") # filter out totals
 
-
-
-
-
 totalLayoffs <- aggNatl %>%  ungroup() %>%  summarize(totalLayoffs = sum(mfgLayoffs))
 totalEmpl <- aggNatl %>%  ungroup() %>%  summarize(totalEmp = sum(totalEmp))
 
@@ -54,5 +51,5 @@ totalEmpl <- aggNatl %>%  ungroup() %>%  summarize(totalEmp = sum(totalEmp))
 whiteLayoffs <- aggNatl %>%  filter(race == "A1", ethnicity == "A1") %>%  summarize(whiteLayoffs = sum(mfgLayoffs))
 whiteEmpl <- aggNatl %>%  filter(race == "A1", ethnicity == "A1") %>%  summarize(whiteEmp = sum(totalEmp))
 
-
+saveRDS(list(totalLayoffs = totalLayoffs$totalLayoffs, totalEmpl=totalEmpl$totalEmp, whiteLayoffs = whiteLayoffs$whiteLayoffs, whiteEmpl = whiteEmpl$whiteEmp), "natlResult.rds")
 
