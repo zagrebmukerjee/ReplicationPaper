@@ -1,4 +1,5 @@
 library(censusapi)
+library(tidycensus)
 library(tidyverse)
 library(stringr)
 library(xlsx)

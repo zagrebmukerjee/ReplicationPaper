@@ -63,6 +63,6 @@ popDataRaw <- getCensus(
   mutate(state_fips = as.numeric(state_fips), county_fips = as.numeric(county_fips))
 
 popData <- popDataRaw %>%
-  mutate(county_fips = ifelse(paste0(state_fips, county_fips) == "46102", 113, county_fips))
+  mutate(county_fips = ifelse(paste0(state_fips, county_fips) == "46102", 113, county_fips)) # dealing with the renaming of Shannon County
 
 saveRDS(popData, "data/popData.rds")

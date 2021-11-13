@@ -51,5 +51,11 @@ totalEmpl <- aggNatl %>%  ungroup() %>%  summarize(totalEmp = sum(totalEmp))
 whiteLayoffs <- aggNatl %>%  filter(race == "A1", ethnicity == "A1") %>%  summarize(whiteLayoffs = sum(mfgLayoffs))
 whiteEmpl <- aggNatl %>%  filter(race == "A1", ethnicity == "A1") %>%  summarize(whiteEmp = sum(totalEmp))
 
-saveRDS(list(totalLayoffs = totalLayoffs$totalLayoffs, totalEmpl=totalEmpl$totalEmp, whiteLayoffs = whiteLayoffs$whiteLayoffs, whiteEmpl = whiteEmpl$whiteEmp), "natlResult.rds")
+# nonwhite or white hispanic
+nonwhiteLayoffs <- aggNatl %>%  filter(race != "A1"| ethnicity != "A1") %>%  ungroup() %>%   summarize(nonwhiteLayoffs = sum(mfgLayoffs))
+nonwhiteEmpl <- aggNatl %>%  filter(race != "A1"| ethnicity != "A1") %>%  ungroup() %>%  summarize(nonwhiteEmp = sum(totalEmp))
+
+
+
+saveRDS(list(totalLayoffs = totalLayoffs$totalLayoffs, totalEmpl=totalEmpl$totalEmp, whiteLayoffs = whiteLayoffs$whiteLayoffs, whiteEmpl = whiteEmpl$whiteEmp, nonwhiteLayoffs = nonwhiteLayoffs$nonwhiteLayoffs, nonwhiteEmpl = nonwhiteEmpl$nonwhiteEmp), "data/natlResult.rds")
 

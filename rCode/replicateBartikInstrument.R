@@ -15,7 +15,7 @@ countyLevel <-countyLevelRaw %>% rename(
 )
 
 
-natlResult <- readRDS("natlResult.rds")
+natlResult <- readRDS("data/natlResult.rds")
 ################################################################
 
 aggregate <- totalData %>%  left_join(mfgData) %>%
@@ -49,7 +49,7 @@ mfgNonwhite <- aggregate %>%  filter(time == dateStr) %>%
 
 natlBartik <- natlResult$totalLayoffs/natlResult$totalEmpl
 natlBartikWhite <- natlResult$whiteLayoffs/natlResult$whiteEmpl
-natlBartikNonwhite <- NA
+natlBartikNonwhite <- natlResult$nonwhiteLayoffs/natlResult$nonwhiteEmpl
 
 finalBartik <- mfgWhite %>%  left_join(mfgNonwhite) %>% left_join(mfgTotal) %>% 
   mutate(natlBartikWhite = natlBartikWhite,
@@ -59,10 +59,11 @@ finalBartik <- mfgWhite %>%  left_join(mfgNonwhite) %>% left_join(mfgTotal) %>%
          bartikFinalNonwhite = natlBartikNonwhite * mfgShareNonwhite,
          bartikFinalTotal = natlBartikTotal * mfgShareTotal) %>% 
   select(state, county, bartikFinalNonwhite, bartikFinalWhite, bartikFinalTotal) %>% 
-  arrange(desc(bartikFinalWhite)) %>% 
-  filter(state == "01")
+  arrange(desc(bartikFinalWhite))  %>% 
+  rename(state_fips = state, county_fips = county) %>% 
+  mutate(state_fips = as.double(state_fips), county_fips = as.double(county_fips))
 
-
+saveRDS(finalBartik, "data/finalBartik.RDS")
 
 ### Compare to B&W
 

@@ -25,8 +25,8 @@ countyLevel0 <-countyLevelRaw %>% rename(
   mfgLayoffsW = msl_w_pc4y2,
   mfgLayoffsNW = msl_nw_pc4y2
 )  %>%  left_join(stateList) %>% 
-  filter(year == 2016) %>% 
-  group_by(state_fips) %>% 
+  # filter(year == 2016) %>% 
+  group_by(state_fips, year) %>% 
   mutate(id = row_number())
 
 bwStates <- countyLevel0 %>%  distinct(id_state, state_name, state_fips)
@@ -38,7 +38,8 @@ allFIPSBW <- allFIPS %>%  filter((state_fips %in% bwStatesWithNames$state_fips))
 
 countyLevel <- countyLevel0 %>%  left_join(allFIPSBW %>%  select(id, county_fips, county), by = c("id", "state", "state_fips")) %>% 
   select(id, state_fips, state, state_name, county_fips, county, year, everything()) %>%
-  filter(is.finite(mfgLayoffs))
+  filter(is.finite(mfgLayoffs)) # filters out 40-ish counties where mfgLayoffs is NA. TODO: missing data?
+# these are missing in BW as well
 
 
 saveRDS(countyLevel, "data/countyLevelClean.rds")
