@@ -54,12 +54,13 @@ natlBartikNonwhite <- NA
 finalBartik <- mfgWhite %>%  left_join(mfgNonwhite) %>% left_join(mfgTotal) %>% 
   mutate(natlBartikWhite = natlBartikWhite,
          natlBartikNonwhite = natlBartikNonwhite,
-         natlBartikTotal = natlBartikTotal) %>% 
+         natlBartikTotal = natlBartik) %>% 
   mutate(bartikFinalWhite = natlBartikWhite * mfgShareWhite,
          bartikFinalNonwhite = natlBartikNonwhite * mfgShareNonwhite,
          bartikFinalTotal = natlBartikTotal * mfgShareTotal) %>% 
   select(state, county, bartikFinalNonwhite, bartikFinalWhite, bartikFinalTotal) %>% 
-  arrange(desc(bartikFinalWhite))
+  arrange(desc(bartikFinalWhite)) %>% 
+  filter(state == "01")
 
 
 
@@ -74,8 +75,8 @@ MATest <- countyLevel %>%
 finalBartik %>%  arrange(county) %>% mutate(bartRank = rank(bartikFinalWhite)) %>% 
   arrange((bartikFinalWhite))
 
-MATest %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2) %>% mutate(bartRank = rank(bartik_leo5_w2))  %>% 
-  arrange((bartRank)) %>%  mutate(whiteDiff = finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1)
+# MATest %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2) %>% mutate(bartRank = rank(bartik_leo5_w2))  %>% 
+#   arrange((bartRank)) %>%  mutate(whiteDiff = finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1)
 
 # diffs <- 
 # finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1
@@ -85,6 +86,6 @@ MATest %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2) %>% muta
 #   geom_line(mapping = aes(MATest$bartik_leo5_w2,MATest$bartik_leo5_w2))
 
 
-# ggplot() + geom_point(mapping = aes(MATest$bartik_leo5, finalBartik$bartikFinalTotal)) +
-# geom_line(mapping = aes(MATest$bartik_leo5,MATest$bartik_leo5))
+ggplot() + geom_point(mapping = aes(MATest$bartik_leo5, finalBartik$bartikFinalTotal)) +
+geom_line(mapping = aes(MATest$bartik_leo5,MATest$bartik_leo5))
 

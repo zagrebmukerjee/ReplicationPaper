@@ -21,3 +21,4 @@ readRenviron("~/.Renviron")
 
 
 QWIName <- "timeseries/qwi/rh"
+countyLevel <- readRDS("data/countyLevelClean.rds") #BW data cleaned up

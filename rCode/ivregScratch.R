@@ -13,17 +13,6 @@ countyLevel <-countyLevelRaw %>% rename(
 
 
 
-firstStageModel <- felm(
-  data = countyLevel,
-  formula = mfgLayoffs ~ bartik_leo5 +
-    LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y | id_state)
-
-secondStageModel <- felm(
-  data = countyLevel,
-  formula = ddem_votes_pct1 ~ firstStageModel$fitted.values +
-    LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y | id_state)
 
 
 
@@ -49,11 +38,10 @@ stargazer(firstStageModel, type = "text", se = rse1)
 
 # GIM(firstStageModel, B = 75, B2 = 75) # this takes so damn long! 
 
-ggplot(countyLevel, aes(x = bartik_leo5, y = mfgLayoffs, color = as.factor(id_state))) + geom_point()
+
+ggplot(countyLevel, aes(x = bartik_leo5, y = mfgLayoffs)) + geom_point()
 ggplot(countyLevel, aes(x = bartik_leo5, y = log(1+mfgLayoffs))) + geom_point()
 ggplot(countyLevel, aes(x = log(1+ bartik_leo5), y = log(1+mfgLayoffs))) + geom_point()
-
-
 
 
 rse2 <- coeftest(firstStageModelLog, sandwich)[,2]
@@ -64,7 +52,7 @@ stargazer(firstStageModelLog, type = "text", se = rse2)
 # look at per capita question
 # can weight by whatever is driving the heteroskedasticity
 # want to bootstrap the whole procedure to get the correct standard errors
-# resample the data over and over - then get the dispersion of those coeffs
+  # resample the data over and over - then get the dispersion of those coeffs
 # censable
 # GIM on other specifications
 # box cox

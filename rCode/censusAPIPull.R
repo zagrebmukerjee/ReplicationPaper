@@ -9,6 +9,12 @@ varnames <- listCensusMetadata(
   name = QWIName, 
   type = "variables")
 
+endpointsClean <- listCensusApis() %>%  mutate(type = substr(name,0,3)) %>%  
+  filter(type != "acs", type != "ase")
+
+
+varnamesPop <- listCensusMetadata(name ="pep/population",vintage = 2015, type = "variables") 
+
 # pulls for every county
 tic()
 totalData <- bind_rows(lapply(
@@ -44,3 +50,19 @@ saveRDS(mfgData, "data/mfgData.rds")
 toc()
 
 
+
+
+
+# population
+popDataRaw <- getCensus(
+      name = "pep/population",
+      vintage = 2015, 
+      vars = c("POP"),
+      region = "county:*") %>% 
+  rename(state_fips = state, county_fips = county, population = POP) %>% 
+  mutate(state_fips = as.numeric(state_fips), county_fips = as.numeric(county_fips))
+
+popData <- popDataRaw %>%
+  mutate(county_fips = ifelse(paste0(state_fips, county_fips) == "46102", 113, county_fips))
+
+saveRDS(popData, "data/popData.rds")
