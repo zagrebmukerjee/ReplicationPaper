@@ -1,7 +1,7 @@
 source("rCode/preamble.R")
 # before loading this RDS, you have to create it using the last block
 # of censusAPIPull.R
-readRDS("data/popData.rds")
+popData <- readRDS("data/popData.rds")
 
 countyLevelForRegs <- countyLevel %>%  filter(year == 2016)
 
@@ -47,6 +47,7 @@ evalFunW <- function(dataset, ...){
 }
 
 plotFun <- function(dataset){ggplot(dataset, aes(x = bartik_leo5, y = mfgLayoffs)) + geom_point()}
+plotFunW <- function(dataset){ggplot(dataset, aes(x = bartik_leo5_w2, y = mfgLayoffsW)) + geom_point()}
 
 
 # the BW results
@@ -55,9 +56,14 @@ results1 <- evalFun(dataset1)
 results1W <- evalFunW(dataset1 %>%  filter(is.finite(bartik_leo5_w2)))
 stargazer(results1$model2, se = results1$rse2, type = "text")
 stargazer(results1W$model2, se = results1W$rse2, type = "text")
+plotFun(dataset1)
+plotFunW(dataset1)
+qqnorm(results1$model1$residuals)
+qqnorm(results1W$model1$residuals)
+
 
 # no zero values
-datasetNoZeros <- countyLevel %>%  filter(bartik_leo5 != 0)
+datasetNoZeros <- countyLevelForRegs %>%  filter(bartik_leo5 != 0, is.finite(bartik_leo5))
 resultsNoZeros <- evalFun(datasetNoZeros)
 resultsNoZerosW <- evalFunW(datasetNoZeros  %>%  filter(is.finite(bartik_leo5_w2)) )
 
@@ -127,3 +133,6 @@ stargazer(resultsOursWFixed$model2, se = resultsOursWFixed$rse2, type = "text")
 
 qqnorm(resultsOurs$model1$residuals)
 qqnorm(resultsOursWFixed$model1$residuals)
+
+
+stargazer(results1$model2, resultsOurs$model2, type = "text")
