@@ -1,83 +1,51 @@
-
-evalFunW2 <- function(dataset, ...){
-  
-  firstStageModel <- felm(
-    data = dataset,
-    formula = mfgLayoffsW ~ bartik_leo5_w2 +
-      LAU_unemp_rate_4y + pers_m_total_share_4y +
-      pers_coll_share_4y  + mfgLayoffsNW| id_state, ...)
-  
-  secondStageModel <- felm(
-    data = dataset,
-    formula = ddem_votes_pct1 ~ firstStageModel$fitted.values +
-      LAU_unemp_rate_4y + pers_m_total_share_4y +
-      pers_coll_share_4y + mfgLayoffsNW| id_state, ...)
-  
-  rse1 <- coeftest(firstStageModel, vcov = vcovHC(firstStageModel, type = "HC0"))[,2]
-  rse2 <- coeftest(secondStageModel, vcov = vcovHC(secondStageModel, type = "HC0"))[,2]
-  print(c(secondStageModel$coefficients[[1]], rse2[[1]]) %>%  round(3) )
-  return(list(model1 = firstStageModel, rse1 = rse1, model2 = secondStageModel, rse2 = rse2))
-}
-
-
-firstStageModel <- felm(
-  data = dataset1,
-  formula = mfgLayoffsW ~ bartik_leo5_w2 +
-    LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y  + mfgLayoffsNW| id_state)
-
-secondStageModel <- felm(
-  data = dataset,
-  formula = ddem_votes_pct1 ~ firstStageModel$fitted.values +
-    LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + mfgLayoffsNW| id_state, ...)
-
-
-
-a <- CBPS::CBPS(mfgLayoffs ~ 
-                  LAU_unemp_rate_4y + 
-                  pers_m_total_share_4y +
-                  pers_coll_share_4y,
-                dataset1, method = "exact")
-
-balance(a)
-
-b <- CBPS::CBPS(ddem_votes_pct1 ~ 
-                  LAU_unemp_rate_4y + 
-                  pers_m_total_share_4y +
-                  pers_coll_share_4y,
-                dataset1)
-
-balance(b)
+censusCountyData  <- readRDS("data/censusDataByCounty.rds")
+BWDataByCounty <- readRDS("data/BWCountyLevel.rds")
 
 
 
 
 
+ourDatasetBase <- censusCountyData %>%
+  mutate(year = as.integer(substr(time, 0, 4))) %>% 
+  mutate(wNw = ifelse(race == "A0" & ethnicity == "A0", "total", 
+                      ifelse(race == "A1" & ethnicity == "A1", "white", "nonwhite"))) %>% 
+  group_by(wNw, state_fips, county_fips, year, time) %>% 
+  summarize(
+    totalEmp = sum(totalEmp, na.rm = T),
+    mfgEmp = sum(mfgEmp, na.rm = T), 
+    mfgLayoffs = sum(mfgLayoffs, na.rm = T),
+    mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
+    mfgNetChange  = sum(mfgNetChange, na.rm = T),
+    population = last(population)
+  ) 
+
+BWDataByCounty %>%  filter(year == 2016, state_fips == 25) %>% 
+  dplyr::select(county_fips, county, mfgLayoffs) %>% 
+  arrange(desc(mfgLayoffs))
+
+
+a <- ourDatasetBase %>% 
+  group_by(wNw, state_fips, county_fips) %>% 
+  filter(year %in% c(2012, 2013, 2014, 2015)) %>%  
+  arrange(time) %>% 
+  summarize(
+    totalEmp = mean(totalEmp), 
+    mfgEmp = mean(mfgEmp), 
+    mfgLayoffs = sum(mfgLayoffs),
+    mfgLayoffsS = sum(mfgLayoffsS),
+    mfgNetChange  = sum(mfgNetChange),
+    population = mean(population)
+  )  %>%  filter(wNw == "total") %>% 
+  mutate(mfgLayoffs  = mfgLayoffs /totalEmp) %>% 
+  dplyr::select(county_fips,mfgLayoffs) %>%  
+  arrange(desc(mfgLayoffs))
+
+b <- BWDataByCounty %>%  filter(year == 2016) %>% 
+  dplyr::select(county_fips, county, mfgLayoffs) %>% 
+  arrange(desc(mfgLayoffs))
 
 
 
+plotData <- a %>%  rename(mfgLayoffsOurs = mfgLayoffs) %>% left_join(b)
 
-stateNum <- 39
-
-
-countyData <- getCensus(
-  name = QWIName,
-  vars = c("race", "ethnicity", "sex", "Emp"),
-  industry = "311",
-  ownercode = "A05",
-  region = "county:*",
-  seasonadj = "U",
-  regionin = paste0("state:", str_pad(stateNum, 2, pad = "0")), time = "from 2014 to 2015") %>% 
-  rename(mfgEmp = Emp)  %>% tibble()
-
-
-
-
-
-
-
-
-
-library(blscrapeR)
-
+ggplot(plotData) + geom_point(aes(mfgLayoffs, mfgLayoffsOurs))

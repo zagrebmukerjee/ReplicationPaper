@@ -25,7 +25,6 @@ countyLevel0 <-countyLevelRaw %>% rename(
   mfgLayoffsW = msl_w_pc4y2,
   mfgLayoffsNW = msl_nw_pc4y2
 )  %>%  left_join(stateList) %>% 
-  # filter(year == 2016) %>% 
   group_by(state_fips, year) %>% 
   mutate(id = row_number())
 
@@ -36,17 +35,13 @@ allFIPSBW <- allFIPS %>%  filter((state_fips %in% bwStatesWithNames$state_fips))
   mutate(id = row_number()) 
 
 
-countyLevel <- countyLevel0 %>%  left_join(allFIPSBW %>%  select(id, county_fips, county), by = c("id", "state", "state_fips")) %>% 
-  select(id, state_fips, state, state_name, county_fips, county, year, everything()) %>%
+countyLevel <- countyLevel0 %>%  left_join(allFIPSBW %>%  dplyr::select(id, county_fips, county), by = c("id", "state", "state_fips")) %>% 
+  dplyr::select(id, state_fips, state, state_name, county_fips, county, year, everything()) %>%
   filter(is.finite(mfgLayoffs)) # filters out 40-ish counties where mfgLayoffs is NA. TODO: missing data?
 # these are missing in BW as well
 
 
-saveRDS(countyLevel, "data/countyLevelClean.rds")
-
-# testBW <-  countyLevel %>%  group_by(state, state_fips) %>% summarize(countBW = n()) 
-# testCens <-   allFIPSBW %>%  group_by(state, state_fips) %>% summarize(countFIPS = n())
-# testBW %>%  left_join(testCens) %>%  mutate(diff = countFIPS - countBW) %>%  filter(diff != 0)
+saveRDS(countyLevel, "data/BWCountyLevel.rds")
 
 
 

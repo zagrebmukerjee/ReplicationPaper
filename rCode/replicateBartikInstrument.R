@@ -1,21 +1,7 @@
-# censusAPIPull.R gets the data and saves it
-
-source("rcode/preamble.R")
 
 ################################################################
-mfgData <- readRDS("data/mfgData.rds")
-totalData <- readRDS("data/totalData.rds")
-
-countyLevelRaw <- read_dta("OriginalMaterials/county_level.dta")
-
-countyLevel <-countyLevelRaw %>% rename(
-  mfgLayoffs = msl_pc4y2,
-  mfgLayoffsW = msl_w_pc4y2,
-  mfgLayoffsNW = msl_nw_pc4y2
-)
-
-
-natlResult <- readRDS("data/natlResult.rds")
+countyLevelData <- readRDS("data/censusDataByCounty.rds")
+natlResult <- readRDS("data/natlResult.rds") 
 ################################################################
 
 aggregate <- totalData %>%  left_join(mfgData) %>%
@@ -25,24 +11,25 @@ aggregate <- totalData %>%  left_join(mfgData) %>%
     mfgEmp = as.numeric(mfgEmp)
   )  
 
-dateStr <- "2011-Q4"
+dateStr <- c("2011-Q1","2011-Q2","2011-Q3","2011-Q4")
 
-mfgTotal <- aggregate %>%  filter(time == dateStr) %>% 
+mfgTotal <- aggregate %>%  filter(time %in% dateStr) %>% 
   filter(race == "A0" & ethnicity == "A0") %>%
-  select(state, county, mfgEmpTotal = mfgEmp, totalEmp = totalEmp) %>% 
+  group_by(state, county) %>% 
+  summarize( mfgEmpTotal = mean(mfgEmp), totalEmp = mean(totalEmp)) %>% 
   mutate(mfgShareTotal = mfgEmpTotal/totalEmp)
 
-mfgWhite <- aggregate %>%  filter(time == dateStr) %>% 
+mfgWhite <- aggregate %>%  filter(time %in%  dateStr) %>% 
   filter(race == "A1" & ethnicity == "A1") %>% 
-  select(state, county, mfgEmpWhite = mfgEmp, totalEmpWhite = totalEmp) %>% 
+  group_by(state, county) %>% 
+  summarize( mfgEmpWhite = mean(mfgEmp), totalEmpWhite = mean(totalEmp)) %>% 
   mutate(mfgShareWhite = mfgEmpWhite/totalEmpWhite)
 
-mfgNonwhite <- aggregate %>%  filter(time == dateStr) %>% 
+mfgNonwhite <- aggregate %>%  filter(time %in%  dateStr) %>% 
   filter(race != "A1" | ethnicity != "A1") %>% 
   filter(ethnicity != "A0" & race != "A0") %>%
-  select(state, county, race, ethnicity, mfgEmp, totalEmp) %>% 
   group_by(state, county) %>%
-  summarise(totalEmpNonwhite = sum(totalEmp, na.rm = T), mfgEmpNonwhite = sum(mfgEmp, na.rm = T))  %>% 
+  summarise(totalEmpNonwhite = sum(totalEmp, na.rm = T)/length(dateStr), mfgEmpNonwhite = sum(mfgEmp, na.rm = T)/length(dateStr))  %>% 
   mutate(mfgShareNonwhite = mfgEmpNonwhite/totalEmpNonwhite)
 
 
@@ -51,42 +38,18 @@ natlBartik <- natlResult$totalLayoffs/natlResult$totalEmpl
 natlBartikWhite <- natlResult$whiteLayoffs/natlResult$whiteEmpl
 natlBartikNonwhite <- natlResult$nonwhiteLayoffs/natlResult$nonwhiteEmpl
 
-finalBartik <- mfgWhite %>%  left_join(mfgNonwhite) %>% left_join(mfgTotal) %>% 
+finalBartikOurs <- mfgWhite %>%  left_join(mfgNonwhite) %>% left_join(mfgTotal) %>% 
   mutate(natlBartikWhite = natlBartikWhite,
          natlBartikNonwhite = natlBartikNonwhite,
          natlBartikTotal = natlBartik) %>% 
   mutate(bartikFinalWhite = natlBartikWhite * mfgShareWhite,
          bartikFinalNonwhite = natlBartikNonwhite * mfgShareNonwhite,
          bartikFinalTotal = natlBartikTotal * mfgShareTotal) %>% 
-  select(state, county, bartikFinalNonwhite, bartikFinalWhite, bartikFinalTotal) %>% 
+  dplyr::select(state, county, bartikFinalNonwhite, bartikFinalWhite, bartikFinalTotal) %>% 
   arrange(desc(bartikFinalWhite))  %>% 
   rename(state_fips = state, county_fips = county) %>% 
   mutate(state_fips = as.double(state_fips), county_fips = as.double(county_fips))
 
-saveRDS(finalBartik, "data/finalBartik.RDS")
+saveRDS(finalBartikOurs, "data/finalBartik.RDS")
 
-### Compare to B&W
-
-# nationalEmp <- read.xlsx2("QWINationalByRE.xlsx",2) %>%  filter(date == dateStr)
-
-MATest <- countyLevel %>% 
-  filter(state_fips == stateNum) %>%  filter(year == 2016) %>% select(state_fips, pan_id, bartik_leo5, bartik_leo5_w2  )  %>% 
-  arrange(desc(bartik_leo5_w2))
-
-finalBartik %>%  arrange(county) %>% mutate(bartRank = rank(bartikFinalWhite)) %>% 
-  arrange((bartikFinalWhite))
-
-# MATest %>%  arrange(pan_id) %>% mutate(bartik_leo5_w2 = bartik_leo5_w2) %>% mutate(bartRank = rank(bartik_leo5_w2))  %>% 
-#   arrange((bartRank)) %>%  mutate(whiteDiff = finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1)
-
-# diffs <- 
-# finalBartik$bartikFinalWhite/MATest$bartik_leo5_w2-1
-# finalBartik$bartikFinalTotal/MATest$bartik_leo5-1
-
-# ggplot() + geom_point(mapping = aes(MATest$bartik_leo5_w2, finalBartik$bartikFinalWhite)) +
-#   geom_line(mapping = aes(MATest$bartik_leo5_w2,MATest$bartik_leo5_w2))
-
-
-ggplot() + geom_point(mapping = aes(MATest$bartik_leo5, finalBartik$bartikFinalTotal)) +
-geom_line(mapping = aes(MATest$bartik_leo5,MATest$bartik_leo5))
-
+# To check our Bartik against theirs - look at bartikComparison.R

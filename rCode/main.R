@@ -12,11 +12,19 @@ QWIName <- "timeseries/qwi/rh"
 
 
 
-countyLevel <- readRDS("data/countyLevelClean.rds") #BW data cleaned up
+# countyLevel <- readRDS("data/countyLevelClean.rds") #BW data cleaned up
 
 # Pull census data if it doesn't exist
 ########################################################
-source("rCode/censusAPIPull.R")
-
+if(!file.exists("data/censusDataByCounty.rds")){ source("rCode/censusAPIPull.R") }
+# clean up BW data if not done - add FIPS code guesses etc
+if(!file.exists("data/BWCountyLevel.rds")){ source("rCode/fipsCodeLabel.R")}
+BWDataByCounty <- readRDS("data/BWCountyLevel.rds")
+# national aggregates for employment
+if(!file.exists("data/natlResult.rds")){ source("rCode/natlCalcs.R")}
+natlResult <- readRDS("data/natlResult.rds")
+# create our own bartik instrument
+if(!file.exists("data/finalBartik.RDS")){ source("rCode/replicateBartikInstrument.R")}
+bartikOurs <- readRDS("data/finalBartik.RDS")
 
 ########################################################

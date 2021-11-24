@@ -13,9 +13,6 @@ countyLevel <-countyLevelRaw %>% rename(
 
 
 
-
-
-
 firstStageModelLog <- felm(
   data = countyLevelSubset,
   formula = logLayoffs ~  logBartik +
