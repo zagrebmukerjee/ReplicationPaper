@@ -2,9 +2,6 @@ censusCountyData  <- readRDS("data/censusDataByCounty.rds")
 BWDataByCounty <- readRDS("data/BWCountyLevel.rds")
 
 
-
-
-
 ourDatasetBase <- censusCountyData %>%
   mutate(year = as.integer(substr(time, 0, 4))) %>% 
   mutate(wNw = ifelse(race == "A0" & ethnicity == "A0", "total", 

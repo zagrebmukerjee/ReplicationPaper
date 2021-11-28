@@ -28,7 +28,7 @@ totalData <- bind_rows(lapply(
       vars = c("race", "ethnicity", "Emp"),
       region = "county:*",
       seasonadj = "U",
-      regionin = paste0("state:", str_pad(stateNum, 2, pad = "0")), time = "from 2011 to 2016") %>% 
+      regionin = paste0("state:", str_pad(stateNum, 2, pad = "0")), time = "from 2004 to 2016") %>% 
       rename(totalEmp = Emp) %>% tibble() }
 ))
 
@@ -42,7 +42,7 @@ mfgData <- bind_rows(lapply(
       ownercode = "A05",
       region = "county:*",
       seasonadj = "U",
-      regionin = paste0("state:", str_pad(stateNum, 2, pad = "0")), time = "from 2011 to 2016") %>% 
+      regionin = paste0("state:", str_pad(stateNum, 2, pad = "0")), time = "from 2004 to 2016") %>% 
       rename(mfgEmp = Emp, mfgLayoffs = FrmJbLs, mfgLayoffsS = FrmJbLsS, mfgNetChange = FrmJbC)  %>% tibble()}
 ))
 
