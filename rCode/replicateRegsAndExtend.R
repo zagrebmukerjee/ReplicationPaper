@@ -135,10 +135,17 @@ stargazer(secondStageModelW1, secondStageModelWallControls, se = list(rse1_2, rs
 censusCountyData  <- readRDS("data/censusDataByCounty.rds")
 bartikOurs <-  readRDS("data/finalBartik.RDS")
 
+
+# compute relevant statistics by race/eth
 ourDatasetBase <- censusCountyData %>%
   mutate(year = as.integer(substr(time, 0, 4))) %>% 
-  mutate(wNw = ifelse(race == "A0" & ethnicity == "A0", "total", 
-                        ifelse(race == "A1" & ethnicity == "A1", "white", "nonwhite"))) %>% 
+  mutate(wNw = case_when(
+    race == "A0" & ethnicity == "A0" ~ "total",
+    race == "A1" & ethnicity == "A1" ~ "white",
+    race != "A0" & ethnicity != "A0" ~ "nonwhite",
+    TRUE ~ "na"
+  )) %>% 
+  filter(wNw != "na") %>% 
   group_by(wNw, state_fips, county_fips, year, time) %>% 
   summarize(
     totalEmp = sum(totalEmp, na.rm = T),
@@ -149,8 +156,8 @@ ourDatasetBase <- censusCountyData %>%
     population = last(population)
   )
 
-
-# summarize across 2012-2015
+# TODO: take ratios of 2011 employment
+# summarize across years
 datasetOursRaw <- BWDataByCounty %>%  filter(year == 2016) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
   left_join(ourDatasetBase %>% 
               group_by(wNw, state_fips, county_fips) %>% 
@@ -166,7 +173,7 @@ datasetOursRaw <- BWDataByCounty %>%  filter(year == 2016) %>%  dplyr::rename(BW
                 population = mean(population, na.rm = T)
               )) %>%
   filter(mfgEmp != 0)  %>% 
-  mutate(mfgLayoffs = mfgLayoffs/totalEmp,
+  mutate(mfgLayoffs = mfgLayoffs/totalEmp, 
          mfgLayoffsS = mfgLayoffsS/totalEmp,
          mfgNetChange = mfgNetChange/totalEmp) %>% 
   rename(countyPop = population)
@@ -242,9 +249,16 @@ datasetOurs12 <- datasetOursRaw12 %>%  filter(is.finite(white_counties_4y), is.f
 datasetOurs1204 <- datasetOursRaw1204 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y)) %>%
   pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV))  %>% left_join(bartikOurs)
 
+
+# check to see how much it matters how you normalize employment
+
 ggplot(datasetOurs) + geom_point(aes(BWLayoffs, mfgLayoffs_total))
 
 ggplot(datasetOurs) + geom_point(aes(mfgNetChange_white, mfgNetChange_nonwhite))
+ggplot(datasetOurs) + geom_point(aes(mfgNetChange_white*totalEmp_white/totalEmp_total, mfgNetChange_nonwhite*totalEmp_nonwhite/totalEmp_total))
+
+
+
 
 firstStageModelOurs <- felm(
   data = datasetOurs %>%  
@@ -309,13 +323,13 @@ rseNetC_1 <- coeftest(firstStageModelNetC, vcov = vcovHC(firstStageModelNetC, ty
 rseNetC_2 <- coeftest(secondStageModelNetC, vcov = vcovHC(secondStageModelNetC, type = "HC0"))[,2]
 
 firstStageModelWNetC <- felm(
-  data = datasetNetC %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  data = datasetNetC %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white), is.finite(mfgNetChange_nonwhite)),
   formula = mfgNetChange_white ~ bartik_leo5_w2 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgNetChange_nonwhite| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgNetChange_nonwhite| id_state)
 
 secondStageModelWNetC <- felm(
-  data = datasetNetC  %>%   filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  data = datasetNetC  %>%   filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white), is.finite(mfgNetChange_nonwhite)),
   formula = ddem_votes_pct1 ~ firstStageModelWNetC$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgNetChange_nonwhite| id_state)
