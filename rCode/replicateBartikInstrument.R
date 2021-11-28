@@ -8,8 +8,7 @@ aggregate <- totalData %>%  left_join(mfgData) %>%
   mutate(
     year = as.integer(substr(time,start = 0, stop =4)),
     totalEmp = as.numeric(totalEmp),
-    mfgEmp = as.numeric(mfgEmp)
-  )  
+    mfgEmp = as.numeric(mfgEmp))  
 
 dateStr <- c("2011-Q1","2011-Q2","2011-Q3","2011-Q4")
 
@@ -33,23 +32,41 @@ mfgNonwhite <- aggregate %>%  filter(time %in%  dateStr) %>%
   mutate(mfgShareNonwhite = mfgEmpNonwhite/totalEmpNonwhite)
 
 
-
 natlBartik <- natlResult$totalLayoffs/natlResult$totalEmpl
 natlBartikWhite <- natlResult$whiteLayoffs/natlResult$whiteEmpl
 natlBartikNonwhite <- natlResult$nonwhiteLayoffs/natlResult$nonwhiteEmpl
 
-finalBartikOurs <- mfgWhite %>%  left_join(mfgNonwhite) %>% left_join(mfgTotal) %>% 
+natlNCBartik <- natlResult$totalNetChange/natlResult$totalEmpl
+natlNCBartikWhite <- natlResult$whiteNetChange/natlResult$whiteEmpl
+natlNCBartikNonwhite <- natlResult$nonwhiteNetChange/natlResult$nonwhiteEmpl
+
+
+bartikOurs <- mfgWhite %>%  left_join(mfgNonwhite) %>% left_join(mfgTotal) %>% 
   mutate(natlBartikWhite = natlBartikWhite,
          natlBartikNonwhite = natlBartikNonwhite,
-         natlBartikTotal = natlBartik) %>% 
+         natlBartikTotal = natlBartik,
+         natlNCBartikWhite = natlNCBartikWhite,
+         natlNCBartikNonwhite = natlNCBartikNonwhite,
+         natlNCBartikTotal = natlNCBartik) %>% 
   mutate(bartikFinalWhite = natlBartikWhite * mfgShareWhite,
          bartikFinalNonwhite = natlBartikNonwhite * mfgShareNonwhite,
-         bartikFinalTotal = natlBartikTotal * mfgShareTotal) %>% 
-  dplyr::select(state, county, bartikFinalNonwhite, bartikFinalWhite, bartikFinalTotal) %>% 
+         bartikFinalTotal = natlBartikTotal * mfgShareTotal,
+         bartikNCWhite = natlNCBartikWhite * mfgShareWhite,
+         bartikNCNonwhite = natlNCBartikNonwhite * mfgShareNonwhite,
+         bartikNCTotal = natlNCBartikTotal * mfgShareTotal) %>%
+  # dplyr::select(
+  #   state, county,
+  #   bartikFinalNonwhite,
+  #   bartikFinalWhite,
+  #   bartikFinalTotal,
+  #   bartikNCNonwhite,
+  #   bartikNCWhite,
+  #   bartikNCTotal) %>% 
   arrange(desc(bartikFinalWhite))  %>% 
   rename(state_fips = state, county_fips = county) %>% 
-  mutate(state_fips = as.double(state_fips), county_fips = as.double(county_fips))
+  mutate(state_fips = as.double(state_fips),
+         county_fips = as.double(county_fips))
 
-saveRDS(finalBartikOurs, "data/finalBartik.RDS")
+saveRDS(bartikOurs, "data/finalBartik.RDS")
 
 # To check our Bartik against theirs - look at bartikComparison.R
