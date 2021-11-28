@@ -40,7 +40,7 @@ secondStageModelW1 <- felm(
 rseW1_1 <- coeftest(firstStageModelW1, vcov = vcovHC(firstStageModelW1, type = "HC0"))[,2]
 rseW1_2 <- coeftest(secondStageModelW1, vcov = vcovHC(secondStageModelW1, type = "HC0"))[,2]
 
-stargazer(secondStageModel1, secondStageModelW1, se = c(rse1_2, rseW1_2), type = "text")
+stargazer(secondStageModel1, secondStageModelW1, se = list(rse1_2, rseW1_2), type = "text")
 
 # note that we do get the same results. So on we go
 
@@ -83,8 +83,8 @@ rseWNoZeros_1 <- coeftest(firstStageModelWNoZeros, vcov = vcovHC(firstStageModel
 rseWNoZeros_2 <- coeftest(secondStageModelWNoZeros, vcov = vcovHC(secondStageModelWNoZeros, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelNoZeros, se = c(rse1_2, rseNoZeros_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWNoZeros, se = c(rse1_2, rseWNoZeros_2), type = "text")
+stargazer(secondStageModel1, secondStageModelNoZeros, se = list(rse1_2, rseNoZeros_2), type = "text")
+stargazer(secondStageModelW1, secondStageModelWNoZeros, se = list(rse1_2, rseWNoZeros_2), type = "text")
 # basically no change
 
 #################################################################################
@@ -125,8 +125,8 @@ rseWallControls_1 <- coeftest(firstStageModelWallControls, vcov = vcovHC(firstSt
 rseWallControls_2 <- coeftest(secondStageModelWallControls, vcov = vcovHC(secondStageModelWallControls, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelallControls, se = c(rse1_2, rseallControls_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWallControls, se = c(rse1_2, rseWallControls_2), type = "text")
+stargazer(secondStageModel1, secondStageModelallControls, se = list(rse1_2, rseallControls_2), type = "text")
+stargazer(secondStageModelW1, secondStageModelWallControls, se = list(rse1_2, rseWallControls_2), type = "text")
 
 #################################################################################
 # Let's try using our layoffs data instead of theirs
@@ -147,7 +147,7 @@ ourDatasetBase <- censusCountyData %>%
     mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
     mfgNetChange  = sum(mfgNetChange, na.rm = T),
     population = last(population)
-  ) 
+  )
 
 
 # summarize across 2012-2015
@@ -233,24 +233,29 @@ datasetOursRaw1204 <- BWDataByCounty %>%  filter(year == 2012) %>%  dplyr::renam
   rename(countyPop = population)
 
 
-datasetOurs <- datasetOursRaw %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y))
-datasetOurs04 <- datasetOursRaw04 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y))
-datasetOurs12 <- datasetOursRaw12 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y))
-datasetOurs1204 <- datasetOursRaw1204 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y))
+datasetOurs <- datasetOursRaw %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y))  %>%
+  pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV))  %>% left_join(bartikOurs)
+datasetOurs04 <- datasetOursRaw04 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y)) %>%
+  pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV))  %>% left_join(bartikOurs)
+datasetOurs12 <- datasetOursRaw12 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y)) %>%
+  pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV))  %>% left_join(bartikOurs)
+datasetOurs1204 <- datasetOursRaw1204 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y)) %>%
+  pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV))  %>% left_join(bartikOurs)
 
-ggplot(datasetOurs) + geom_point(aes(BWLayoffs, mfgLayoffs))
+ggplot(datasetOurs) + geom_point(aes(BWLayoffs, mfgLayoffs_total))
 
+ggplot(datasetOurs) + geom_point(aes(mfgNetChange_white, mfgNetChange_nonwhite))
 
 firstStageModelOurs <- felm(
-  data = datasetOurs %>%  filter(wNw == "total") %>%
-    filter(is.finite(mfgLayoffs), is.finite(bartikFinalTotal)),
-  formula = mfgLayoffs ~ bartikFinalTotal +
+  data = datasetOurs %>%  
+    filter(is.finite(mfgLayoffs_total), is.finite(bartik_leo5 )),
+  formula = mfgLayoffs_total ~ bartik_leo5  +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y  | id_state)
 
 secondStageModelOurs <- felm(
-  data = datasetOurs %>%  filter(wNw == "total") %>% 
-    filter(is.finite(mfgLayoffs), is.finite(bartikFinalTotal)),
+  data = datasetOurs %>% 
+    filter(is.finite(mfgLayoffs_total), is.finite(bartik_leo5 )),
   formula = ddem_votes_pct1 ~ firstStageModelOurs$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
@@ -259,15 +264,15 @@ rseOurs_1 <- coeftest(firstStageModelOurs, vcov = vcovHC(firstStageModelOurs, ty
 rseOurs_2 <- coeftest(secondStageModelOurs, vcov = vcovHC(secondStageModelOurs, type = "HC0"))[,2]
 
 firstStageModelWOurs <- felm(
-  data = datasetOurs %>%  filter(wNw == "white") %>%
-    filter(is.finite(bartikFinalWhite)),
-  formula = mfgLayoffsW ~ bartikFinalWhite +
+  data = datasetOurs %>%
+    filter(is.finite(bartik_leo5_w2  ), is.finite(mfgLayoffs_white)),
+  formula = mfgLayoffs_white ~ bartik_leo5_w2  +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgLayoffsNW| id_state)
 
 secondStageModelWOurs <- felm(
-  data = datasetOurs  %>%  filter(wNw == "white") %>%
-    filter(is.finite(bartikFinalWhite)),
+  data = datasetOurs  %>%
+    filter(is.finite(bartik_leo5_w2), is.finite(mfgLayoffs_white)),
   formula = ddem_votes_pct1 ~ firstStageModelWOurs$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgLayoffsNW| id_state)
@@ -276,9 +281,10 @@ rseWOurs_1 <- coeftest(firstStageModelWOurs, vcov = vcovHC(firstStageModelWOurs,
 rseWOurs_2 <- coeftest(secondStageModelWOurs, vcov = vcovHC(secondStageModelWOurs, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelOurs, se = c(rse1_2, rseOurs_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWOurs, se = c(rse1_2, rseWOurs_2), type = "text")
-# basically no change
+stargazer(secondStageModel1, secondStageModelOurs, se = list(rse1_2, rseOurs_2), type = "text")
+stargazer(secondStageModelW1, secondStageModelWOurs, se = list(rse1_2, rseWOurs_2), type = "text")
+# not huge changes
+
 
 #################################################################
 # using net change 2012-2016
@@ -286,15 +292,15 @@ stargazer(secondStageModelW1, secondStageModelWOurs, se = c(rse1_2, rseWOurs_2),
 datasetNetC <- datasetOurs
 
 firstStageModelNetC <- felm(
-  data = datasetNetC %>%  filter(wNw == "total") %>%
-    filter(is.finite(bartikNCTotal)),
-  formula = mfgNetChange ~ bartikNCTotal +
+  data = datasetNetC  %>%
+    filter(is.finite(bartik_leo5)),
+  formula = mfgNetChange_total ~ bartik_leo5 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
 
 secondStageModelNetC <- felm(
-  data = datasetNetC %>%  filter(wNw == "total") %>%
-    filter(is.finite(bartikNCTotal)),
+  data = datasetNetC %>%
+    filter(is.finite(bartik_leo5)),
   formula = ddem_votes_pct1 ~ firstStageModelNetC$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
@@ -303,23 +309,46 @@ rseNetC_1 <- coeftest(firstStageModelNetC, vcov = vcovHC(firstStageModelNetC, ty
 rseNetC_2 <- coeftest(secondStageModelNetC, vcov = vcovHC(secondStageModelNetC, type = "HC0"))[,2]
 
 firstStageModelWNetC <- felm(
-  data = datasetNetC %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
-  formula = mfgNetChange ~ bartik_leo5_w2 +
+  data = datasetNetC %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  formula = mfgNetChange_white ~ bartik_leo5_w2 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgNetChange_nonwhite| id_state)
 
 secondStageModelWNetC <- felm(
-  data = datasetNetC  %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
+  data = datasetNetC  %>%   filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
   formula = ddem_votes_pct1 ~ firstStageModelWNetC$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgNetChange_nonwhite| id_state)
 
 rseWNetC_1 <- coeftest(firstStageModelWNetC, vcov = vcovHC(firstStageModelWNetC, type = "HC0"))[,2]
 rseWNetC_2 <- coeftest(secondStageModelWNetC, vcov = vcovHC(secondStageModelWNetC, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelNetC, se = c(rse1_2, rseNetC_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWNetC, se = c(rse1_2, rseWNetC_2), type = "text")
+stargazer(secondStageModel1, secondStageModelNetC, se = list(rse1_2, rseNetC_2), type = "text")
+stargazer(secondStageModelW1, secondStageModelWNetC, se = list(rse1_2, rseWNetC_2), type = "text")
+
+
+#################################################################
+# using net change 2012-2016 - old white method
+
+
+firstStageModelWNetCA <- felm(
+  data = datasetNetC %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  formula = mfgNetChange_white ~ bartik_leo5_w2 +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgLayoffsNW| id_state)
+
+secondStageModelWNetCA <- felm(
+  data = datasetNetC  %>%   filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  formula = ddem_votes_pct1 ~ firstStageModelWNetCA$fitted.values +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgLayoffsNW| id_state)
+
+rseWNetCA_1 <- coeftest(firstStageModelWNetCA, vcov = vcovHC(firstStageModelWNetCA, type = "HC0"))[,2]
+rseWNetCA_2 <- coeftest(secondStageModelWNetCA, vcov = vcovHC(secondStageModelWNetCA, type = "HC0"))[,2]
+
+
+stargazer(secondStageModelW1, secondStageModelWNetC, secondStageModelWNetCA, se = list(rse1_2, rseWNetC_2, rseWNetCA_2), type = "text")
 
 #################################################################
 # using net change 2004-2016
@@ -328,13 +357,13 @@ stargazer(secondStageModelW1, secondStageModelWNetC, se = c(rse1_2, rseWNetC_2),
 datasetNetC04 <- datasetOurs04
 
 firstStageModelNetC04 <- felm(
-  data = datasetNetC04 %>%  filter(wNw == "total") %>%  filter(is.finite(mfgNetChange)),
-  formula = mfgNetChange ~ bartik_leo5 +
+  data = datasetNetC04  %>%  filter(is.finite(mfgNetChange_total)),
+  formula = mfgNetChange_total ~ bartik_leo5 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
 
 secondStageModelNetC04 <- felm(
-  data = datasetNetC04 %>%  filter(wNw == "total") %>%  filter(is.finite(mfgNetChange)),
+  data = datasetNetC04  %>%  filter(is.finite(mfgNetChange_total)),
   formula = ddem_votes_pct1 ~ firstStageModelNetC04$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
@@ -343,23 +372,23 @@ rseNetC04_1 <- coeftest(firstStageModelNetC04, vcov = vcovHC(firstStageModelNetC
 rseNetC04_2 <- coeftest(secondStageModelNetC04, vcov = vcovHC(secondStageModelNetC04, type = "HC0"))[,2]
 
 firstStageModelWNetC04 <- felm(
-  data = datasetNetC04 %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
-  formula = mfgNetChange ~ bartik_leo5_w2 +
+  data = datasetNetC04 %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  formula = mfgNetChange_white ~ bartik_leo5_w2 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgNetChange_nonwhite| id_state)
 
 secondStageModelWNetC04 <- felm(
-  data = datasetNetC04  %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
+  data = datasetNetC04  %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
   formula = ddem_votes_pct1 ~ firstStageModelWNetC04$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgNetChange_nonwhite| id_state)
 
 rseWNetC04_1 <- coeftest(firstStageModelWNetC04, vcov = vcovHC(firstStageModelWNetC04, type = "HC0"))[,2]
 rseWNetC04_2 <- coeftest(secondStageModelWNetC04, vcov = vcovHC(secondStageModelWNetC04, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelNetC04, se = c(rse1_2, rseNetC04_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWNetC04, se = c(rse1_2, rseWNetC04_2), type = "text")
+stargazer(secondStageModel1, secondStageModelNetC04, se = list(rse1_2, rseNetC04_2), type = "text")
+stargazer(secondStageModelW1, secondStageModelWNetC04, se = list(rse1_2, rseWNetC04_2), type = "text")
 
 
 #################################################################
@@ -369,13 +398,13 @@ stargazer(secondStageModelW1, secondStageModelWNetC04, se = c(rse1_2, rseWNetC04
 datasetNetC12 <- datasetOurs12
 
 firstStageModelNetC12 <- felm(
-  data = datasetNetC12 %>%  filter(wNw == "total") %>%  filter(is.finite(mfgNetChange)),
-  formula = mfgNetChange ~ bartik_leo5 +
+  data = datasetNetC12 %>%  filter(is.finite(mfgNetChange_total)),
+  formula = mfgNetChange_total ~ bartik_leo5 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
 
 secondStageModelNetC12 <- felm(
-  data = datasetNetC12 %>%  filter(wNw == "total") %>%  filter(is.finite(mfgNetChange)),
+  data = datasetNetC12%>%  filter(is.finite(mfgNetChange_total)),
   formula = ddem_votes_pct1 ~ firstStageModelNetC12$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
@@ -384,23 +413,23 @@ rseNetC12_1 <- coeftest(firstStageModelNetC12, vcov = vcovHC(firstStageModelNetC
 rseNetC12_2 <- coeftest(secondStageModelNetC12, vcov = vcovHC(secondStageModelNetC12, type = "HC0"))[,2]
 
 firstStageModelWNetC12 <- felm(
-  data = datasetNetC12 %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
-  formula = mfgNetChange ~ bartik_leo5_w2 +
+  data = datasetNetC12 %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  formula = mfgNetChange_white ~ bartik_leo5_w2 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgNetChange_nonwhite| id_state)
 
 secondStageModelWNetC12 <- felm(
-  data = datasetNetC12  %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
+  data = datasetNetC12  %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
   formula = ddem_votes_pct1 ~ firstStageModelWNetC12$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgNetChange_nonwhite| id_state)
 
 rseWNetC12_1 <- coeftest(firstStageModelWNetC12, vcov = vcovHC(firstStageModelWNetC12, type = "HC0"))[,2]
 rseWNetC12_2 <- coeftest(secondStageModelWNetC12, vcov = vcovHC(secondStageModelWNetC12, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelNetC12, se = c(rse1_2, rseNetC12_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWNetC12, se = c(rse1_2, rseWNetC12_2), type = "text")
+stargazer(secondStageModel1, secondStageModelNetC12, se = list(rse1_2, rseNetC12_2), type = "text")
+stargazer(secondStageModelW1, secondStageModelWNetC12, se = list(rse1_2, rseWNetC12_2), type = "text")
 
 #################################################################
 # using net change 2004-2011 2012 election
@@ -409,13 +438,13 @@ stargazer(secondStageModelW1, secondStageModelWNetC12, se = c(rse1_2, rseWNetC12
 datasetNetC1204 <- datasetOurs1204
 
 firstStageModelNetC1204 <- felm(
-  data = datasetNetC1204 %>%  filter(wNw == "total") %>%  filter(is.finite(mfgNetChange)),
-  formula = mfgNetChange ~ bartik_leo5 +
+  data = datasetNetC1204  %>%  filter(is.finite(mfgNetChange_total)),
+  formula = mfgNetChange_total ~ bartik_leo5 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
 
 secondStageModelNetC1204 <- felm(
-  data = datasetNetC1204 %>%  filter(wNw == "total") %>%  filter(is.finite(mfgNetChange)),
+  data = datasetNetC1204  %>%  filter(is.finite(mfgNetChange_total)),
   formula = ddem_votes_pct1 ~ firstStageModelNetC1204$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
@@ -424,24 +453,29 @@ rseNetC1204_1 <- coeftest(firstStageModelNetC1204, vcov = vcovHC(firstStageModel
 rseNetC1204_2 <- coeftest(secondStageModelNetC1204, vcov = vcovHC(secondStageModelNetC1204, type = "HC0"))[,2]
 
 firstStageModelWNetC1204 <- felm(
-  data = datasetNetC1204 %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
-  formula = mfgNetChange ~ bartik_leo5_w2 +
+  data = datasetNetC1204 %>%  filter(is.finite(bartik_leo5_w2)),
+  formula = mfgNetChange_white ~ bartik_leo5_w2 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgNetChange_nonwhite| id_state)
 
 secondStageModelWNetC1204 <- felm(
-  data = datasetNetC1204  %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
+  data = datasetNetC1204  %>%  filter(is.finite(bartik_leo5_w2)),
   formula = ddem_votes_pct1 ~ firstStageModelWNetC1204$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgNetChange_nonwhite| id_state)
 
 rseWNetC1204_1 <- coeftest(firstStageModelWNetC1204, vcov = vcovHC(firstStageModelWNetC1204, type = "HC0"))[,2]
 rseWNetC1204_2 <- coeftest(secondStageModelWNetC1204, vcov = vcovHC(secondStageModelWNetC1204, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelNetC1204, se = c(rse1_2, rseNetC1204_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWNetC1204, se = c(rse1_2, rseWNetC1204_2), type = "text")
+stargazer(secondStageModel1, secondStageModelNetC1204, se = list(rse1_2, rseNetC1204_2), type = "text")
+stargazer(secondStageModelW1, secondStageModelWNetC1204, se = list(rse1_2, rseWNetC1204_2), type = "text")
 
+
+saveRDS(list(
+  secondStageModelNetC = secondStageModelNetC,
+  secondStageModelWNetC = secondStageModelWNetC,
+  secondStageModelWNetC = secondStageModelWNetC))
 #################################################################
 # using coeff of var
 
@@ -450,13 +484,13 @@ stargazer(secondStageModelW1, secondStageModelWNetC1204, se = c(rse1_2, rseWNetC
 datasetCV <- datasetOurs
 
 firstStageModelCV <- felm(
-  data = datasetCV %>%  filter(wNw == "total") %>%  filter(is.finite(layoffCV)),
-  formula = layoffCV ~ bartik_leo5 +
+  data = datasetCV%>%  filter(is.finite(layoffCV_total)),
+  formula = layoffCV_total ~ bartik_leo5 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
 
 secondStageModelCV <- felm(
-  data = datasetCV %>%  filter(wNw == "total") %>%  filter(is.finite(layoffCV)),
+  data = datasetCV %>%  filter(is.finite(layoffCV_total)),
   formula = ddem_votes_pct1 ~ firstStageModelCV$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y | id_state)
@@ -465,20 +499,23 @@ rseCV_1 <- coeftest(firstStageModelCV, vcov = vcovHC(firstStageModelCV, type = "
 rseCV_2 <- coeftest(secondStageModelCV, vcov = vcovHC(secondStageModelCV, type = "HC0"))[,2]
 
 firstStageModelWCV <- felm(
-  data = datasetCV %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
-  formula = layoffCV ~ bartik_leo5_w2 +
+  data = datasetCV %>%  filter(is.finite(bartik_leo5_w2)),
+  formula = layoffCV_white ~ bartik_leo5_w2 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgLayoffsNW | id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgNetChange_nonwhite | id_state)
 
 secondStageModelWCV <- felm(
-  data = datasetOurs  %>%  filter(wNw == "white") %>%  filter(is.finite(bartik_leo5_w2)),
+  data = datasetOurs %>%  filter(is.finite(bartik_leo5_w2)),
   formula = ddem_votes_pct1 ~ firstStageModelWCV$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgNetChange_nonwhite| id_state)
 
 rseWCV_1 <- coeftest(firstStageModelWCV, vcov = vcovHC(firstStageModelWCV, type = "HC0"))[,2]
 rseWCV_2 <- coeftest(secondStageModelWCV, vcov = vcovHC(secondStageModelWCV, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelCV, se = c(rse1_2, rseCV_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWCV, se = c(rse1_2, rseWCV_2), type = "text")
+stargazer(secondStageModel1, secondStageModelCV, se = list(rse1_2, rseCV_2), type = "text")
+stargazer(secondStageModelW1, secondStageModelWCV, se = list(rse1_2, rseWCV_2), type = "text")
+
+
+
