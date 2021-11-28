@@ -25,6 +25,7 @@ library(tidyverse)
 ## Figures
 ```{r,  echo=F}
 regResultList <- readRDS("../regresults.rds")
+stargazer(regResultList$secondStageModelNetC)
 
 ```
 

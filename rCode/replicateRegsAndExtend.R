@@ -160,8 +160,11 @@ ourDatasetBase <- censusCountyData %>%
 
 
 datasetClean <- function(electionYear, startYear, aggregateYears){
-  BWDataByCounty %>%  filter(year == 2016) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
+  BWDataByCounty %>%  filter(year == electionYear) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
     left_join(ourDatasetBase %>% 
+                group_by(state_fips, county_fips) %>% 
+                mutate(emp2011_total = mean(totalEmp[year == 2011]),
+                       emp2011_mfg = mean(mfgEmp[year == 2011])) %>% 
                 group_by(wNw, state_fips, county_fips) %>% 
                 filter(year %in% 2012:2015) %>%  
                 arrange(time) %>% 
@@ -183,7 +186,6 @@ datasetClean <- function(electionYear, startYear, aggregateYears){
            mfgNetChange_white = mfgNetChange_white/totalEmp_total,
            mfgLayoffs_nonwhite = mfgLayoffs_nonwhite/totalEmp_total,
            mfgNetChange_nonwhite = mfgNetChange_nonwhite/totalEmp_total)
-  
   
 }
 
