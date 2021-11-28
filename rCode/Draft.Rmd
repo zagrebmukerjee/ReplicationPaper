@@ -1,0 +1,52 @@
+---
+title: '\bf Replication Paper'
+author: 'Catherine Darin and Zagreb Mukerjee'
+date: 'Released: \today'
+fontsize: 12pt
+output:
+  pdf_document: default
+urlcolor: red
+header-includes:
+  - \usepackage{bm}
+---
+
+## Outline
+- Framing story: the trajectory of XYZ county that swung from O to T and suffered big manufacturing layoffs
+- Substantive importance: Why did Trump win in 2016? A longstanding debate about relative importance of race and economic factors. Complicated by the interaction of the two. We can tease out 
+- Empirical strategy: Differential manuf. exposure across counties allows for identification of the causal effect of deindustrialization on change in Dem vote share. Further differences in racial exposure to mfg layoffs allows for identification of the interaction between race and deindustrialization. 
+- Data: census Quarterly Workforce Indicators, which break down employment by industry, race and ethnicity. Compute net change in mfg (long term job loss)
+
+```{r setup, echo=F}
+library(tidyverse)
+```
+
+## Findings
+
+## Figures
+```{r,  echo=F}
+regResultList <- readRDS("../regresults.rds")
+
+```
+
+
+### descriptive statistics
+
+
+
+### Example
+
+
+### Regression summaries
+
+### Counterfactual assessment of election
+
+### example state: Michigan
+
+### 2020
+
+## Future steps
+
+- Disaggregation: Instead of instrumenting by manufacturing share, perhaps we can look at layoffs by industry in each county. While aggregate manufacturing employment may be endogeneous, there's less reason to believe that specific industries would be (cf. Autor, Dorn and Hanson). This may also allow us to get further away from ecological inference problems.
+- Trend-cycle estimation: There are techniques from econometrics and other places that could potentially be used to decompose gross layoffs into seasonal and non-seasonal components. 
+
+## Appendix
