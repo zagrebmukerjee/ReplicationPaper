@@ -178,26 +178,21 @@ datasetClean <- function(electionYear, startYear, aggregateYears){
     group_by(wNw, state_fips, county_fips, emp_base_total, emp_base_mfg) %>% 
     arrange(time) %>% 
     summarize(
-      #layoffCV = sd(mfgEmp, na.rm = T)/mean(mfgEmp, na.rm = T), #not using this variable
       totalEmp = mean(totalEmp, na.rm = T), 
       mfgEmp = mean(mfgEmp, na.rm = T),
       mfgLayoffs = sum(mfgLayoffs, na.rm = T),
-      # mfgLayoffsS = sum(mfgLayoffsS, na.rm = T), #not using this variable
       mfgNetChange  = -sum(mfgNetChange, na.rm = T),
       population = mean(population, na.rm = T)
     )
   
   BWDataByCounty %>%  filter(year == electionYear) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
     left_join( tmp)  %>%
-    #filter(mfgEmp != 0)  %>% 
     rename(countyPop = population) %>%  
     filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y))  %>%
     pivot_wider(names_from = wNw, 
                 values_from = c(totalEmp, mfgEmp, 
                                 mfgLayoffs, 
-                                # mfgLayoffsS, # not using this variable for now
-                                mfgNetChange,
-                                #layoffCV  # not using this variable
+                                mfgNetChange
                                 )) %>% 
     mutate(mfgLayoffs_total = mfgLayoffs_total/emp_base_total,
            mfgNetChange_total = mfgNetChange_total/emp_base_total,
@@ -223,7 +218,6 @@ datasetOurs1204 <- datasetClean(electionYear = 2012, startYear = 2004, aggregate
 # our layoff measure, for B&W's models 2, 3, 5 and 6
 ################################################################
 
-# check to see how much it matters how you normalize employment
 
 # model 2
 firstStageModelOurs_2 <- felm(
@@ -513,20 +507,20 @@ stargazer(BW_secondStageModel6, secondStageModelWNetC1204, se = list(rse1_2, rse
 saveRDS(list(datasetOurs = datasetOurs, datasetOurs04=datasetOurs04 ), file = "regData.rds")
   
 saveRDS(list(
-  rseNetCA_2 = rseNetCA_2, 
-  rseWNetCA_2 = rseWNetCA_2, 
-  rseNetC_2 = rseNetC_2, 
-  rseWNetC_2 = rseWNetC_2, 
-  rseNetC04A_2 = rseNetC04A_2, 
-  rseWNetC04A_2 = rseWNetC04A_2, 
-  rseNetC04_2 = rseNetC04_2, 
-  rseWNetC04_2 = rseWNetC04_2, 
-  secondStageModelNetCA = secondStageModelNetCA,
-  secondStageModelWNetCA = secondStageModelWNetCA,
-  secondStageModelNetC = secondStageModelNetC,
-  secondStageModelWNetC = secondStageModelWNetC,
-  secondStageModelNetC04A = secondStageModelNetC04A,
-  secondStageModelWNetC04A = secondStageModelWNetC04A,
-  secondStageModelNetC04 = secondStageModelNetC04,
-  secondStageModelWNetC04 = secondStageModelWNetC04),
+  rseNetCA_2 = rseOurs2_2, 
+  rseWNetCA_2 = rseOurs5_2, 
+  rseNetC_2 = rseOurs3_2, 
+  rseWNetC_2 = rseOurs6_2, 
+  rseNetC04A_2 = rseOurs042_2, 
+  rseWNetC04A_2 = rseOurs045_2, 
+  rseNetC04_2 = rseOurs043_2, 
+  rseWNetC04_2 = rseOurs046_2, 
+  secondStageModelNetCA = secondStageModelOurs_2,
+  secondStageModelWNetCA = secondStageModelOurs_5,
+  secondStageModelNetC = secondStageModelOurs_3,
+  secondStageModelWNetC = secondStageModelOurs_6,
+  secondStageModelNetC04A = secondStageModelOurs04_2,
+  secondStageModelWNetC04A = secondStageModelOurs04_5,
+  secondStageModelNetC04 = secondStageModelOurs04_3,
+  secondStageModelWNetC04 = secondStageModelOurs04_6),
   file = "regresults.rds")
