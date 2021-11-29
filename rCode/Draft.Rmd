@@ -1,7 +1,7 @@
 ---
 title: '\bf Replication Paper'
 author: 'Catherine Darin and Zagreb Mukerjee'
-date: 'Released: \today'
+date: '\today'
 fontsize: 12pt
 output:
   pdf_document: default
@@ -10,27 +10,53 @@ header-includes:
   - \usepackage{bm}
 ---
 
+\renewcommand{\arraystretch}{1.1}
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
+
+
 ## Outline
 - Framing story: the trajectory of XYZ county that swung from O to T and suffered big manufacturing layoffs
 - Substantive importance: Why did Trump win in 2016? A longstanding debate about relative importance of race and economic factors. Complicated by the interaction of the two. We can tease out 
 - Empirical strategy: Differential manuf. exposure across counties allows for identification of the causal effect of deindustrialization on change in Dem vote share. Further differences in racial exposure to mfg layoffs allows for identification of the interaction between race and deindustrialization. 
 - Data: census Quarterly Workforce Indicators, which break down employment by industry, race and ethnicity. Compute net change in mfg (long term job loss)
 
-```{r setup, echo=F}
+```{r setup, echo=F, message = F, warning= F}
 library(tidyverse)
+library(stargazer)
+library(sandwich)
+library(lmtest)
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
 ## Findings
 
-## Figures
+### Descriptive Statistics
 ```{r,  echo=F}
-regResultList <- readRDS("../regresults.rds")
-stargazer(regResultList$secondStageModelNetC)
+descriptiveData <-  readRDS("../tableData.rds")
+
+knitr::kable(descriptiveData$tableOurs,
+             caption = "Manufacturing Job Changes 2012-2015",
+             booktabs = TRUE, digits = 2, format = 'latex')  %>%
+  kable_styling(latex_options = c("hold_position", "scale_down"))
+
+knitr::kable(descriptiveData$table04,
+             caption = "Manufacturing Job Changes 2004-2015",
+             booktabs = TRUE, digits = 2, format = 'latex')  %>%
+  kable_styling(latex_options = c("hold_position", "scale_down"))
+
 
 ```
 
+## Figures
 
-### descriptive statistics
 
 
 
@@ -39,13 +65,132 @@ stargazer(regResultList$secondStageModelNetC)
 
 ### Regression summaries
 
+```{r,  echo=F, message = F, results = "asis"}
+
+regResultList <- readRDS("../regresults.rds")
+
+rownames(regResultList$secondStageModelNetCA$coefficients )[rownames(regResultList$secondStageModelNetCA$coefficients)=="firstStageModelNetCA$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC$coefficients )[rownames(regResultList$secondStageModelNetC$coefficients)=="firstStageModelNetC$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetCA$coefficients )[rownames(regResultList$secondStageModelWNetCA$coefficients)=="firstStageModelWNetCA$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC$coefficients )[rownames(regResultList$secondStageModelWNetC$coefficients)=="firstStageModelWNetC$fitted.values"] <-  "White Manufacturing Layoffs"
+
+rownames(regResultList$secondStageModelWNetCA$coefficients 
+)[rownames(regResultList$secondStageModelWNetCA$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC$coefficients
+)[rownames(regResultList$secondStageModelWNetC$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+
+
+rownames(regResultList$secondStageModelNetCA$beta )[rownames(regResultList$secondStageModelNetCA$beta) =="firstStageModelNetCA$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC$beta )[rownames(regResultList$secondStageModelNetC$beta)=="firstStageModelNetC$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetCA$beta )[rownames(regResultList$secondStageModelWNetCA$beta)=="firstStageModelWNetCA$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC$beta )[rownames(regResultList$secondStageModelWNetC$beta)=="firstStageModelWNetC$fitted.values"] <-  "White Manufacturing Layoffs"
+
+rownames(regResultList$secondStageModelWNetCA$beta )[rownames(regResultList$secondStageModelWNetCA$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC$beta )[rownames(regResultList$secondStageModelWNetC$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+
+
+
+names(regResultList$rseNetCA_2)[1] <- "Manufacturing Layoffs"
+names(regResultList$rseNetC_2)[1] <- "Manufacturing Layoffs"
+names(regResultList$rseWNetCA_2)[1] <- "White Manufacturing Layoffs"
+names(regResultList$rseWNetC_2)[1] <- "White Manufacturing Layoffs"
+
+names(regResultList$rseWNetCA_2)[names(regResultList$rseWNetCA_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+names(regResultList$rseWNetC_2)[names(regResultList$rseWNetC_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+
+
+
+
+stargazer(regResultList$secondStageModelNetCA,
+          regResultList$secondStageModelNetC,
+          regResultList$secondStageModelWNetCA,
+          regResultList$secondStageModelWNetC,
+          se = list(
+            regResultList$rseNetCA_2,
+            regResultList$rseNetC_2,
+            regResultList$rseWNetCA_2,
+            regResultList$rseWNetC_2
+          ),
+          title = "Effect of Manufacturing Layoffs on Democratic Vote Share",
+          dep.var.labels = "Change in Share (2012-2016)",
+          omit.stat = c("rsq","ser"),
+          keep = c("Manufacturing Layoffs", "White Manufacturing Layoffs", "Nonwhite Manufacturing Layoffs"),
+          add.lines = list(
+            c("Controls For White Share/Service Layoffs", "No", "Yes", "No", "Yes")
+          ),
+          digits = 2,
+          type = "latex"
+)
+
+```
+
+
+
+```{r,  echo=F, message = F, results = "asis"}
+
+
+rownames(regResultList$secondStageModelNetC04A$coefficients )[rownames(regResultList$secondStageModelNetC04A$coefficients)=="firstStageModelNetC04A$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC04$coefficients )[rownames(regResultList$secondStageModelNetC04$coefficients)=="firstStageModelNetC04$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04A$coefficients )[rownames(regResultList$secondStageModelWNetC04A$coefficients)=="firstStageModelWNetC04A$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04$coefficients )[rownames(regResultList$secondStageModelWNetC04$coefficients)=="firstStageModelWNetC04$fitted.values"] <-  "White Manufacturing Layoffs"
+
+rownames(regResultList$secondStageModelWNetC04A$coefficients
+)[rownames(regResultList$secondStageModelWNetC04A$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04$coefficients
+)[rownames(regResultList$secondStageModelWNetC04$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+
+
+rownames(regResultList$secondStageModelNetC04A$beta )[rownames(regResultList$secondStageModelNetC04A$beta) =="firstStageModelNetC04A$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC04$beta )[rownames(regResultList$secondStageModelNetC04$beta)=="firstStageModelNetC04$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04A$beta )[rownames(regResultList$secondStageModelWNetC04A$beta)=="firstStageModelWNetC04A$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04$beta )[rownames(regResultList$secondStageModelWNetC04$beta)=="firstStageModelWNetC04$fitted.values"] <-  "White Manufacturing Layoffs"
+
+rownames(regResultList$secondStageModelWNetC04A$beta )[rownames(regResultList$secondStageModelWNetC04A$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04$beta )[rownames(regResultList$secondStageModelWNetC04$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+
+
+
+names(regResultList$rseNetC04A_2)[1] <- "Manufacturing Layoffs"
+names(regResultList$rseNetC04_2)[1] <- "Manufacturing Layoffs"
+names(regResultList$rseWNetC04A_2)[1] <- "White Manufacturing Layoffs"
+names(regResultList$rseWNetC04_2)[1] <- "White Manufacturing Layoffs"
+
+names(regResultList$rseWNetC04A_2)[names(regResultList$rseWNetC04A_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+names(regResultList$rseWNetC04_2)[names(regResultList$rseWNetC04_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+
+
+
+
+stargazer(regResultList$secondStageModelNetC04A,
+          regResultList$secondStageModelNetC04,
+          regResultList$secondStageModelWNetC04A,
+          regResultList$secondStageModelWNetC04,
+          se = list(
+            regResultList$rseNetC04A_2,
+            regResultList$rseNetC04_2,
+            regResultList$rseWNetC04A_2,
+            regResultList$rseWNetC04_2
+          ),
+          title = "Effect of Manufacturing Layoffs on Democratic Vote Share (since 2004)",
+          dep.var.labels = "Change in Share (2016-2012)",
+          omit.stat = c("rsq","ser"),
+          keep = c("Manufacturing Layoffs", "White Manufacturing Layoffs", "Nonwhite Manufacturing Layoffs"),
+          add.lines = list(
+            c("Controls For White Share/Service Layoffs", "No", "Yes", "No", "Yes")
+          ),
+          digits = 2,
+          type = "latex"
+)
+
+```
+
 ### Counterfactual assessment of election
 
 ### example state: Michigan
 
 ### 2020
 
-## Future steps
+## Potential Future Work
 
 - Disaggregation: Instead of instrumenting by manufacturing share, perhaps we can look at layoffs by industry in each county. While aggregate manufacturing employment may be endogeneous, there's less reason to believe that specific industries would be (cf. Autor, Dorn and Hanson). This may also allow us to get further away from ecological inference problems.
 - Trend-cycle estimation: There are techniques from econometrics and other places that could potentially be used to decompose gross layoffs into seasonal and non-seasonal components. 

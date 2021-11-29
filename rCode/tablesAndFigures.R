@@ -6,60 +6,83 @@
 #########################################
 
 
-censusCountyData  <- readRDS("data/censusDataByCounty.rds")
+datasetList <- readRDS("regData.rds")
 
-descDatasetBase <- censusCountyData %>%
-  mutate(year = as.integer(substr(time, 0, 4))) %>% 
-  mutate(wNw = case_when(
-    race == "A0" & ethnicity == "A0" ~ "Total",
-    race == "A1" & ethnicity == "A1" ~ "White",
-    race != "A0" & ethnicity != "A0" ~ "Non-white",
-    TRUE ~ "na"
-  )) %>% 
-  filter(wNw != "na") %>% 
-  group_by(wNw, state_fips, county_fips, year, time) %>% 
-  summarize(
-    totalEmp = sum(totalEmp, na.rm = T),
-    mfgEmp = sum(mfgEmp, na.rm = T), 
-    mfgLayoffs = sum(mfgLayoffs, na.rm = T),
-    mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
-    mfgNetChange  = sum(mfgNetChange, na.rm = T),
-    population = last(population)
-  )
-
-descDatasetRaw <- descDatasetBase %>% 
-              group_by(wNw, state_fips, county_fips) %>% 
-              filter(year %in% 2012:2015) %>%  
-              arrange(time) %>% 
-              summarize(
-                layoffCV = sd(mfgEmp, na.rm = T)/mean(mfgEmp, na.rm = T),
-                totalEmp = mean(totalEmp, na.rm = T), 
-                mfgEmp = mean(mfgEmp, na.rm = T),
-                mfgLayoffs = sum(mfgLayoffs, na.rm = T),
-                mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
-                mfgNetChange  = -sum(mfgNetChange, na.rm = T),
-                population = mean(population, na.rm = T)
-              ) %>%
-  filter(mfgEmp != 0)  %>% 
-  rename(countyPop = population)
-
-
-descDatasetRaw %>% 
-  dplyr::select(wNw, state_fips, county_fips, totalEmp, mfgEmp, mfgNetChange) %>% 
-  mutate(wNw = factor(x = wNw, levels = c("Total", "White", "Non-white"))) %>% 
+tableOurs <- datasetList$datasetOurs %>% 
+  ungroup() %>% 
+  dplyr::select(ddem_votes_pct1, state_fips, county_fips, mfgShare_total, mfgShare_white, mfgShare_nonwhite,
+                mfgNetChange_total, mfgNetChange_white, mfgNetChange_nonwhite) %>% 
   rename(
-    `Total Employment` = totalEmp,
-    `Manufacturing Employment` = mfgEmp,
-    `Change in Mfg Employment` = mfgNetChange,
-  )  %>%  
-  group_by(state_fips, county_fips) %>% 
-  mutate(`Change in Mfg Emp per Worker` = `Change in Mfg Employment`/max(`Total Employment`)) %>% 
-  pivot_longer(cols = -c("wNw", "state_fips", "county_fips") ,names_to = "variable") %>%
-  group_by(wNw, variable) %>% 
+    `Change in Dem Vote Share` = ddem_votes_pct1,
+    `Mfg Share of Emp` = mfgShare_total,
+    `Mfg Share of Emp (White)` = mfgShare_white,
+    `Mfg Share of Emp (Nonwhite)` = mfgShare_nonwhite,
+    `Change in Mfg Jobs/ Worker` = mfgNetChange_total,
+    `Change in Mfg Jobs/ Worker (W)` = mfgNetChange_white,
+    `Change in Mfg Jobs/ Worker (NW)` = mfgNetChange_nonwhite
+  ) %>% 
+  pivot_longer(cols = -c( "state_fips", "county_fips") ,names_to = "variable") %>%
+  mutate(
+    variable = factor(variable, levels = c(
+      "Change in Dem Vote Share",
+      "Mfg Share of Emp",
+      "Mfg Share of Emp (White)",
+      "Mfg Share of Emp (Nonwhite)",
+      "Change in Mfg Jobs/ Worker",
+      "Change in Mfg Jobs/ Worker (W)",
+      "Change in Mfg Jobs/ Worker (NW)"
+      ))) %>% 
+  group_by(variable) %>% 
   summarize(
     Mean = mean(value, na.rm = TRUE), 
     `Std Dev` = sd(value, na.rm = TRUE),
-    `5th Pctile` = quantile(value, probs = .05, na.rm = TRUE),
+    `25th Pctile` = quantile(value, probs = .25, na.rm = TRUE),
     Median = quantile(value, probs = .50, na.rm = TRUE),
-    `95th Pctile` = quantile(value, probs = .95, na.rm = TRUE)
-  ) %>%  arrange(desc(variable))
+    `75th Pctile` = quantile(value, probs = .75, na.rm = TRUE)
+  ) %>% rename(` ` = variable)
+
+
+
+
+table04 <- datasetList$datasetOurs04 %>% 
+  ungroup() %>% 
+  dplyr::select(
+    # ddem_votes_pct1,
+    state_fips, 
+    county_fips, 
+    mfgShare_total, 
+    mfgShare_white, 
+    mfgShare_nonwhite,
+    mfgNetChange_total, 
+    mfgNetChange_white, 
+    mfgNetChange_nonwhite) %>% 
+  rename(
+    # `Change in Dem Vote Share` = ddem_votes_pct1,
+    `Mfg Share of Emp` = mfgShare_total,
+    `Mfg Share of Emp (White)` = mfgShare_white,
+    `Mfg Share of Emp (Nonwhite)` = mfgShare_nonwhite,
+    `Change in Mfg Jobs/ Worker` = mfgNetChange_total,
+    `Change in Mfg Jobs/ Worker (W)` = mfgNetChange_white,
+    `Change in Mfg Jobs/ Worker (NW)` = mfgNetChange_nonwhite
+  ) %>% 
+  pivot_longer(cols = -c( "state_fips", "county_fips") ,names_to = "variable") %>%
+  mutate(
+    variable = factor(variable, levels = c(
+      # "Change in Dem Vote Share",
+      "Mfg Share of Emp",
+      "Mfg Share of Emp (White)",
+      "Mfg Share of Emp (Nonwhite)",
+      "Change in Mfg Jobs/ Worker",
+      "Change in Mfg Jobs/ Worker (W)",
+      "Change in Mfg Jobs/ Worker (NW)"
+    ))) %>% 
+  group_by(variable) %>% 
+  summarize(
+    Mean = mean(value, na.rm = TRUE), 
+    `Std Dev` = sd(value, na.rm = TRUE),
+    `25th Pctile` = quantile(value, probs = .25, na.rm = TRUE),
+    Median = quantile(value, probs = .50, na.rm = TRUE),
+    `75th Pctile` = quantile(value, probs = .75, na.rm = TRUE)
+  ) %>% rename(` ` = variable)
+
+saveRDS(list(tableOurs = tableOurs, table04 = table04), file = "tableData.rds")

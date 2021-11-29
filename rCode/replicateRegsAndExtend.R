@@ -160,165 +160,48 @@ ourDatasetBase <- censusCountyData %>%
 
 
 datasetClean <- function(electionYear, startYear, aggregateYears){
+  
+  tmp <- ourDatasetBase %>% 
+    group_by(state_fips, county_fips) %>% 
+    mutate(emp2011_total = mean(totalEmp[year == startYear]),
+           emp2011_mfg = mean(mfgEmp[year == startYear])) %>% 
+    filter(year %in% aggregateYears) %>%  
+    group_by() %>% 
+    group_by(wNw, state_fips, county_fips, emp2011_total, emp2011_mfg) %>% 
+    arrange(time) %>% 
+    summarize(
+      layoffCV = sd(mfgEmp, na.rm = T)/mean(mfgEmp, na.rm = T),
+      totalEmp = mean(totalEmp, na.rm = T), 
+      mfgEmp = mean(mfgEmp, na.rm = T),
+      mfgLayoffs = sum(mfgLayoffs, na.rm = T),
+      mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
+      mfgNetChange  = -sum(mfgNetChange, na.rm = T),
+      population = mean(population, na.rm = T)
+    )
+  
   BWDataByCounty %>%  filter(year == electionYear) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
-    left_join(ourDatasetBase %>% 
-                group_by(state_fips, county_fips) %>% 
-                mutate(emp2011_total = mean(totalEmp[year == 2011]),
-                       emp2011_mfg = mean(mfgEmp[year == 2011])) %>% 
-                group_by(wNw, state_fips, county_fips) %>% 
-                filter(year %in% 2012:2015) %>%  
-                arrange(time) %>% 
-                summarize(
-                  layoffCV = sd(mfgEmp, na.rm = T)/mean(mfgEmp, na.rm = T),
-                  totalEmp = mean(totalEmp, na.rm = T), 
-                  mfgEmp = mean(mfgEmp, na.rm = T),
-                  mfgLayoffs = sum(mfgLayoffs, na.rm = T),
-                  mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
-                  mfgNetChange  = -sum(mfgNetChange, na.rm = T),
-                  population = mean(population, na.rm = T)
-                )) %>%
+    left_join( tmp)  %>%
     filter(mfgEmp != 0)  %>% 
     rename(countyPop = population) %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y))  %>%
     pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV)) %>% 
-    mutate(mfgLayoffs_total = mfgLayoffs_total/totalEmp_total,
-           mfgNetChange_total = mfgNetChange_total/totalEmp_total,
-           mfgLayoffs_white = mfgLayoffs_white/totalEmp_total,
-           mfgNetChange_white = mfgNetChange_white/totalEmp_total,
-           mfgLayoffs_nonwhite = mfgLayoffs_nonwhite/totalEmp_total,
-           mfgNetChange_nonwhite = mfgNetChange_nonwhite/totalEmp_total)
+    mutate(mfgLayoffs_total = mfgLayoffs_total/emp2011_total,
+           mfgNetChange_total = mfgNetChange_total/emp2011_total,
+           mfgLayoffs_white = mfgLayoffs_white/emp2011_total,
+           mfgNetChange_white = mfgNetChange_white/emp2011_total,
+           mfgLayoffs_nonwhite = mfgLayoffs_nonwhite/emp2011_total,
+           mfgNetChange_nonwhite = mfgNetChange_nonwhite/emp2011_total,
+           mfgShare_total = mfgEmp_total/emp2011_total,
+           mfgShare_white = mfgEmp_white/emp2011_total,
+           mfgShare_nonwhite = mfgEmp_nonwhite/emp2011_total)
+  
   
 }
 
 
-
-
-
-# TODO: take ratios of 2011 employment
-# summarize across years
-datasetOursRaw <- BWDataByCounty %>%  filter(year == 2016) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
-  left_join(ourDatasetBase %>% 
-              group_by(wNw, state_fips, county_fips) %>% 
-              filter(year %in% 2012:2015) %>%  
-              arrange(time) %>% 
-              summarize(
-                layoffCV = sd(mfgEmp, na.rm = T)/mean(mfgEmp, na.rm = T),
-                totalEmp = mean(totalEmp, na.rm = T), 
-                mfgEmp = mean(mfgEmp, na.rm = T),
-                mfgLayoffs = sum(mfgLayoffs, na.rm = T),
-                mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
-                mfgNetChange  = -sum(mfgNetChange, na.rm = T),
-                population = mean(population, na.rm = T)
-              )) %>%
-  filter(mfgEmp != 0)  %>% 
-  # mutate(mfgLayoffs = mfgLayoffs/totalEmp, 
-  #        mfgLayoffsS = mfgLayoffsS/totalEmp,
-  #        mfgNetChange = mfgNetChange/totalEmp) %>% 
-  rename(countyPop = population)
-
-datasetOursRaw04 <- BWDataByCounty %>%  filter(year == 2016) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
-  left_join(ourDatasetBase %>% 
-              group_by(wNw, state_fips, county_fips) %>% 
-              filter(year %in% 2004:2015) %>%  
-              arrange(time) %>% 
-              summarize(
-                layoffCV = sd(mfgEmp, na.rm = T)/mean(mfgEmp, na.rm = T),
-                totalEmp = mean(totalEmp, na.rm = T), 
-                mfgEmp = mean(mfgEmp, na.rm = T),
-                mfgLayoffs = sum(mfgLayoffs, na.rm = T),
-                mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
-                mfgNetChange  = -sum(mfgNetChange, na.rm = T),
-                population = mean(population, na.rm = T)
-              )) %>%
-  filter(mfgEmp != 0)  %>% 
-  # mutate(mfgLayoffs = mfgLayoffs/totalEmp,
-  #        mfgLayoffsS = mfgLayoffsS/totalEmp,
-  #        mfgNetChange = mfgNetChange/totalEmp) %>% 
-  rename(countyPop = population)
-
-datasetOursRaw12 <- BWDataByCounty %>%  filter(year == 2012) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
-  left_join(ourDatasetBase %>% 
-              group_by(wNw, state_fips, county_fips) %>% 
-              filter(year %in% 2008:2011) %>%  
-              arrange(time) %>% 
-              summarize(
-                layoffCV = sd(mfgEmp, na.rm = T)/mean(mfgEmp, na.rm = T),
-                totalEmp = mean(totalEmp, na.rm = T), 
-                mfgEmp = mean(mfgEmp, na.rm = T),
-                mfgLayoffs = sum(mfgLayoffs, na.rm = T),
-                mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
-                mfgNetChange  = -sum(mfgNetChange, na.rm = T),
-                population = mean(population, na.rm = T)
-              )) %>%
-  filter(mfgEmp != 0)  %>% 
-  # mutate(mfgLayoffs = mfgLayoffs/totalEmp,
-  #        mfgLayoffsS = mfgLayoffsS/totalEmp,
-  #        mfgNetChange = mfgNetChange/totalEmp) %>% 
-  rename(countyPop = population)
-
-
-datasetOursRaw1204 <- BWDataByCounty %>%  filter(year == 2012) %>%  dplyr::rename(BWLayoffs = mfgLayoffs) %>% 
-  left_join(ourDatasetBase %>% 
-              group_by(wNw, state_fips, county_fips) %>% 
-              filter(year %in% 2004:2011) %>%  
-              arrange(time) %>% 
-              summarize(
-                layoffCV = sd(mfgEmp, na.rm = T)/mean(mfgEmp, na.rm = T),
-                totalEmp = mean(totalEmp, na.rm = T), 
-                mfgEmp = mean(mfgEmp, na.rm = T),
-                mfgLayoffs = sum(mfgLayoffs, na.rm = T),
-                mfgLayoffsS = sum(mfgLayoffsS, na.rm = T),
-                mfgNetChange  = -sum(mfgNetChange, na.rm = T),
-                population = mean(population, na.rm = T)
-              )) %>%
-  filter(mfgEmp != 0)  %>% 
-  # mutate(mfgLayoffs = mfgLayoffs/totalEmp,
-  #        mfgLayoffsS = mfgLayoffsS/totalEmp,
-  #        mfgNetChange = mfgNetChange/totalEmp) %>%
-  rename(countyPop = population)
-
-
-datasetOurs <- datasetOursRaw %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y))  %>%
-  pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV)) %>% 
-  mutate(mfgLayoffs_total = mfgLayoffs_total/totalEmp_total,
-         mfgNetChange_total = mfgNetChange_total/totalEmp_total,
-         mfgLayoffs_white = mfgLayoffs_white/totalEmp_total,
-         mfgNetChange_white = mfgNetChange_white/totalEmp_total,
-         mfgLayoffs_nonwhite = mfgLayoffs_nonwhite/totalEmp_total,
-         mfgNetChange_nonwhite = mfgNetChange_nonwhite/totalEmp_total)
-
-
-datasetOurs04 <- datasetOursRaw04 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y)) %>%
-  pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV)) %>% 
-  mutate(mfgLayoffs_total = mfgLayoffs_total/totalEmp_total,
-         mfgNetChange_total = mfgNetChange_total/totalEmp_total,
-         mfgLayoffs_white = mfgLayoffs_white/totalEmp_total,
-         mfgNetChange_white = mfgNetChange_white/totalEmp_total,
-         mfgLayoffs_nonwhite = mfgLayoffs_nonwhite/totalEmp_total,
-         mfgNetChange_nonwhite = mfgNetChange_nonwhite/totalEmp_total)
-
-
-
-datasetOurs12 <- datasetOursRaw12 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y)) %>%
-  pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV)) %>% 
-  mutate(mfgLayoffs_total = mfgLayoffs_total/totalEmp_total,
-         mfgNetChange_total = mfgNetChange_total/totalEmp_total,
-         mfgLayoffs_white = mfgLayoffs_white/totalEmp_total,
-         mfgNetChange_white = mfgNetChange_white/totalEmp_total,
-         mfgLayoffs_nonwhite = mfgLayoffs_nonwhite/totalEmp_total,
-         mfgNetChange_nonwhite = mfgNetChange_nonwhite/totalEmp_total)
-
-
-
-datasetOurs1204 <- datasetOursRaw1204 %>%  filter(is.finite(white_counties_4y), is.finite(msl_service_pc4y)) %>%
-  pivot_wider(names_from = wNw, values_from = c(totalEmp, mfgEmp, mfgLayoffs, mfgLayoffsS, mfgNetChange,layoffCV)) %>% 
-  mutate(mfgLayoffs_total = mfgLayoffs_total/totalEmp_total,
-         mfgNetChange_total = mfgNetChange_total/totalEmp_total,
-         mfgLayoffs_white = mfgLayoffs_white/totalEmp_total,
-         mfgNetChange_white = mfgNetChange_white/totalEmp_total,
-         mfgLayoffs_nonwhite = mfgLayoffs_nonwhite/totalEmp_total,
-         mfgNetChange_nonwhite = mfgNetChange_nonwhite/totalEmp_total)
-
-
+datasetOurs <- datasetClean(electionYear = 2016, startYear = 2011, aggregateYears = 2012:2015)
+datasetOurs04 <- datasetClean(electionYear = 2016, startYear = 2004, aggregateYears = 2004:2015)
+datasetOurs12 <- datasetClean(electionYear = 2012, startYear = 2008, aggregateYears = 2008:2011)
+datasetOurs1204 <- datasetClean(electionYear = 2012, startYear = 2004, aggregateYears = 2004:2011)
 
 # check to see how much it matters how you normalize employment
 
@@ -408,31 +291,49 @@ rseWNetC_1 <- coeftest(firstStageModelWNetC, vcov = vcovHC(firstStageModelWNetC,
 rseWNetC_2 <- coeftest(secondStageModelWNetC, vcov = vcovHC(secondStageModelWNetC, type = "HC0"))[,2]
 
 
-stargazer(secondStageModel1, secondStageModelNetC, se = list(rse1_2, rseNetC_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWNetC, se = list(rse1_2, rseWNetC_2), type = "text")
+# stargazer(secondStageModel1, secondStageModelNetC, se = list(rse1_2, rseNetC_2), type = "text")
+# stargazer(secondStageModelW1, secondStageModelWNetC, se = list(rse1_2, rseWNetC_2), type = "text")
+stargazer(secondStageModelNetC,secondStageModelWNetC, se = list( rseNetC_2, rseWNetC_2), type = "text")
 
 
 #################################################################
-# using net change 2012-2016 - old white method
+# using net change 2012-2016; fewer controls
 
+datasetNetCA <- datasetOurs
+
+firstStageModelNetCA <- felm(
+  data = datasetNetCA  %>%  filter(is.finite(mfgNetChange_total)),
+  formula = mfgNetChange_total ~ bartik_leo5 +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y  | id_state)
+
+secondStageModelNetCA <- felm(
+  data = datasetNetCA  %>%  filter(is.finite(mfgNetChange_total)),
+  formula = ddem_votes_pct1 ~ firstStageModelNetCA$fitted.values +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y  | id_state)
+
+rseNetCA_1 <- coeftest(firstStageModelNetCA, vcov = vcovHC(firstStageModelNetCA, type = "HC0"))[,2]
+rseNetCA_2 <- coeftest(secondStageModelNetCA, vcov = vcovHC(secondStageModelNetCA, type = "HC0"))[,2]
 
 firstStageModelWNetCA <- felm(
-  data = datasetNetC %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  data = datasetNetCA %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white), is.finite(mfgNetChange_nonwhite)),
   formula = mfgNetChange_white ~ bartik_leo5_w2 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgLayoffsNW| id_state)
+    pers_coll_share_4y  + mfgNetChange_nonwhite| id_state)
 
 secondStageModelWNetCA <- felm(
-  data = datasetNetC  %>%   filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white)),
+  data = datasetNetCA  %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white), is.finite(mfgNetChange_nonwhite)),
   formula = ddem_votes_pct1 ~ firstStageModelWNetCA$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
-    pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgLayoffsNW| id_state)
+    pers_coll_share_4y + mfgNetChange_nonwhite| id_state)
 
 rseWNetCA_1 <- coeftest(firstStageModelWNetCA, vcov = vcovHC(firstStageModelWNetCA, type = "HC0"))[,2]
 rseWNetCA_2 <- coeftest(secondStageModelWNetCA, vcov = vcovHC(secondStageModelWNetCA, type = "HC0"))[,2]
 
 
-stargazer(secondStageModelW1, secondStageModelWNetC, secondStageModelWNetCA, se = list(rse1_2, rseWNetC_2, rseWNetCA_2), type = "text")
+stargazer(secondStageModelNetCA, secondStageModelWNetCA, se = list(rseNetCA_2, rseWNetCA_2), type = "text")
+
 
 #################################################################
 # using net change 2004-2016
@@ -470,9 +371,49 @@ secondStageModelWNetC04 <- felm(
 rseWNetC04_1 <- coeftest(firstStageModelWNetC04, vcov = vcovHC(firstStageModelWNetC04, type = "HC0"))[,2]
 rseWNetC04_2 <- coeftest(secondStageModelWNetC04, vcov = vcovHC(secondStageModelWNetC04, type = "HC0"))[,2]
 
+stargazer(secondStageModelNetC04, secondStageModelWNetC04, se = list(rseNetC04_2, rseWNetC04_2), type = "text")
 
-stargazer(secondStageModel1, secondStageModelNetC04, se = list(rse1_2, rseNetC04_2), type = "text")
-stargazer(secondStageModelW1, secondStageModelWNetC04, se = list(rse1_2, rseWNetC04_2), type = "text")
+
+
+#################################################################
+# using net change 2004-2016; fewer controls
+
+
+datasetNetC04A <- datasetOurs04
+
+firstStageModelNetC04A <- felm(
+  data = datasetNetC04A  %>%  filter(is.finite(mfgNetChange_total)),
+  formula = mfgNetChange_total ~ bartik_leo5 +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y  | id_state)
+
+secondStageModelNetC04A <- felm(
+  data = datasetNetC04A  %>%  filter(is.finite(mfgNetChange_total)),
+  formula = ddem_votes_pct1 ~ firstStageModelNetC04A$fitted.values +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y  | id_state)
+
+rseNetC04A_1 <- coeftest(firstStageModelNetC04A, vcov = vcovHC(firstStageModelNetC04A, type = "HC0"))[,2]
+rseNetC04A_2 <- coeftest(secondStageModelNetC04A, vcov = vcovHC(secondStageModelNetC04A, type = "HC0"))[,2]
+
+firstStageModelWNetC04A <- felm(
+  data = datasetNetC04A %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white), is.finite(mfgNetChange_nonwhite)),
+  formula = mfgNetChange_white ~ bartik_leo5_w2 +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y +  mfgNetChange_nonwhite| id_state)
+
+secondStageModelWNetC04A <- felm(
+  data = datasetNetC04A  %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_white), is.finite(mfgNetChange_nonwhite)),
+  formula = ddem_votes_pct1 ~ firstStageModelWNetC04A$fitted.values +
+    LAU_unemp_rate_4y + pers_m_total_share_4y +
+    pers_coll_share_4y +  mfgNetChange_nonwhite| id_state)
+
+rseWNetC04A_1 <- coeftest(firstStageModelWNetC04A, vcov = vcovHC(firstStageModelWNetC04A, type = "HC0"))[,2]
+rseWNetC04A_2 <- coeftest(secondStageModelWNetC04A, vcov = vcovHC(secondStageModelWNetC04A, type = "HC0"))[,2]
+
+
+stargazer(secondStageModelNetC04A, secondStageModelWNetC04A, se = list(rseNetC04A_2, rseWNetC04A_2), type = "text")
+
 
 
 #################################################################
@@ -537,13 +478,13 @@ rseNetC1204_1 <- coeftest(firstStageModelNetC1204, vcov = vcovHC(firstStageModel
 rseNetC1204_2 <- coeftest(secondStageModelNetC1204, vcov = vcovHC(secondStageModelNetC1204, type = "HC0"))[,2]
 
 firstStageModelWNetC1204 <- felm(
-  data = datasetNetC1204 %>%  filter(is.finite(bartik_leo5_w2)),
+  data = datasetNetC1204 %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_nonwhite)),
   formula = mfgNetChange_white ~ bartik_leo5_w2 +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y  + mfgNetChange_nonwhite| id_state)
 
 secondStageModelWNetC1204 <- felm(
-  data = datasetNetC1204  %>%  filter(is.finite(bartik_leo5_w2)),
+  data = datasetNetC1204  %>%  filter(is.finite(bartik_leo5_w2), is.finite(mfgNetChange_nonwhite)),
   formula = ddem_votes_pct1 ~ firstStageModelWNetC1204$fitted.values +
     LAU_unemp_rate_4y + pers_m_total_share_4y +
     pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgNetChange_nonwhite| id_state)
@@ -555,10 +496,23 @@ rseWNetC1204_2 <- coeftest(secondStageModelWNetC1204, vcov = vcovHC(secondStageM
 stargazer(secondStageModel1, secondStageModelNetC1204, se = list(rse1_2, rseNetC1204_2), type = "text")
 stargazer(secondStageModelW1, secondStageModelWNetC1204, se = list(rse1_2, rseWNetC1204_2), type = "text")
 
-
+saveRDS(list(datasetOurs = datasetOurs, datasetOurs04=datasetOurs04 ), file = "regData.rds")
+  
 saveRDS(list(
+  rseNetCA_2 = rseNetCA_2, 
+  rseWNetCA_2 = rseWNetCA_2, 
+  rseNetC_2 = rseNetC_2, 
+  rseWNetC_2 = rseWNetC_2, 
+  rseNetC04A_2 = rseNetC04A_2, 
+  rseWNetC04A_2 = rseWNetC04A_2, 
+  rseNetC04_2 = rseNetC04_2, 
+  rseWNetC04_2 = rseWNetC04_2, 
+  secondStageModelNetCA = secondStageModelNetCA,
+  secondStageModelWNetCA = secondStageModelWNetCA,
   secondStageModelNetC = secondStageModelNetC,
   secondStageModelWNetC = secondStageModelWNetC,
+  secondStageModelNetC04A = secondStageModelNetC04A,
+  secondStageModelWNetC04A = secondStageModelWNetC04A,
   secondStageModelNetC04 = secondStageModelNetC04,
   secondStageModelWNetC04 = secondStageModelWNetC04),
   file = "regresults.rds")
