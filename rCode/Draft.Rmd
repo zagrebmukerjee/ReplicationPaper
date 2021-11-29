@@ -1,7 +1,7 @@
 ---
-title: '\bf Replication Paper'
+title: '\bf Brother, can you spare a manufacturing job? White Voters\' reaction to Deindustrialization'
 author: 'Catherine Darin and Zagreb Mukerjee'
-date: '\today'
+date: '11/29/2021'
 fontsize: 12pt
 output:
   pdf_document: default
@@ -19,12 +19,36 @@ header-includes:
 \setcounter{bottomnumber}{3}
 \setcounter{totalnumber}{4}
 
+## Introduction
+
+What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. Counties differ by exposure to manufacturing, which we use in an instrumental-variable approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
+
+Base paper: Baccini and Weymouth 2021, "Gone For Good: Deindustrialization, White Voter Backlash, and US Presidential Voting." *APSR*.
 
 ## Outline
-- Framing story: the trajectory of XYZ county that swung from O to T and suffered big manufacturing layoffs
-- Substantive importance: Why did Trump win in 2016? A longstanding debate about relative importance of race and economic factors. Complicated by the interaction of the two. We can tease out 
-- Empirical strategy: Differential manuf. exposure across counties allows for identification of the causal effect of deindustrialization on change in Dem vote share. Further differences in racial exposure to mfg layoffs allows for identification of the interaction between race and deindustrialization. 
-- Data: census Quarterly Workforce Indicators, which break down employment by industry, race and ethnicity. Compute net change in mfg (long term job loss)
+
+#### Framing story
+To do: Qualitative description of the trajectory of XYZ county that swung from O to T and suffered big manufacturing layoffs. This will establish the stakes and connect this to the broader conversation.
+
+### Substantive importance
+
+Why did Trump win in 2016? A longstanding debate about relative importance of race and economic factors. Complicated by the interaction of the two. We hope to identify the importance of manufacturing job losses, both in aggregate and for different racial groups.  
+
+### Empirical strategy
+
+Differential manufacturing exposure across counties allows for identification of the causal effect of deindustrialization on change in Dem vote share. Further differences in racial exposure to mfg layoffs allows for identification of the interaction between race and deindustrialization. 
+
+### Data and methods
+
+Data is Census Quarterly Workforce Indicators, which break down county employment by industry, race and ethnicity. Augmented with public data on vote shares, employment, etc. 
+
+We look at manufacturing employment (NAICS 31-33, see extensions below). Then  compute net change in mfg jobs (long term job loss) from 2004 to 2015, relative to employment in 2004.
+
+We might be worried about endogeneity for manufacturing job losses. So we use a shift-share instrument: we predict job losses per worker with county-level manufacturing as a share of total employment, plus controls. 
+
+Controls: unemployment in 2015, college educated share of population, male share of population, layoffs in service sector, white share of population (to control for demographic trends). We want to know if there's something singular about manufacturing jobs.
+
+
 
 ```{r setup, echo=F, message = F, warning= F}
 library(tidyverse)
@@ -67,13 +91,15 @@ ggplot(data = national_ts %>% filter(year >= 1995), aes(x = year, y = net_job_ch
 ```{r,  echo=F}
 descriptiveData <-  readRDS("../tableData.rds")
 
-knitr::kable(descriptiveData$tableOurs,
-             caption = "Manufacturing Job Changes 2012-2015",
+knitr::kable(descriptiveData$table04,
+             caption = "Manufacturing Job Changes 2004-2015",
              booktabs = TRUE, digits = 2, format = 'latex')  %>%
   kable_styling(latex_options = c("hold_position", "scale_down"))
 
-knitr::kable(descriptiveData$table04,
-             caption = "Manufacturing Job Changes 2004-2015",
+
+
+knitr::kable(descriptiveData$tableOurs,
+             caption = "Manufacturing Job Changes 2012-2015",
              booktabs = TRUE, digits = 2, format = 'latex')  %>%
   kable_styling(latex_options = c("hold_position", "scale_down"))
 
@@ -401,7 +427,9 @@ ggplot() +
 
 ## Potential Future Work
 
+- Temporal: Finding a better way to characterize the potentially lagged effect of manufacturing job losses on Democratic votes. Incorporating study of the 2008, 2012, 2020 elections. 
 - Disaggregation: Instead of instrumenting by manufacturing share, perhaps we can look at layoffs by industry in each county. While aggregate manufacturing employment may be endogeneous, there's less reason to believe that specific industries would be (cf. Autor, Dorn and Hanson). This may also allow us to get further away from ecological inference problems.
 - Trend-cycle estimation: There are techniques from econometrics and other places that could potentially be used to decompose gross layoffs into seasonal and non-seasonal components. 
+- Mechanisms: survey work to examine where the racial difference in economic voting behavior comes from. Is it expressive? Is it because information is transmitted along racially segregated networks?
 
 ## Appendix
