@@ -48,6 +48,10 @@ We might be worried about endogeneity for manufacturing job losses. So we use a 
 
 Controls: unemployment in 2015, college educated share of population, male share of population, layoffs in service sector, white share of population (to control for demographic trends). We want to know if there's something singular about manufacturing jobs.
 
+## Findings
+
+We find that 
+
 
 
 ```{r setup, echo=F, message = F, warning= F}
