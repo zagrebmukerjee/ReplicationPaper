@@ -50,7 +50,9 @@ Controls: unemployment in 2015, college educated share of population, male share
 
 ## Findings
 
-We find that 
+We find that, in aggregate, manufacturing job losses are a driver of change in Democratic vote share. 
+
+Breaking it down by race, we see that 
 
 
 
@@ -435,5 +437,3 @@ ggplot() +
 - Disaggregation: Instead of instrumenting by manufacturing share, perhaps we can look at layoffs by industry in each county. While aggregate manufacturing employment may be endogeneous, there's less reason to believe that specific industries would be (cf. Autor, Dorn and Hanson). This may also allow us to get further away from ecological inference problems.
 - Trend-cycle estimation: There are techniques from econometrics and other places that could potentially be used to decompose gross layoffs into seasonal and non-seasonal components. 
 - Mechanisms: survey work to examine where the racial difference in economic voting behavior comes from. Is it expressive? Is it because information is transmitted along racially segregated networks?
-
-## Appendix
