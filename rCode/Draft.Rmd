@@ -33,10 +33,31 @@ library(sandwich)
 library(lmtest)
 library(knitr)
 library(kableExtra)
+library(readxl)
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
 ## Findings
+
+```{r}
+# manufacturing layoffs overtime
+
+national_ts <- read_xlsx("../data/National_Data_TS.xlsx")
+
+national_ts <- national_ts %>%
+  rename(year = 1,
+         net_job_change = 2) %>%
+  dplyr::select(year, net_job_change) %>%
+  mutate(net_job_change*4)
+
+ggplot(data = national_ts, aes(x = year, y = net_job_change)) +
+  geom_point()
+
+
+
+```
+
+
 
 ### Descriptive Statistics
 ```{r,  echo=F}
@@ -185,6 +206,173 @@ stargazer(regResultList$secondStageModelNetC04A,
 ```
 
 ### Counterfactual assessment of election
+
+
+```{r,  echo=F, message = F, results = "asis"}
+
+# show map
+model_input <- readRDS("../model_3_input.rds")
+model_results <- readRDS("../model_3_results.rds")
+
+# load voting data
+library(data.table)
+voting <- fread("C:\\Users\\darin\\OneDrive\\Documents\\school\\MPP1 Fall Semester\\GOV 2001\\Replication File\\cd\\voting data.csv")
+
+
+model_input <- model_input %>%
+  filter(is.finite(bartik_leo5_w2),
+         is.finite(mfgNetChange_white),
+         is.finite(mfgNetChange_nonwhite))
+
+p75 <- quantile(model_input$mfgNetChange_white, (.75))
+
+model_input$P_ddem_1 <- model_results$fitted.values
+
+model_input <- model_input %>%
+  mutate(
+         CF_netchange = p75,
+         CF_d_netchange = CF_netchange - mfgNetChange_white,
+         CF_ddem_change = CF_d_netchange*model_results$coefficients[1],
+         P_ddem_2 = P_ddem_1 + CF_ddem_change) %>%
+  dplyr::select(id, state_fips, state, state_name, county_fips,
+                county, year, dem_votes_pct1, ddem_votes_pct1,
+                P_ddem_1, mfgNetChange_white, mfgNetChange_total,
+                mfgNetChange_nonwhite,
+                CF_netchange,
+                CF_d_netchange,
+                CF_ddem_change,
+                P_ddem_2)
+
+
+voting <- voting %>%
+  dplyr::select(year, state, county_name, county_fips,
+         party, candidatevotes) %>%
+  filter(party == "DEMOCRAT" | party == "REPUBLICAN") %>%
+  group_by(year, county_fips) %>%
+  summarize(total_dem_rep_votes = sum(candidatevotes),
+         dem_votes = sum(candidatevotes[party == "DEMOCRAT"]),
+         rep_votes = sum(candidatevotes[party == "REPUBLICAN"])) %>%
+  mutate(dem_vote_share = dem_votes/total_dem_rep_votes)
+
+model_input <- model_input %>% mutate(
+  c_fips_long = case_when(
+    str_length(as.character(county_fips)) == 1 ~
+      paste0("00", as.character(county_fips)),
+    str_length(as.character(county_fips)) == 2 ~
+      paste0("0", as.character(county_fips)),
+    TRUE ~ as.character(county_fips)),
+
+  s_fips_long  = case_when(
+    str_length(as.character(state_fips)) == 1 ~
+      paste0("0", as.character(state_fips)),
+    TRUE ~ as.character(state_fips)),
+
+  fips_long = paste0(s_fips_long, c_fips_long),
+  fips_numeric = as.numeric(fips_long))
+
+
+model_input <- left_join(model_input, voting,
+                          by = c("fips_numeric" = "county_fips",
+                                 "year" = "year"))
+
+model_input <- model_input %>%
+  mutate(CF_dem_votes = dem_votes +
+           CF_ddem_change*total_dem_rep_votes,
+         CF_rep_votes = rep_votes - CF_ddem_change*total_dem_rep_votes)
+
+
+order = c("-2% or greater", "-1% to -2%", "-0.5% to -1%",
+          "-0.25% to -0.5%", "0% to -0.25%", "0% to +0.25%")
+
+state_summary <- model_input %>%
+  group_by(state_name, state) %>%
+  summarize(actual_trump_votes = sum(rep_votes),
+            actual_dem_votes = sum(dem_votes),
+            CF_trump_votes = sum(CF_rep_votes),
+            CF_dem_votes = sum(CF_dem_votes)) %>%
+
+  mutate(changed_outcome  =
+           ifelse(
+             CF_dem_votes > CF_trump_votes &
+               actual_trump_votes > actual_dem_votes,
+             1, 0),
+    actual_trump_vs =
+      actual_trump_votes/(actual_trump_votes+ actual_dem_votes),
+    CF_trump_vs =
+      CF_trump_votes/(CF_trump_votes+CF_dem_votes),
+    delta_vs = CF_trump_vs - actual_trump_vs) %>%
+  mutate(
+    delta_vs = case_when(delta_vs < -.02 ~ "-2% or greater",
+                         delta_vs < -.01 ~ "-1% to -2%",
+                         delta_vs < -.005 ~ "-0.5% to -1%",
+                         delta_vs < -.0025 ~ "-0.25% to -0.5%",
+                         delta_vs < 0 ~ "0% to -0.25%",
+                         delta_vs < .0025 ~ "0% to +0.25%",
+                         delta_vs < .005 ~ "+0.25% to +0.5%",
+                         delta_vs < .01 ~ "+0.5% to +1%",
+                         TRUE ~ "+1% or greater")) %>%
+  mutate(delta_vs_group = factor(delta_vs, levels = order))
+
+
+colors =
+   c("-2% or greater" = "#0059ff",
+     "-1% to -2%" = "#4988fc",
+     "-0.5% to -1%" = "#86b0fc",
+     "-0.25% to -0.5%" = "#b8d1ff",
+     "0% to -0.25%" = "#dee9fc",
+     "0% to +0.25%" = "#ffeae8")
+
+
+# map change in trump vote share
+library(tigris)
+
+# state shapefile
+state_shape <- states(
+  cb = TRUE,
+  resolution = "20m"
+) %>%
+  filter(GEOID != "72") %>%
+  shift_geometry()
+
+mapping <- inner_join(state_shape, state_summary,
+                      by = c("NAME" = "state_name"))
+
+
+#devtools::install_github("yutannihilation/ggsflabel")
+library(ggsflabel)
+
+
+mapping_small <- mapping %>% filter(state != "DC")
+
+mapping_small <- mapping_small %>%
+  mutate(changed_outcome = ifelse(changed_outcome == 0,
+                                  "No",
+                                  "Yes"))
+
+
+#  alt
+flipped <- mapping_small %>% filter(changed_outcome == "Yes")
+ggplot() +
+  geom_sf(data = mapping_small, aes(fill = delta_vs_group), color = "grey", size = .01) +
+  scale_fill_manual(values = colors) +
+  labs(title = "Figure X:\nManufacturing Layoffs Led Trump to 2016 Victory",
+       subtitle = "Change in Trump Vote Share Assuming Counterfactual Manufacturing Layoffs (25th Percentile)",
+       fill = "Change in Trump Vote Share") +
+  geom_sf(data = flipped, fill = NA, aes(color = changed_outcome), size = 1) +
+  scale_color_manual(values = "#b32ab5", name = "Flipped Election") +
+  labs(color = "Flipped Election") +
+  coord_sf(datum = NA) +
+  theme_minimal() +
+  # geom_sf_text_repel(aes(label = state), data = mapping_small,
+  #                    force = .00001,  seed = 10,
+  #                    size = 2.5) +
+  theme(  axis.title.x=element_blank(),
+          axis.title.y=element_blank())
+
+```
+
+
+
 
 ### example state: Michigan
 
