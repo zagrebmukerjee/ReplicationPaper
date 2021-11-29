@@ -62,6 +62,64 @@ ggplot(data = national_ts %>% filter(year >= 1995), aes(x = year, y = net_job_ch
 ```
 
 
+### Geographic Concentration of Layoffs
+
+```{r,  echo=F, message = F, results = "asis"}
+
+# load map
+model_input <- readRDS("../model_5_input.rds")
+
+library(tigris)
+
+# state shapefile
+county_shape <- counties(
+  cb = TRUE,
+  resolution = "20m"
+) %>%
+  shift_geometry() %>%
+  mutate(STATEFP = as.numeric(STATEFP),
+         COUNTYFP = as.numeric(COUNTYFP))
+
+
+# group counties into sextiles 
+model_input <- model_input %>%
+  group_by() %>%
+  mutate(ntile_mfg = as.character(ntile(mfgNetChange_total , 6)))
+
+# find cutoffs
+
+sum <- model_input %>%
+  group_by(ntile_mfg) %>%
+  summarize(min = min(mfgNetChange_total),
+            max = max(mfgNetChange_total))
+
+labels = c(
+  "1" = "Less than -1% (Gain in Mfg. Emp)",
+  "2" = "-1% to 0% (Gain in Mfg. Emp)",
+  "3" = ".001"
+)
+
+
+mapping_county <- inner_join(county_shape, model_input,
+                      by = c("STATEFP" = "state_fips",
+                             "COUNTYFP" = "county_fips"))
+
+
+
+ggplot() +
+  geom_sf(data = mapping_county, aes(fill = mfgNetChange_total), color = NA, size = .01) +
+  scale_fill_viridis_c() +
+  coord_sf(datum = NA) +
+  theme_minimal() +
+  # geom_sf_text_repel(aes(label = state), data = mapping_small,
+  #                    force = .00001,  seed = 10,
+  #                    size = 2.5) +
+  theme(  axis.title.x=element_blank(),
+          axis.title.y=element_blank())
+
+
+```
+
 
 ### Descriptive Statistics
 ```{r,  echo=F}
@@ -371,8 +429,10 @@ mapping_small <- mapping_small %>%
                                   "Yes"))
 
 
-#  alt
+#  make map
+
 flipped <- mapping_small %>% filter(changed_outcome == "Yes")
+
 ggplot() +
   geom_sf(data = mapping_small, aes(fill = delta_vs_group), color = "grey", size = .01) +
   scale_fill_manual(values = colors) +
