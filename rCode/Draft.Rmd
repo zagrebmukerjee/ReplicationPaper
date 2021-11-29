@@ -34,6 +34,7 @@ library(lmtest)
 library(knitr)
 library(kableExtra)
 library(readxl)
+library(scales)
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
@@ -48,10 +49,13 @@ national_ts <- national_ts %>%
   rename(year = 1,
          net_job_change = 2) %>%
   dplyr::select(year, net_job_change) %>%
-  mutate(net_job_change*4)
+  mutate(
+    year = as.numeric(year),
+    net_job_change = net_job_change*4) %>% group_by()
 
-ggplot(data = national_ts, aes(x = year, y = net_job_change)) +
-  geom_point()
+ggplot(data = national_ts %>% filter(year >= 1995), aes(x = year, y = net_job_change)) +
+  geom_col() + scale_x_continuous(breaks=seq(1995,2019,2)) +
+	scale_y_continuous(labels = label_number(suffix = "", scale = 1e-6)) 
 
 
 
@@ -206,31 +210,42 @@ stargazer(regResultList$secondStageModelNetC04A,
 ```
 
 ### Counterfactual assessment of election
+## (Using 2004-2015 Layoffs)
 
 
 ```{r,  echo=F, message = F, results = "asis"}
 
-# show map
-model_input <- readRDS("../model_3_input.rds")
-model_results <- readRDS("../model_3_results.rds")
+# load map
+model_input <- readRDS("../model_5_input.rds")
+model_results <- readRDS("../model_5_results.rds")
+
 
 # load voting data
 library(data.table)
 voting <- fread("C:\\Users\\darin\\OneDrive\\Documents\\school\\MPP1 Fall Semester\\GOV 2001\\Replication File\\cd\\voting data.csv")
 
 
+# filter model input based on our regression filtering
 model_input <- model_input %>%
   filter(is.finite(bartik_leo5_w2),
          is.finite(mfgNetChange_white),
          is.finite(mfgNetChange_nonwhite))
 
-p75 <- quantile(model_input$mfgNetChange_white, (.75))
+# find the 25th percentile in manufacturing layoffs (our measure) across counties
+p25 <- quantile(model_input$mfgNetChange_white, (.25))
 
+# find the predicted democratic vote share
 model_input$P_ddem_1 <- model_results$fitted.values
+
 
 model_input <- model_input %>%
   mutate(
-         CF_netchange = p75,
+    
+    # calculate the counterfactual change in democratic vote share
+    # by multipling our regression coefficient against the difference
+    # between observed manufacturing layoffs (our measure) and the
+    # 25th percentile of layoffs (nationally)
+         CF_netchange = p25,
          CF_d_netchange = CF_netchange - mfgNetChange_white,
          CF_ddem_change = CF_d_netchange*model_results$coefficients[1],
          P_ddem_2 = P_ddem_1 + CF_ddem_change) %>%
@@ -243,7 +258,7 @@ model_input <- model_input %>%
                 CF_ddem_change,
                 P_ddem_2)
 
-
+# clear voting data
 voting <- voting %>%
   dplyr::select(year, state, county_name, county_fips,
          party, candidatevotes) %>%
@@ -254,6 +269,7 @@ voting <- voting %>%
          rep_votes = sum(candidatevotes[party == "REPUBLICAN"])) %>%
   mutate(dem_vote_share = dem_votes/total_dem_rep_votes)
 
+# prep model input data to be merged to voting data
 model_input <- model_input %>% mutate(
   c_fips_long = case_when(
     str_length(as.character(county_fips)) == 1 ~
@@ -261,7 +277,6 @@ model_input <- model_input %>% mutate(
     str_length(as.character(county_fips)) == 2 ~
       paste0("0", as.character(county_fips)),
     TRUE ~ as.character(county_fips)),
-
   s_fips_long  = case_when(
     str_length(as.character(state_fips)) == 1 ~
       paste0("0", as.character(state_fips)),
@@ -270,19 +285,24 @@ model_input <- model_input %>% mutate(
   fips_long = paste0(s_fips_long, c_fips_long),
   fips_numeric = as.numeric(fips_long))
 
-
+# join model input to observed voting data
 model_input <- left_join(model_input, voting,
                           by = c("fips_numeric" = "county_fips",
                                  "year" = "year"))
 
+# calculate the counterfactual dem votes and rep votes
 model_input <- model_input %>%
   mutate(CF_dem_votes = dem_votes +
            CF_ddem_change*total_dem_rep_votes,
          CF_rep_votes = rep_votes - CF_ddem_change*total_dem_rep_votes)
 
-
-order = c("-2% or greater", "-1% to -2%", "-0.5% to -1%",
-          "-0.25% to -0.5%", "0% to -0.25%", "0% to +0.25%")
+# create mapping categories
+order = c(
+  #"+2% or greater", "+1% to +2%",
+          "+0.5% to +1%",
+          "+0.25% to +0.5%", 
+          "0% to +0.25%", 
+          "0% to -0.25%")
 
 state_summary <- model_input %>%
   group_by(state_name, state) %>%
@@ -302,25 +322,26 @@ state_summary <- model_input %>%
       CF_trump_votes/(CF_trump_votes+CF_dem_votes),
     delta_vs = CF_trump_vs - actual_trump_vs) %>%
   mutate(
-    delta_vs = case_when(delta_vs < -.02 ~ "-2% or greater",
-                         delta_vs < -.01 ~ "-1% to -2%",
-                         delta_vs < -.005 ~ "-0.5% to -1%",
-                         delta_vs < -.0025 ~ "-0.25% to -0.5%",
-                         delta_vs < 0 ~ "0% to -0.25%",
-                         delta_vs < .0025 ~ "0% to +0.25%",
-                         delta_vs < .005 ~ "+0.25% to +0.5%",
-                         delta_vs < .01 ~ "+0.5% to +1%",
-                         TRUE ~ "+1% or greater")) %>%
+    delta_vs = case_when(delta_vs < -.02 ~ "+2% or greater",
+                         delta_vs < -.01 ~ "+1% to +2%",
+                         delta_vs < -.005 ~ "+0.5% to +1%",
+                         delta_vs < -.0025 ~ "+0.25% to +0.5%",
+                         delta_vs < 0 ~ "0% to +0.25%",
+                         delta_vs < .0025 ~ "0% to -0.25%",
+                         delta_vs < .005 ~ "-0.25% to -0.5%",
+                         delta_vs < .01 ~ "-0.5% to -1%",
+                         TRUE ~ "-1% or greater")) %>%
   mutate(delta_vs_group = factor(delta_vs, levels = order))
 
 
 colors =
-   c("-2% or greater" = "#0059ff",
-     "-1% to -2%" = "#4988fc",
-     "-0.5% to -1%" = "#86b0fc",
-     "-0.25% to -0.5%" = "#b8d1ff",
-     "0% to -0.25%" = "#dee9fc",
-     "0% to +0.25%" = "#ffeae8")
+   c(
+     #"+2% or greater" = "#0059ff",
+     #"+1% to +2%" = "#4988fc",
+     "+0.5% to +1%" = "#86b0fc",
+     "+0.25% to +0.5%" = "#b8d1ff",
+     "0% to +0.25%" = "#dee9fc",
+     "0% to -0.25%" = "#ffeae8")
 
 
 # map change in trump vote share
@@ -355,9 +376,9 @@ flipped <- mapping_small %>% filter(changed_outcome == "Yes")
 ggplot() +
   geom_sf(data = mapping_small, aes(fill = delta_vs_group), color = "grey", size = .01) +
   scale_fill_manual(values = colors) +
-  labs(title = "Figure X:\nManufacturing Layoffs Led Trump to 2016 Victory",
-       subtitle = "Change in Trump Vote Share Assuming Counterfactual Manufacturing Layoffs (25th Percentile)",
-       fill = "Change in Trump Vote Share") +
+  labs(title = "Figure X:\nWithout Manufacturing Layoffs, Democrats Would Have Won 2016 Election",
+       subtitle = "Change in Democratic Vote Share Assuming Counterfactual Manufacturing Layoffs (25th Percentile)",
+       fill = "Change in Democratic Vote Share") +
   geom_sf(data = flipped, fill = NA, aes(color = changed_outcome), size = 1) +
   scale_color_manual(values = "#b32ab5", name = "Flipped Election") +
   labs(color = "Flipped Election") +

@@ -1,0 +1,23 @@
+CD adding maps and other visuals
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Your branch is up to date with 'origin/main'.
+#
+# Changes to be committed:
+#	new file:   Appendix.pdf
+#	new file:   model_3_input.rds
+#	new file:   model_3_results.rds
+#	modified:   rCode/Draft.Rmd
+#	new file:   rCode/Draft.aux
+#	new file:   rCode/Draft.knit - Copy.md
+#	modified:   rCode/Draft.log
+#	new file:   rCode/Draft.out
+#	modified:   rCode/Draft.pdf
+#	new file:   rCode/cd_map.Rmd
+#	new file:   rCode/cd_test.Rmd
+# new file:   rCode/cd_test.pdf
+#
+
+
