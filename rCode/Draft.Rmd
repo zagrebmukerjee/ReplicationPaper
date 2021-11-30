@@ -1,5 +1,5 @@
 ---
-title: "Brother, can you spare a manufacturing job? White Voters' reaction to Deindustrialization"
+title: "Brother, can you spare a manufacturing job? White Voters reaction to Deindustrialization"
 author: 'Catherine Darin and Zagreb Mukerjee'
 date: '11/29/2021'
 fontsize: 12pt
@@ -28,6 +28,7 @@ Base paper: Baccini and Weymouth 2021, "Gone For Good: Deindustrialization, Whit
 ## Outline
 
 #### Framing story
+
 To do: Qualitative description of the trajectory of XYZ county that swung from O to T and suffered big manufacturing layoffs. This will establish the stakes and connect this to the broader conversation.
 
 ### Substantive importance
@@ -52,24 +53,34 @@ Controls: unemployment in 2015, college educated share of population, male share
 
 In their main model, Baccini and Weymouth looked at the effect on gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
 
-Our key extension of Baccini and Weymouth's analysis is changing the quantity of interest from **gross** manufacturing job losses to **net** manufacturing job losses. For example, in Baccini and Weymouth's model, if a county lost 400 manufacturing jobs from 2012-2015 and also gained 400 manufacturing jobs over the same period, they would count 400 overall layoffs. Using our measure of *net* manufacturing job lossess, we would consider this example a 0 net change in manufacturing employment. Given that job descruction and creation is a natural dynamic within the economy (i.e., creative destruction), we think that *net* job lossess is a more meaningful measure.
+Our key extension of Baccini and Weymouth's analysis is changing the quantity of interest from **gross** manufacturing job losses to **net** manufacturing job losses. For example, in Baccini and Weymouth's model, if a county lost 400 manufacturing jobs from 2012-2015 and also gained 400 manufacturing jobs over the same period, they would count 400 overall layoffs. Using our measure of *net* manufacturing job losses, we would consider this example a 0 net change in manufacturing employment. Given that job destruction and creation is a natural dynamic within the economy (i.e., creative destruction), we think that *net* job losses is a more meaningful measure.
 
-Using *net* manufacturing job losses as our outcome, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing (gross) job losses to explain the change in democratic vote share in 2016. Using their specifications, we find totally opposite results - that a *net* increase in white manufacturing jobs *increased* democratic vote share, while a *net* increase in non-white manufacturing jobs *decreased* democratic vote share. (See Tavble X)
+Using *net* manufacturing job losses as our outcome, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing (gross) job losses to explain the change in democratic vote share in 2016. Using their specifications, we find totally opposite results - that a *net* increase in white manufacturing jobs *increased* democratic vote share, while a *net* increase in non-white manufacturing jobs *decreased* democratic vote share. (See Table 3)
 
-However, we do not trust the result of this specification, because, from 2012 to 2015, the national economy experienced a net increase in manufacturing jobs following the 2008 recession (see Figure 1). During this time of recovery, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery. Therefore, because manufacturing job losses pre-2012 are likely negatively correlated with manufacturing job gains from 2012-2015, it is misleading to segment the analysis data to just include job losses from 2012 to 2015. [To DO: Empirically show negative correlation describe here]
+However, we do not trust the result of this specification, because, from 2012 to 2015, the national economy experienced a net increase in manufacturing jobs following the 2008 recession (See Figure 1). During this time of recovery, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery. Therefore, because manufacturing job losses pre-2012 are likely negatively correlated with manufacturing job gains from 2012-2015, it is misleading to segment the analysis data to just include job losses from 2012 to 2015. [To DO: Empirically show negative correlation describe here]
 
-If we expand our measure of net manufacturing job losses to include the 2004 to 2011 period - which covers most of the period when the U.S. manufacturing economy was hit most intensley (see figure 1) -- we get a result that is consisent with Baccini and Weymouth's overall conclusion. That is, we find that net white manufacturing job losses decreased democratic vote share, while net non-white manufacturing job lossess increased democratic vote share.
+If we expand our measure of net manufacturing job losses to include the 2004 to 2011 period - which covers most of the period when the U.S. manufacturing economy was hit most intensely (See figure 1) -- we get a result that is consistent with Baccini and Weymouth's overall conclusion (See Table 4). That is, we find that net white manufacturing job losses decreased democratic vote share, while net non-white manufacturing job losses increased democratic vote share.
 
-While our main takeway is consistent with Baccini and Weymouth's story, it is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analyis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. 
+While our main takeaway is consistent with Baccini and Weymouth's story, it is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analysis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. 
 
 [Note: to demonstrate our point about **variable** effects, In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in democratic vote share in other elections (2012 and 2020).]
 
-## Key Findings
+### Key Findings
 
 We find that, in aggregate, manufacturing job losses were a driver of change in Democratic vote share in the 2016 election. Breaking it down by race, we see that 
 
-Moreover, we find that, given the evolution of the business cycle, considering only recent job losses can paint a misleading picture of the relationship between manufacturing job losses and changes in vote share. In fact, we find that net manufacturing job losses from 2004 to 2011 are crucial to explaning Trump's 2016 win. This finding suggests that economic changes, like manufacturing layoffs, can have lagged and variable political consequence.
+Moreover, we find that, given the evolution of the business cycle, considering only recent job losses can paint a misleading picture of the relationship between manufacturing job losses and changes in vote share. In fact, we find that net manufacturing job losses from 2004 to 2011 are crucial to explaining Trump's 2016 win. This finding suggests that economic changes, like manufacturing layoffs, can have lagged and variable political consequence.
 
+
+### Potential Future Work
+
+- Temporal: Finding a better way to characterize the potentially lagged effect of manufacturing job losses on Democratic votes. Incorporating study of the 2008, 2012, 2020 elections. 
+- Disaggregation: Instead of instrumenting by manufacturing share, perhaps we can look at layoffs by industry in each county. While aggregate manufacturing employment may be endogenous, there's less reason to believe that specific industries would be (cf. Autor, Dorn and Hanson). This may also allow us to get further away from ecological inference problems.
+- Trend-cycle estimation: There are techniques from econometrics and other places that could potentially be used to decompose gross layoffs into seasonal and non-seasonal components. 
+- Mechanisms: survey work to examine where the racial difference in economic voting behavior comes from. Is it expressive? Is it because information is transmitted along racially segregated networks?
+
+
+## Tables and Figures
 
 ```{r setup, echo=F, message = F, warning= F}
 library(tidyverse)
@@ -86,7 +97,7 @@ knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
-## Findings
+### Manufacturing Layoffs Overtime
 
 ```{r}
 # manufacturing layoffs overtime
@@ -525,11 +536,3 @@ ggplot() +
 
 ```
 
-
-
-## Potential Future Work
-
-- Temporal: Finding a better way to characterize the potentially lagged effect of manufacturing job losses on Democratic votes. Incorporating study of the 2008, 2012, 2020 elections. 
-- Disaggregation: Instead of instrumenting by manufacturing share, perhaps we can look at layoffs by industry in each county. While aggregate manufacturing employment may be endogeneous, there's less reason to believe that specific industries would be (cf. Autor, Dorn and Hanson). This may also allow us to get further away from ecological inference problems.
-- Trend-cycle estimation: There are techniques from econometrics and other places that could potentially be used to decompose gross layoffs into seasonal and non-seasonal components. 
-- Mechanisms: survey work to examine where the racial difference in economic voting behavior comes from. Is it expressive? Is it because information is transmitted along racially segregated networks?

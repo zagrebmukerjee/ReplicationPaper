@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.29)  29 NOV 2021 21:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.29)  29 NOV 2021 21:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -705,31 +705,37 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}] [2]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
+46.
+(c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-44.
+73.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-<Draft_files/figure-latex/unnamed-chunk-1-1.pdf, id=89, 469.755pt x 325.215pt>
+) [3]
+<Draft_files/figure-latex/unnamed-chunk-1-1.pdf, id=101, 469.755pt x 325.215pt>
+
 File: Draft_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 <use Draft_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-1-1.pdf  used o
-n input line 248.
+n input line 277.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[3]
-<Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=97, 469.755pt x 325.215pt>
+<Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=102, 469.755pt x 325.215pt>
+
 File: Draft_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use Draft_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-2-1.pdf  used o
-n input line 254.
+n input line 283.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [4 <./Draft_files/figure-latex/unnamed-chunk-1-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 276.
+(Font)              <12> on input line 305.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 276.
+(Font)              <8> on input line 305.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 276.
+(Font)              <6> on input line 305.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -737,58 +743,52 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.331 \end{table}
+l.360 \end{table}
                   <./Draft_files/figure-latex/unnamed-chunk-2-1.pdf>]
-<Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=120, 469.755pt x 325.215pt>
+<Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=127, 469.755pt x 325.215pt>
 
 File: Draft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use Draft_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-6-1.pdf  used o
-n input line 364.
+n input line 393.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [6pdfTeX warning (ext4): destination with the same identifier (name{table.2}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.367 ...uture Work}\label{potential-future-work}}
-                                                  pdfTeX warning (ext4): destin
-ation with the same identifier (name{table.3}) has been already used, duplicate
- ignored
+l.395 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{table.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.367 ...uture Work}\label{potential-future-work}}
-                                                  ]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
-72.
-(c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [7pdfTeX warning (ext4): destination with the same identifier (name{table.4})
- has been already used, duplicate ignored
+l.395 \end{document}
+                    ] [7pdfTeX warning (ext4): destination with the same identi
+fier (name{table.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.376   D
-         isaggregation: Instead of instrumenting by manufacturing share, <./Dra
-ft_files/figure-latex/unnamed-chunk-6-1.pdf>] [8] (./Draft.aux)
+l.395 \end{document}
+                     <./Draft_files/figure-latex/unnamed-chunk-6-1.pdf>] (./Dra
+ft.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Draft.out' has not changed.
-(rerunfilecheck)             Checksum: BEB07280C4D8F3C402C648FF9D74E2BB;2478.
+(rerunfilecheck)             Checksum: 35BF0842240A772F24B248F69ACD2E1E;2769.
  ) 
 Here is how much of TeX's memory you used:
- 12579 strings out of 480313
- 201543 string characters out of 5895779
- 515594 words of memory out of 5000000
- 30144 multiletter control sequences out of 15000+600000
+ 12582 strings out of 480313
+ 201643 string characters out of 5895779
+ 515587 words of memory out of 5000000
+ 30146 multiletter control sequences out of 15000+600000
  469717 words of font info for 86 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,11n,63p,359b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.
-enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ma
-thit.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/
-lm-rm.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm
-/lm-mathsy.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvi
-ps/lm/lm-ec.enc}<c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/
+ 60i,11n,63p,359b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-math
+it.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm
+-rm.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/l
+m-mathsy.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips
+/lm/lm-ec.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvip
+s/lm/lm-ts1.enc}<c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/
 public/lm/lmbx12.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
 ype1/public/lm/lmmi12.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fo
 nts/type1/public/lm/lmr12.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dis
@@ -798,10 +798,10 @@ xmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/darin/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/darin/AppData/Roaming/
 TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Users/darin/AppData/Roam
 ing/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on Draft.pdf (8 pages, 571376 bytes).
+Output written on Draft.pdf (7 pages, 571445 bytes).
 PDF statistics:
- 212 PDF objects out of 1000 (max. 8388607)
- 175 compressed objects within 2 object streams
- 47 named destinations out of 1000 (max. 500000)
- 144 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 213 PDF objects out of 1000 (max. 8388607)
+ 177 compressed objects within 2 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 152 words of extra memory for PDF output out of 10000 (max. 10000000)
 
