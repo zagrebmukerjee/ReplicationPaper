@@ -258,6 +258,7 @@ stargazer(regResultList$secondStageModelNetCA,
             c("Controls For White Share/Service Layoffs", "No", "Yes", "No", "Yes")
           ),
           digits = 2,
+          header = F,
           type = "latex"
 )
 
@@ -318,6 +319,7 @@ stargazer(regResultList$secondStageModelNetC04A,
             c("Controls For White Share/Service Layoffs", "No", "Yes", "No", "Yes")
           ),
           digits = 2,
+          header = F,
           type = "latex"
 )
 
