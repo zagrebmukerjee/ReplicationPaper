@@ -19,6 +19,11 @@ header-includes:
 \setcounter{bottomnumber}{3}
 \setcounter{totalnumber}{4}
 
+## Replication Instructions
+
+Please find instructions and relevant code to replicate our analysis here: https://github.com/zagrebmukerjee/ReplicationPaper
+
+
 ## Introduction
 
 What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. Counties differ by exposure to manufacturing, which we use in an instrumental-variable approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
