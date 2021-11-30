@@ -1,9 +1,5 @@
 Replication Paper for Gov 2001
 
-
-Original Paper: 
-BACCINI, L., & WEYMOUTH, S. (2021). Gone For Good: Deindustrialization, White Voter Backlash, and US Presidential Voting. American Political Science Review, 115(2), 550-567. doi:10.1017/S0003055421000022
-
 Catherine Darin and Zagreb Mukerjee
 
 To generate the tables and figures in our final PDF:
@@ -21,3 +17,5 @@ To generate the tables and figures in our final PDF:
     - The county-level voting data comes from the MIT Election Data and Science Lab https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/VOQCHQ
     - The map figures are generated in the Rmd.
 
+Original Paper: 
+BACCINI, L., & WEYMOUTH, S. (2021). Gone For Good: Deindustrialization, White Voter Backlash, and US Presidential Voting. American Political Science Review, 115(2), 550-567. doi:10.1017/S0003055421000022
