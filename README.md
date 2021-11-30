@@ -9,7 +9,8 @@ To generate the tables and figures in our final PDF:
     - This will pull data from the Census - it may take a long time. 
     - It will clean and process the data, and store it in the data folder. 
 4) Run replicateRegsAndExtend_short v2.R. This will create the estimates used in the paper. 
-5) Run Draft.Rmd to produce the PDF. 
+5) Run tablesandfigures.R
+6) Run Draft.Rmd to produce the PDF. 
     - Draft.Rmd will make descriptive and regression tables
     - The time series of nationwide manufacturing job changes is based on an Excel file downloaded from the Census QWI Explorer (https://qwiexplorer.ces.census.gov/static/explore.html)
     - The map figures are generated in the Rmd.
