@@ -12,4 +12,4 @@ To generate the tables and figures in our final PDF:
 5) Run Draft.Rmd to produce the PDF. 
   - Draft.Rmd will make descriptive and regression tables
   - The time series of nationwide manufacturing job changes is based on an Excel file downloaded from the Census QWI Explorer (https://qwiexplorer.ces.census.gov/static/explore.html)
-  - The map figures are generated in the Rmd
+  - The map figures are generated in the Rmd.
