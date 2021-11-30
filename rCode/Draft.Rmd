@@ -67,9 +67,12 @@ While our main takeaway is consistent with Baccini and Weymouth's story, it is i
 
 ### Key Findings
 
-We find that, in aggregate, manufacturing job losses were a driver of change in Democratic vote share in the 2016 election. Breaking it down by race, we see that 
+We find that, in aggregate, manufacturing job losses were a driver of change in Democratic vote share in the 2016 election. Breaking it down by race, we see that [TO DO: complete thought]. Using our main results from regression 3 in Table 4, we simulate a counterfactual scenario to demonstrate the practical signifcance of our estimates. Specifically, we generate a counterfactual democratic vote share assuming that all counties experienced manufacturing job losses equivalent to the county at the 25th national percentile. In Figure 3, we show the difference between the counterfactual democratic vote share and the model-predicted democratic vote share. We highlight states in purple if the difference between the counterfactual and model-predicted democratic vote shares exceeded Trump's vote share margin. Figure 3 shows that the effect sizes from our analysis suggest that, but for manufacturing layoffs from 2004-2015, Trump may not have one the 2016 presidential election.
 
-Moreover, we find that, given the evolution of the business cycle, considering only recent job losses can paint a misleading picture of the relationship between manufacturing job losses and changes in vote share. In fact, we find that net manufacturing job losses from 2004 to 2011 are crucial to explaining Trump's 2016 win. This finding suggests that economic changes, like manufacturing layoffs, can have lagged and variable political consequence.
+
+Additionally, we find that, given the evolution of the business cycle, considering only recent job losses can paint a misleading picture of the relationship between manufacturing job losses and changes in vote share. In fact, we find that net manufacturing job losses from 2004 to 2011 are crucial to explaining Trump's 2016 win. This finding suggests that economic changes, like manufacturing layoffs, can have lagged and variable political consequence.
+
+
 
 
 ### Potential Future Work
@@ -97,7 +100,7 @@ knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
-### Manufacturing Layoffs Overtime
+### 1. Figure 1: Manufacturing Layoffs Over Time
 
 ```{r}
 # manufacturing layoffs overtime
@@ -388,10 +391,20 @@ model_input <- model_input %>%
     # by multiplying our regression coefficient against the difference
     # between observed manufacturing layoffs (our measure) and the
     # 25th percentile of layoffs (nationally)
-         CF_netchange = p25,
-         CF_d_netchange = CF_netchange - mfgNetChange_white,
-         CF_ddem_change = CF_d_netchange*model_results$coefficients[1],
-         P_ddem_2 = P_ddem_1 + CF_ddem_change) %>%
+    
+    # counterfactual net change in manufacturing job losses     
+    CF_netchange = p25,
+    
+    # difference between counterfactual and actual net manufacturing job losses 
+    CF_d_netchange = CF_netchange - mfgNetChange_white,
+    
+    # effect size -> coeff on white manufacturing layoffs times by the dif between CF and actual
+    CF_ddem_change = CF_d_netchange*model_results$coefficients[1],
+    
+    # counterfactual predicted dem vote share
+    
+    P_ddem_2 = P_ddem_1 + CF_ddem_change) %>%
+  
   dplyr::select(id, state_fips, state, state_name, county_fips,
                 county, year, dem_votes_pct1, ddem_votes_pct1,
                 P_ddem_1, mfgNetChange_white, mfgNetChange_total,
@@ -435,20 +448,21 @@ model_input <- left_join(model_input, voting,
 
 # calculate the counterfactual dem votes and rep votes
 model_input <- model_input %>%
-  mutate(CF_dem_votes = dem_votes +
-           CF_ddem_change*total_dem_rep_votes,
-         CF_rep_votes = rep_votes - CF_ddem_change*total_dem_rep_votes)
+  mutate(
+    CF_dem_votes = dem_votes + CF_ddem_change*total_dem_rep_votes,
+    CF_rep_votes = rep_votes - CF_ddem_change*total_dem_rep_votes)
 
 # create mapping categories
 order = c(
-  #"+2% or greater", "+1% to +2%",
+  "+2% or greater", 
+  "+1% to +2%",
           "+0.5% to +1%",
           "+0.25% to +0.5%", 
           "0% to +0.25%", 
           "0% to -0.25%")
 
 state_summary <- model_input %>%
-  group_by(state_name, state) %>%
+  group_by(state) %>%
   summarize(actual_trump_votes = sum(rep_votes),
             actual_dem_votes = sum(dem_votes),
             CF_trump_votes = sum(CF_rep_votes),
@@ -465,7 +479,7 @@ state_summary <- model_input %>%
       CF_trump_votes/(CF_trump_votes+CF_dem_votes),
     delta_vs = CF_trump_vs - actual_trump_vs) %>%
   mutate(
-    delta_vs = case_when(delta_vs < -.02 ~ "+2% or greater",
+    delta_vs_group = case_when(delta_vs < -.02 ~ "+2% or greater",
                          delta_vs < -.01 ~ "+1% to +2%",
                          delta_vs < -.005 ~ "+0.5% to +1%",
                          delta_vs < -.0025 ~ "+0.25% to +0.5%",
@@ -474,21 +488,17 @@ state_summary <- model_input %>%
                          delta_vs < .005 ~ "-0.25% to -0.5%",
                          delta_vs < .01 ~ "-0.5% to -1%",
                          TRUE ~ "-1% or greater")) %>%
-  mutate(delta_vs_group = factor(delta_vs, levels = order))
+  mutate(delta_vs_group = factor(delta_vs_group, levels = order))
 
 
 colors =
    c(
-     #"+2% or greater" = "#0059ff",
-     #"+1% to +2%" = "#4988fc",
+     "+2% or greater" = "#0059ff",
+     "+1% to +2%" = "#4988fc",
      "+0.5% to +1%" = "#86b0fc",
      "+0.25% to +0.5%" = "#b8d1ff",
      "0% to +0.25%" = "#dee9fc",
      "0% to -0.25%" = "#ffeae8")
-
-
-# map change in trump vote share
-library(tigris)
 
 # state shapefile
 state_shape <- states(
@@ -500,22 +510,17 @@ state_shape <- states(
   shift_geometry()
 
 mapping <- inner_join(state_shape, state_summary,
-                      by = c("NAME" = "state_name"))
+                      by = c("STUSPS" = "state"))
 
 
-#devtools::install_github("yutannihilation/ggsflabel")
-#library(ggsflabel)
-
-
-mapping_small <- mapping %>% filter(state != "DC")
+mapping_small <- mapping #%>% filter(state != "DC")
 
 mapping_small <- mapping_small %>%
   mutate(changed_outcome = ifelse(changed_outcome == 0,
                                   "No",
                                   "Yes"))
 
-
-#  alt
+#  make map
 flipped <- mapping_small %>% filter(changed_outcome == "Yes")
 ggplot() +
   geom_sf(data = mapping_small, aes(fill = delta_vs_group), color = "grey", size = .01) +
