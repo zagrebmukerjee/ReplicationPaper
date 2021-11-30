@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
-title: '\bf Brother, Can You Spare a Manufacturing Job? White Voter Reactions to Deindustrialization'
-=======
 title: "Brother, can you spare a manufacturing job? White Voters' reaction to Deindustrialization"
->>>>>>> 807f8b2c76c73a81fc24d30a9efe17de18e0494f
 author: 'Catherine Darin and Zagreb Mukerjee'
 date: '11/29/2021'
 fontsize: 12pt
@@ -52,10 +48,19 @@ We might be worried about endogeneity for manufacturing job losses. So we use a 
 
 Controls: unemployment in 2015, college educated share of population, male share of population, layoffs in service sector, white share of population (to control for demographic trends). We want to know if there's something singular about manufacturing jobs.
 
-## Extension Relative to 
+### Extension Relative to Baccini and Weymoth (2021)
 
+In their main model, Baccini and Weymouth looked at the effect on gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
 
-## Findings
+We believe that the correct quantity of internet is not gross manufacturing job losses, but net manufacturing job losses. E.g., if a county losses 400 manufacturing jobs and gain 400 manufacturing jobs in the same quarter, that should be considered a 0 net change in manufacturing employment, rather than a job loss of 400.
+
+Using net manufacturing job loss as our outcome measure, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing  (gross) layoffs to explain the change in democratic 2016 vote share. We find totally opposite results (as shown in Table X) - that a *net* increase in white manufacturing jobs (from 2012 to 2015) *increased* democratic vote share, while a **net** increase in non-white manufacturing jobs decreased democratic vote share.
+
+However, if we expand measure of job changes to include the 2004 to 2011 period - which is when the U.S. manufacturing economy was hit most intensley (see figure 1) -- we get a result that is consisent with Baccini and Weymouth's overall conclusion. That is, that net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job lossess increased Democratic vote share.
+
+But while our substantive takeway is consistent with Baccini and Weymouth's story, it is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analyis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in democratic vote share in other elections (2012 and 2020).
+
+## Key Findings
 
 We find that, in aggregate, manufacturing job losses are a driver of change in Democratic vote share. 
 
