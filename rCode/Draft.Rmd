@@ -80,6 +80,12 @@ county_shape <- counties(
   mutate(STATEFP = as.numeric(STATEFP),
          COUNTYFP = as.numeric(COUNTYFP))
 
+state_shape <- states(
+  cb = TRUE,
+  resolution = "20m"
+) %>%
+  filter(GEOID != "72") %>%
+  shift_geometry()
 
 # group counties into sextiles 
 model_input <- model_input %>%
@@ -94,28 +100,44 @@ sum <- model_input %>%
             max = max(mfgNetChange_total))
 
 labels = c(
-  "1" = "Less than -1% (Gain in Mfg. Emp)",
-  "2" = "-1% to 0% (Gain in Mfg. Emp)",
-  "3" = ".001"
-)
+  "1" = "1% or Greater Gain in Mfg. Emp",
+  "2" = "0% to 1% Gain in Mfg. Emp",
+  "3" = "0% to 1% Loss in Mfg. Emp",
+  "4" = "1% to 3% Loss in Mfg. Emp",
+  "5" = "3% to 6% Loss in Mfg. Emp",
+  "6" = "6% or Greater Loss in Mfg. Emp")
 
+  
+colors <- c("1" = "#778868",
+            "2" = "#b5b991",
+            "3" = "#f6edbd",
+            "4" = "#edbb8a",
+            "5" = "#de8a5a",
+            "6" = "#ca562c")
 
+#3d5941,#778868,#b5b991,#f6edbd,#edbb8a,#de8a5a,#ca562c
 mapping_county <- inner_join(county_shape, model_input,
                       by = c("STATEFP" = "state_fips",
                              "COUNTYFP" = "county_fips"))
 
-
-
 ggplot() +
-  geom_sf(data = mapping_county, aes(fill = mfgNetChange_total), color = NA, size = .01) +
-  scale_fill_viridis_c() +
+  geom_sf(data = mapping_county, aes(fill = ntile_mfg), 
+          color = NA, size = .01) +
+  scale_fill_manual(values = colors,
+                    labels = labels) +
+  # add state lines
+  geom_sf(data = state_shape, fill = NA, color = "black", size = .1) +
   coord_sf(datum = NA) +
   theme_minimal() +
   # geom_sf_text_repel(aes(label = state), data = mapping_small,
   #                    force = .00001,  seed = 10,
   #                    size = 2.5) +
   theme(  axis.title.x=element_blank(),
-          axis.title.y=element_blank())
+          axis.title.y=element_blank(),
+          text = element_text(size = 8)) + 
+  labs(title = "Figure X:\nNet Change in Manufacturing Employment from 2004 to 2015",
+       subtitle = "Normalized by 2004 Overall Employment Levels",
+       fill = "Cumulative Change in Manufacturing\nEmployment (2004-2015) per\n2004 Worker")
 
 
 ```
@@ -280,7 +302,7 @@ model_results <- readRDS("../model_5_results.rds")
 
 # load voting data
 library(data.table)
-voting <- fread("C:\\Users\\darin\\OneDrive\\Documents\\school\\MPP1 Fall Semester\\GOV 2001\\Replication File\\cd\\voting data.csv")
+voting <- fread("..\\data\\voting data.csv")
 
 
 # filter model input based on our regression filtering

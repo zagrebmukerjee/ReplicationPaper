@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.29)  29 NOV 2021 00:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.29)  29 NOV 2021 17:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -369,6 +369,25 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutvoffset=\dimen159
 \Gm@dimlist=\toks25
 )
+(c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.
+sty
+Package: fancyvrb 2021/11/24\nobreakspace {} 4.1a\nobreakspace {}verbatim text 
+(tvz,hv)
+\FV@CodeLineNo=\count282
+\FV@InFile=\read2
+\FV@TabBox=\box52
+\c@FancyVerbLine=\count283
+\FV@StepNumber=\count284
+\FV@OutFile=\write3
+) (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/framed/framed.st
+y
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip53
+\fb@frw=\dimen160
+\fb@frh=\dimen161
+\FrameRule=\dimen162
+\FrameSep=\dimen163
+)
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.
 sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
@@ -385,8 +404,8 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
-\Gin@req@height=\dimen160
-\Gin@req@width=\dimen161
+\Gin@req@height=\dimen164
+\Gin@req@width=\dimen165
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/grffile/grffile.st
 y
@@ -407,82 +426,82 @@ LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.
 sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen162
-\lightrulewidth=\dimen163
-\cmidrulewidth=\dimen164
-\belowrulesep=\dimen165
-\belowbottomsep=\dimen166
-\aboverulesep=\dimen167
-\abovetopsep=\dimen168
-\cmidrulesep=\dimen169
-\cmidrulekern=\dimen170
-\defaultaddspace=\dimen171
-\@cmidla=\count282
-\@cmidlb=\count283
-\@aboverulesep=\dimen172
-\@belowrulesep=\dimen173
-\@thisruleclass=\count284
-\@lastruleclass=\count285
-\@thisrulewidth=\dimen174
+\heavyrulewidth=\dimen166
+\lightrulewidth=\dimen167
+\cmidrulewidth=\dimen168
+\belowrulesep=\dimen169
+\belowbottomsep=\dimen170
+\aboverulesep=\dimen171
+\abovetopsep=\dimen172
+\cmidrulesep=\dimen173
+\cmidrulekern=\dimen174
+\defaultaddspace=\dimen175
+\@cmidla=\count285
+\@cmidlb=\count286
+\@aboverulesep=\dimen176
+\@belowrulesep=\dimen177
+\@thisruleclass=\count287
+\@lastruleclass=\count288
+\@thisrulewidth=\dimen178
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.st
 y
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip53
-\LTright=\skip54
-\LTpre=\skip55
-\LTpost=\skip56
-\LTchunksize=\count286
-\LTcapwidth=\dimen175
-\LT@head=\box52
-\LT@firsthead=\box53
-\LT@foot=\box54
-\LT@lastfoot=\box55
-\LT@gbox=\box56
-\LT@cols=\count287
-\LT@rows=\count288
-\c@LT@tables=\count289
-\c@LT@chunks=\count290
+\LTleft=\skip54
+\LTright=\skip55
+\LTpre=\skip56
+\LTpost=\skip57
+\LTchunksize=\count289
+\LTcapwidth=\dimen179
+\LT@head=\box53
+\LT@firsthead=\box54
+\LT@foot=\box55
+\LT@lastfoot=\box56
+\LT@gbox=\box57
+\LT@cols=\count290
+\LT@rows=\count291
+\c@LT@tables=\count292
+\c@LT@chunks=\count293
 \LT@p@ftn=\toks26
 ) (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
 Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen176
-\ar@mcellbox=\box57
-\extrarowheight=\dimen177
+\col@sep=\dimen180
+\ar@mcellbox=\box58
+\extrarowheight=\dimen181
 \NC@list=\toks27
-\extratabsurround=\skip57
-\backup@length=\skip58
-\ar@cellbox=\box58
+\extratabsurround=\skip58
+\backup@length=\skip59
+\ar@cellbox=\box59
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.
 sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip59
-\multirow@cntb=\count291
-\multirow@dima=\skip60
-\bigstrutjot=\dimen178
+\multirow@colwidth=\skip60
+\multirow@cntb=\count294
+\multirow@dima=\skip61
+\bigstrutjot=\dimen182
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.st
 y
-\wrapoverhang=\dimen179
-\WF@size=\dimen180
-\c@WF@wrappedlines=\count292
-\WF@box=\box59
+\wrapoverhang=\dimen183
+\WF@size=\dimen184
+\c@WF@wrappedlines=\count295
+\WF@box=\box60
 \WF@everypar=\toks28
 Package: wrapfig 2003/01/31  v 3.6
 ) (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count293
+\c@float@type=\count296
 \float@exts=\toks29
-\float@box=\box60
+\float@box=\box61
 \@float@everytoks=\toks30
-\@floatcapt=\box61
+\@floatcapt=\box62
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.
 sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
 \everycr=\toks31
-\minrowclearance=\skip61
+\minrowclearance=\skip62
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscap
 e.sty
@@ -499,38 +518,38 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.
 sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box62
-\sift@deathcycles=\count294
-\@vwid@loff=\dimen181
-\@vwid@roff=\dimen182
+\@vwid@box=\box63
+\sift@deathcycles=\count297
+\@vwid@loff=\dimen185
+\@vwid@roff=\dimen186
 )
-\c@taburow=\count295
-\tabu@nbcols=\count296
-\tabu@cnt=\count297
-\tabu@Xcol=\count298
-\tabu@alloc=\count299
-\tabu@nested=\count300
-\tabu@target=\dimen183
-\tabu@spreadtarget=\dimen184
-\tabu@naturalX=\dimen185
-\tabucolX=\dimen186
-\tabu@Xsum=\dimen187
-\extrarowdepth=\dimen188
-\abovetabulinesep=\dimen189
-\belowtabulinesep=\dimen190
-\tabustrutrule=\dimen191
+\c@taburow=\count298
+\tabu@nbcols=\count299
+\tabu@cnt=\count300
+\tabu@Xcol=\count301
+\tabu@alloc=\count302
+\tabu@nested=\count303
+\tabu@target=\dimen187
+\tabu@spreadtarget=\dimen188
+\tabu@naturalX=\dimen189
+\tabucolX=\dimen190
+\tabu@Xsum=\dimen191
+\extrarowdepth=\dimen192
+\abovetabulinesep=\dimen193
+\belowtabulinesep=\dimen194
+\tabustrutrule=\dimen195
 \tabu@thebody=\toks32
 \tabu@footnotes=\toks33
-\tabu@box=\box63
-\tabu@arstrutbox=\box64
-\tabu@hleads=\box65
-\tabu@vleads=\box66
-\tabu@cellskip=\skip62
+\tabu@box=\box64
+\tabu@arstrutbox=\box65
+\tabu@hleads=\box66
+\tabu@vleads=\box67
+\tabu@cellskip=\skip63
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/thr
 eeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box67
+\@tempboxb=\box68
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/th
 reeparttablex.sty
@@ -544,34 +563,34 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
 ces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\TPTL@width=\skip63
+\TPTL@width=\skip64
 ) (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
-\UL@box=\box68
-\UL@hyphenbox=\box69
-\UL@skip=\skip64
+\UL@box=\box69
+\UL@hyphenbox=\box70
+\UL@skip=\skip65
 \UL@hook=\toks34
-\UL@height=\dimen192
-\UL@pe=\count301
-\UL@pixel=\dimen193
-\ULC@box=\box70
+\UL@height=\dimen196
+\UL@pe=\count304
+\UL@pixel=\dimen197
+\ULC@box=\box71
 Package: ulem 2019/11/18
-\ULdepth=\dimen194
+\ULdepth=\dimen198
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecell.
 sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen195
-\c@nlinenum=\count302
+\rotheadsize=\dimen199
+\c@nlinenum=\count305
 \TeXr@lab=\toks35
 )
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
 d-pdftex.def
 File: l3backend-pdftex.def 2021-10-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count303
-\l__pdf_internal_box=\box71
+\l__color_backend_stack_int=\count306
+\l__pdf_internal_box=\box72
 ) (./Draft.aux
 
-LaTeX Warning: Label `tab:unnamed-chunk-1' multiply defined.
+LaTeX Warning: Label `tab:unnamed-chunk-3' multiply defined.
 
 
 LaTeX Warning: Label `' multiply defined.
@@ -579,24 +598,24 @@ LaTeX Warning: Label `' multiply defined.
 )
 \openout1 = `Draft.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 127.
+LaTeX Font Info:    ... okay on input line 127.
 
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epsto
 pdf-base.sty
@@ -609,7 +628,7 @@ df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 87.
+Package hyperref Info: Link coloring ON on input line 127.
 
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -623,14 +642,14 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count304
+\c@section@level=\count307
 )
-LaTeX Info: Redefining \ref on input line 87.
-LaTeX Info: Redefining \pageref on input line 87.
-LaTeX Info: Redefining \nameref on input line 87.
+LaTeX Info: Redefining \ref on input line 127.
+LaTeX Info: Redefining \pageref on input line 127.
+LaTeX Info: Redefining \nameref on input line 127.
 (./Draft.out) (./Draft.out)
-\@outlinefile=\write3
-\openout3 = `Draft.out'.
+\@outlinefile=\write4
+\openout4 = `Draft.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -666,135 +685,220 @@ LaTeX Info: Redefining \nameref on input line 87.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 8
-9.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
+29.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 8
-9.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
+29.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-89.
+129.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-89.
+129.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 89.
+(Font)              <14.4> on input line 129.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 89.
+(Font)              <10> on input line 129.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 89.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 89.
-
+(Font)              <7> on input line 129.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 129
+.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 89.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 129
+.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-05.
+45.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 147.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 147.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 147.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
+67.
+(c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 170.
 [1
 
 {c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
-x.map}pdfTeX warning (ext4): destination with the same identifier (name{table.1
-}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.211 \end{table}
-                 ] [2pdfTeX warning (ext4): destination with the same identifie
-r (name{table.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.216 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.3
-}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.216 
-      ]
-Overfull \hbox (214.78088pt too wide) in paragraph at lines 251--271
-\T1/lmr/m/n/12 | 34% | |============================== | 42% | |===============
-=====================
+x.map}]
+<Draft_files/figure-latex/unnamed-chunk-1-1.pdf, id=69, 469.755pt x 325.215pt>
+File: Draft_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
+<use Draft_files/figure-latex/unnamed-chunk-1-1.pdf>
+Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-1-1.pdf  used o
+n input line 199.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (32.51492pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 |======================== | 34% | |==========================
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--271
-\T1/lmr/m/n/12 |===================================================
+Overfull \hbox (123.39081pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 37% | |=========================== | 39% | |==================
+===========
  []
 
 
-Overfull \hbox (63.12656pt too wide) in paragraph at lines 251--271
-\T1/lmr/m/n/12 | 73% | |======================================================
+Overfull \hbox (178.22485pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 42% | |=============================== | 44% | |==============
+=================
  []
 
 
-Overfull \hbox (117.9606pt too wide) in paragraph at lines 251--271
-\T1/lmr/m/n/12 | 77% | |=======================================================
-=====
+Overfull \hbox (269.61493pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 45% | |=================================== | 49% | |==========
+===========================
  []
 
 
-Overfull \hbox (145.37762pt too wide) in paragraph at lines 251--271
-\T1/lmr/m/n/12 | 86% | |=======================================================
+Underfull \hbox (badness 2384) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 52% | |======================================== | 57%
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | |========================================== | 60% |
+ []
+
+
+Underfull \hbox (badness 1728) in paragraph at lines 205--247
+\T1/lmr/m/n/12 |============================================= | 64% |
+ []
+
+
+Overfull \hbox (20.62613pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 71% | |==================================================
+ []
+
+
+Overfull \hbox (44.84854pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 72% | |====================================================
+ []
+
+
+Overfull \hbox (81.40457pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 75% | |=======================================================
+=
+ []
+
+
+Overfull \hbox (99.68259pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 79% | |=======================================================
+===
+ []
+
+
+Overfull \hbox (127.09961pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 82% | |=======================================================
+======
+ []
+
+
+Overfull \hbox (145.37762pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 87% | |=======================================================
 ========
  []
 
 
-Overfull \hbox (212.684pt too wide) in paragraph at lines 251--271
-\T1/lmr/m/n/12 | 91% | |=======================================================
+Overfull \hbox (172.79465pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 90% | |=======================================================
+===========
+ []
+
+
+Overfull \hbox (191.07266pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 94% | |=======================================================
+=============
+ []
+
+
+Overfull \hbox (212.684pt too wide) in paragraph at lines 205--247
+\T1/lmr/m/n/12 | 97% | |=======================================================
 ===============|
  []
 
-<Draft_files/figure-latex/unnamed-chunk-4-1.pdf, id=74, 469.755pt x 325.215pt>
-File: Draft_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
-<use Draft_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-4-1.pdf  used o
-n input line 272.
+[2 <./Draft_files/figure-latex/unnamed-chunk-1-1.pdf>]
+<Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=80, 469.755pt x 325.215pt>
+File: Draft_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+<use Draft_files/figure-latex/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-2-1.pdf  used o
+n input line 248.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[3pdfTeX warning (ext4): destination with the same identifier (name{table.4}) h
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 271.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 271.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 271.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3 <./Draft_files/figure-latex/unnamed-chunk-2-1.pdf>]
+<Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=91, 469.755pt x 325.215pt>
+File: Draft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
+<use Draft_files/figure-latex/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-6-1.pdf  used o
+n input line 378.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[4pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.275 ... Michigan}\label{example-state-michigan}}
-                                                  ] [4 <./Draft_files/figure-la
-tex/unnamed-chunk-4-1.pdf>] (./Draft.aux)
+l.381 ... Michigan}\label{example-state-michigan}}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{table.2}) has been already used, duplicate
+ ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.381 ... Michigan}\label{example-state-michigan}}
+                                                  ]
+Overfull \vbox (80.63515pt too high) has occurred while \output is active []
+
+[5pdfTeX warning (ext4): destination with the same identifier (name{table.3}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.381 ... Michigan}\label{example-state-michigan}}
+                                                   <./Draft_files/figure-latex/
+unnamed-chunk-6-1.pdf>] [6pdfTeX warning (ext4): destination with the same iden
+tifier (name{table.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.407 \end{document}
+                    ] (./Draft.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Draft.out' has not changed.
-(rerunfilecheck)             Checksum: 107B01941D6097F509D8578FF4C55ED6;1395.
+(rerunfilecheck)             Checksum: F0999E39BCC493FDA403E1C01E21EAB5;1818.
  ) 
 Here is how much of TeX's memory you used:
- 12492 strings out of 480313
- 199462 string characters out of 5895779
- 520925 words of memory out of 5000000
- 30079 multiletter control sequences out of 15000+600000
- 472397 words of font info for 86 fonts, out of 8000000 for 9000
+ 13056 strings out of 480313
+ 209235 string characters out of 5895779
+ 530954 words of memory out of 5000000
+ 30621 multiletter control sequences out of 15000+600000
+ 473352 words of font info for 89 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,11n,63p,289b,352s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,11n,63p,371b,360s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-math
 it.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm
 -rm.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/l
@@ -807,11 +911,14 @@ nts/type1/public/lm/lmr12.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dis
 t/fonts/type1/public/lm/lmr8.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-
 dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/t
 exmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/darin/AppData/Roaming/Tiny
-TeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
-Output written on Draft.pdf (4 pages, 193331 bytes).
+TeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Users/darin/AppData/Roaming/
+TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/darin/AppData/Roa
+ming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb><c:/Users/darin/AppDat
+a/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on Draft.pdf (6 pages, 583524 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 116 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
- 94 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 189 PDF objects out of 1000 (max. 8388607)
+ 152 compressed objects within 2 object streams
+ 37 named destinations out of 1000 (max. 500000)
+ 120 words of extra memory for PDF output out of 10000 (max. 10000000)
 
