@@ -52,20 +52,23 @@ Controls: unemployment in 2015, college educated share of population, male share
 
 In their main model, Baccini and Weymouth looked at the effect on gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
 
-We believe that the correct quantity of internet is not gross manufacturing job losses, but net manufacturing job losses. E.g., if a county losses 400 manufacturing jobs and gain 400 manufacturing jobs in the same quarter, that should be considered a 0 net change in manufacturing employment, rather than a job loss of 400.
+Our key extension of Baccini and Weymouth's analysis is changing the quantity of interest from **gross** manufacturing job losses to **net** manufacturing job losses. For example, in Baccini and Weymouth's model, if a county lost 400 manufacturing jobs from 2012-2015 and also gained 400 manufacturing jobs over the same period, they would count 400 overall layoffs. Using our measure of *net* manufacturing job lossess, we would consider this example a 0 net change in manufacturing employment. Given that job descruction and creation is a natural dynamic within the economy (i.e., creative destruction), we think that *net* job lossess is a more meaningful measure.
 
-Using net manufacturing job loss as our outcome measure, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing  (gross) layoffs to explain the change in democratic 2016 vote share. We find totally opposite results (as shown in Table X) - that a *net* increase in white manufacturing jobs (from 2012 to 2015) *increased* democratic vote share, while a **net** increase in non-white manufacturing jobs decreased democratic vote share.
+Using *net* manufacturing job losses as our outcome, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing (gross) job losses to explain the change in democratic vote share in 2016. Using their specifications, we find totally opposite results - that a *net* increase in white manufacturing jobs *increased* democratic vote share, while a *net* increase in non-white manufacturing jobs *decreased* democratic vote share. (See Tavble X)
 
-However, if we expand measure of job changes to include the 2004 to 2011 period - which is when the U.S. manufacturing economy was hit most intensley (see figure 1) -- we get a result that is consisent with Baccini and Weymouth's overall conclusion. That is, that net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job lossess increased Democratic vote share.
+However, we do not trust the result of this specification, because, from 2012 to 2015, the national economy experienced a net increase in manufacturing jobs following the 2008 recession (see Figure 1). During this time of recovery, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery. Therefore, because manufacturing job losses pre-2012 are likely negatively correlated with manufacturing job gains from 2012-2015, it is misleading to segment the analysis data to just include job losses from 2012 to 2015. [To DO: Empirically show negative correlation describe here]
 
-But while our substantive takeway is consistent with Baccini and Weymouth's story, it is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analyis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in democratic vote share in other elections (2012 and 2020).
+If we expand our measure of net manufacturing job losses to include the 2004 to 2011 period - which covers most of the period when the U.S. manufacturing economy was hit most intensley (see figure 1) -- we get a result that is consisent with Baccini and Weymouth's overall conclusion. That is, we find that net white manufacturing job losses decreased democratic vote share, while net non-white manufacturing job lossess increased democratic vote share.
+
+While our main takeway is consistent with Baccini and Weymouth's story, it is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analyis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. 
+
+[Note: to demonstrate our point about **variable** effects, In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in democratic vote share in other elections (2012 and 2020).]
 
 ## Key Findings
 
-We find that, in aggregate, manufacturing job losses are a driver of change in Democratic vote share. 
+We find that, in aggregate, manufacturing job losses were a driver of change in Democratic vote share in the 2016 election. Breaking it down by race, we see that 
 
-Breaking it down by race, we see that 
-
+Moreover, we find that, given the evolution of the business cycle, considering only recent job losses can paint a misleading picture of the relationship between manufacturing job losses and changes in vote share. In fact, we find that net manufacturing job losses from 2004 to 2011 are crucial to explaning Trump's 2016 win. This finding suggests that economic changes, like manufacturing layoffs, can have lagged and variable political consequence.
 
 
 ```{r setup, echo=F, message = F, warning= F}
@@ -100,7 +103,8 @@ national_ts <- national_ts %>%
 
 ggplot(data = national_ts %>% filter(year >= 1995), aes(x = year, y = net_job_change)) +
   geom_col() + scale_x_continuous(breaks=seq(1995,2019,2)) +
-	scale_y_continuous(labels = label_number(suffix = "", scale = 1e-6)) 
+	scale_y_continuous(labels = label_number(suffix = "", scale = 1e-6)) +
+  labs()
 
 
 
