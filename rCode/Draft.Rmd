@@ -49,7 +49,7 @@ We might be worried about endogeneity for manufacturing job losses. So we use a 
 
 Controls: unemployment in 2015, college educated share of population, male share of population, layoffs in service sector, white share of population (to control for demographic trends). We want to know if there's something singular about manufacturing jobs.
 
-### Extension Relative to Baccini and Weymoth (2021)
+### Extension Relative to Baccini and Weymouth (2021)
 
 In their main model, Baccini and Weymouth looked at the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
 
@@ -59,21 +59,21 @@ Using *net* manufacturing job losses as our outcome, we replicate Baccini and We
 
 However, we don't think this is capturing the important dynamic at play. From 2012 to 2015, the national economy experienced a net increase in manufacturing jobs following the 2008 recession (See Figure 1). During this time of recovery, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. [To DO: Empirically show negative correlation described here]
 
-If we expand our measure of net manufacturing job losses to include the 2004 to 2011 period - which covers most of the period when the U.S. manufacturing economy was hit most intensely (See Figure 1) -- we get a result that corroborates the core intuition of Baccini and Weymouth (See Table 4). That is, we find that net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased democratic vote share.
+If we expand our measure of net manufacturing job losses to include the 2004 to 2011 period - which covers most of the period when the U.S. manufacturing economy was hit most intensely (See Figure 1) -- we get a result that corroborates the core intuition of Baccini and Weymouth (See Table 4). That is, we find that net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased Democratic vote share.
 
 It is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analysis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. The mechanisms of these lagged effects merit further study.
 
-[Note: to demonstrate our point about **variable** effects, In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in democratic vote share in other elections (2012 and 2020).]
+[Note: to demonstrate our point about **variable** effects, In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in Democratic vote share in other elections (2012 and 2020).]
 
 ### Key Findings
 
 
-We find that, in aggregate, manufacturing job losses were a driver of change in Democratic vote share in the 2016 election. Breaking it down by race, we see that [TO DO: complete thought]. Using our main results from regression 3 in Table 4, we simulate a counterfactual scenario to demonstrate the practical signifcance of our estimates. Specifically, we generate a counterfactual democratic vote share assuming that all counties experienced manufacturing job losses equivalent to the county at the 25th national percentile. In Figure 3, we show the difference between the counterfactual democratic vote share and the model-predicted democratic vote share. We highlight states in purple if the difference between the counterfactual and model-predicted democratic vote shares exceeded Trump's vote share margin. Figure 3 shows that the effect sizes from our analysis suggest that, but for manufacturing layoffs from 2004-2015, Trump may not have one the 2016 presidential election.
 
+We find that, in aggregate, manufacturing job losses were associated with loss of Democratic vote share in the 2016 election. 10 manufacturing job losses per worker in a county since 2004 corresponded to a 3.8 \% loss in vote share, plus or minus 3.3 \%. Breaking it down by race, we see that [TO DO: complete thought]. 
+
+Figure 3 demonstrates the practical significance of our estimates. Using our main results from regression 3 in Table 4, we simulate a counterfactual 2016 election assuming that all counties experienced white manufacturing job losses equivalent to the county at the 25th national percentile. We highlight states in purple if this counterfactual shows a state flipping from Trump to Clinton. 
 
 Additionally, we find that, given the evolution of the business cycle, considering only recent job losses can paint a misleading picture of the relationship between manufacturing job losses and changes in vote share. In fact, we find that net manufacturing job losses from 2004 to 2011 are crucial to explaining Trump's 2016 win. This finding suggests that economic changes, like manufacturing layoffs, can have lagged and variable political consequence.
-
-We find that, in aggregate, manufacturing job losses were associated with loss of Democratic vote share in the 2016 election. 10 manufacturing job losses per worker in a county since 2004 corresponded to a 3.8 \% loss in vote share, plus or minus 3.3 \%. Breaking it down by race, we see that white 
 
 
 
