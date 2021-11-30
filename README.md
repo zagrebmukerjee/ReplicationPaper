@@ -8,7 +8,7 @@ To generate the tables and figures in our final PDF:
 3) Run 'main.R' (after installing appropriate packages). 
     - This will pull data from the Census - it may take a long time. 
     - It will clean and process the data, and store it in the data folder. 
-4) Run replicateRegsAndExtend_short v2.R. This will create the estimates used in the paper. 
+4) Run replicateRegsAndExtend_short v2.R. This will create the estimates used in the paper. Additionally, this program reproduces the main table from Baccini and Weymouth's analysis.
 5) Run tablesandfigures.R
 6) Run Draft.Rmd to produce the PDF. 
     - Draft.Rmd will make descriptive and regression tables
