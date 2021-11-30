@@ -1,5 +1,5 @@
 ---
-title: '\bf Brother, can you spare a manufacturing job? White Voters\' reaction to Deindustrialization'
+title: 'bf Brother, can you spare a manufacturing job? White Voters reaction to Deindustrialization'
 author: 'Catherine Darin and Zagreb Mukerjee'
 date: '11/29/2021'
 fontsize: 12pt
@@ -73,7 +73,7 @@ knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```{r}
 # manufacturing layoffs overtime
 
-national_ts <- read_xlsx("../data/National_Data_TS.xlsx")
+national_ts <- read_xlsx("../National_Data_TS.xlsx")
 
 national_ts <- national_ts %>%
   rename(year = 1,
@@ -333,7 +333,7 @@ model_results <- readRDS("../model_5_results.rds")
 
 # load voting data
 library(data.table)
-voting <- fread("..\\data\\voting data.csv")
+voting <- fread("..\\voting data.csv")
 
 
 # filter model input based on our regression filtering
