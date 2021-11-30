@@ -21,7 +21,7 @@ header-includes:
 
 ## Introduction
 
-What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. Counties differ by exposure to manufacturing, which we use in an instrumental-variable approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
+What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. Counties differ by exposure to manufacturing, which we use in an instrumental-variable approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
 
 Base paper: Baccini and Weymouth 2021, "Gone For Good: Deindustrialization, White Voter Backlash, and US Presidential Voting." *APSR*.
 
@@ -471,7 +471,7 @@ mapping <- inner_join(state_shape, state_summary,
 
 
 #devtools::install_github("yutannihilation/ggsflabel")
-library(ggsflabel)
+#library(ggsflabel)
 
 
 mapping_small <- mapping %>% filter(state != "DC")
