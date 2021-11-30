@@ -103,9 +103,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
 
-### 1. Figure 1: Manufacturing Layoffs Over Time
-
-### Nationwide Manufacturing Layoffs Per Worker, 1995-2019
+### Manufacturing Layoffs Over Time
 
 ```{r, message = F}
 # manufacturing layoffs over time
@@ -121,15 +119,19 @@ national_ts <- national_ts %>%
     Year = as.numeric(Year),
     `Job Change per Worker` = `Job Change per Worker`*4) %>% group_by()
 
-ggplot(data = national_ts %>% filter(Year >= 1995), aes(x = Year, y = `Job Change per Worker`)) +
-  geom_col() + scale_x_continuous(breaks=seq(1995,2019,2)) +
+ggplot(data = national_ts %>% filter(Year >= 1995), 
+       aes(x = Year, y = `Job Change per Worker`)) +
+  ylab("Millions of Jobs") +
+  ggtitle("Figure 1. Nationwide Change in Manufacturing Employment, 1995-2019") +
+  geom_col(fill = "#4287f5") + scale_x_continuous(breaks=seq(1995,2019,2)) +
 	scale_y_continuous(labels = label_number(suffix = "", scale = 1e-6)) +
-  labs()
+  theme_minimal()
 
 
 
 ```
 
+\newpage
 ### Geographic Concentration of Layoffs
 
 ```{r,  echo=F, message = F, results = "asis"}
@@ -152,8 +154,7 @@ state_shape <- states(
   resolution = "20m",
   progress_bar = F
 ) %>%
-  filter(GEOID != "72") %>%
-  shift_geometry()
+  filter(GEOID != "72" & GEOID != "02", GEOID != "15") 
 
 # group counties into sextiles 
 model_input <- model_input %>%
@@ -168,12 +169,12 @@ sum <- model_input %>%
             max = max(mfgNetChange_total))
 
 labels = c(
-  "1" = "1% or Greater Gain in Mfg. Emp",
-  "2" = "0% to 1% Gain in Mfg. Emp",
-  "3" = "0% to 1% Loss in Mfg. Emp",
-  "4" = "1% to 3% Loss in Mfg. Emp",
-  "5" = "3% to 6% Loss in Mfg. Emp",
-  "6" = "6% or Greater Loss in Mfg. Emp")
+  "1" = "1% or Greater Gain",
+  "2" = "0% to 1% Gain",
+  "3" = "0% to 1% Loss",
+  "4" = "1% to 3% Loss",
+  "5" = "3% to 6% Loss",
+  "6" = "6% or Greater Loss")
 
   
 colors <- c("1" = "#778868",
@@ -203,14 +204,14 @@ ggplot() +
   theme(  axis.title.x=element_blank(),
           axis.title.y=element_blank(),
           text = element_text(size = 8)) + 
-  labs(title = "Figure X:\nNet Change in Manufacturing Employment from 2004 to 2015",
+  labs(title = "Figure 2: Net Change in Manufacturing Employment from 2004 to 2015",
        subtitle = "Normalized by 2004 Overall Employment Levels",
        fill = "Cumulative Change in Manufacturing\nEmployment (2004-2015) per\n2004 Worker")
 
 
 ```
 
-
+\newpage
 ### Descriptive Statistics
 ```{r,  echo=F}
 descriptiveData <-  readRDS("../tableData.rds")
@@ -230,12 +231,9 @@ knitr::kable(descriptiveData$tableOurs,
 
 ```
 
-## Figures
 
-
-
-
-### Regression summaries
+\newpage
+### Regression Results (Using 2004-2015 Net Manu Job Change)
 
 ```{r,  echo=F, message = F, results = "asis"}
 
@@ -299,7 +297,8 @@ stargazer(regResultList$secondStageModelNetC04A,
 ```
 
 
-
+\newpage
+### Regression Results (Using 2012-2015 Net Manu Job Change)
 
 ```{r,  echo=F, message = F, results = "asis"}
 
@@ -359,16 +358,10 @@ stargazer(regResultList$secondStageModelNetCA,
 
 ```
 
+\newpage
+### Counterfactual assessment of election (Using 2004-2015 Layoffs)
 
-
-
-
-
-### Counterfactual assessment of election
-## (Using 2004-2015 Layoffs)
-
-
-```{r,  echo=F, message = F, results = "asis"}
+```{r,  echo=F, message = F}
 
 # load map
 model_input <- readRDS("../model_5_input.rds")
@@ -463,8 +456,8 @@ model_input <- model_input %>%
 
 # create mapping categories
 order = c(
-  "+2% or greater", 
-  "+1% to +2%",
+ # "+2% or greater", 
+  #"+1% to +2%",
           "+0.5% to +1%",
           "+0.25% to +0.5%", 
           "0% to +0.25%", 
@@ -502,8 +495,8 @@ state_summary <- model_input %>%
 
 colors =
    c(
-     "+2% or greater" = "#0059ff",
-     "+1% to +2%" = "#4988fc",
+    # "+2% or greater" = "#0059ff",
+     #"+1% to +2%" = "#4988fc",
      "+0.5% to +1%" = "#86b0fc",
      "+0.25% to +0.5%" = "#b8d1ff",
      "0% to +0.25%" = "#dee9fc",
@@ -532,12 +525,14 @@ mapping_small <- mapping_small %>%
 #  make map
 flipped <- mapping_small %>% filter(changed_outcome == "Yes")
 ggplot() +
-  geom_sf(data = mapping_small, aes(fill = delta_vs_group), color = "grey", size = .01) +
+  geom_sf(data = mapping_small, aes(fill = delta_vs_group), color = "black", size = .1) +
   scale_fill_manual(values = colors) +
-  labs(title = "Figure X:\nWithout Manufacturing Layoffs, Democrats Would Have Won 2016 Election",
-       subtitle = "Change in Democratic Vote Share Assuming Counterfactual Manufacturing Layoffs (25th Percentile)",
+  labs(title = "Figure 3: Impact of Manufacturing Job Lossess on Democratic Vote Share",
+       subtitle = "Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses",
        fill = "Change in Democratic Vote Share") +
-  geom_sf(data = flipped, fill = NA, aes(color = changed_outcome), size = 1) +
+  geom_sf(data = flipped, fill = NA, 
+          aes(color = changed_outcome), 
+          size = 1) +
   scale_color_manual(values = "#b32ab5", name = "Flipped Election") +
   labs(color = "Flipped Election") +
   coord_sf(datum = NA) +
