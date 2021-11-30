@@ -1,5 +1,5 @@
 ---
-title: 'bf Brother, can you spare a manufacturing job? White Voters reaction to Deindustrialization'
+title: "Brother, can you spare a manufacturing job? White Voters' reaction to Deindustrialization"
 author: 'Catherine Darin and Zagreb Mukerjee'
 date: '11/29/2021'
 fontsize: 12pt
@@ -42,11 +42,14 @@ Differential manufacturing exposure across counties allows for identification of
 
 Data is Census Quarterly Workforce Indicators, which break down county employment by industry, race and ethnicity. Augmented with public data on vote shares, employment, etc. 
 
-We look at manufacturing employment (NAICS 31-33, see extensions below). Then  compute net change in mfg jobs (long term job loss) from 2004 to 2015, relative to employment in 2004.
+We look at total employment and manufacturing employment (NAICS 31-33, see extensions below). We then  compute net change in mfg jobs (long term job loss) from 2004 to 2015, relative to employment in 2004.
 
-We might be worried about endogeneity for manufacturing job losses. So we use a shift-share instrument: we predict job losses per worker with county-level manufacturing as a share of total employment, plus controls. 
+We might be worried about endogeneity for manufacturing job losses. So we use a shift-share instrument: we predict net job losses per worker with county-level manufacturing as a share of total employment, plus controls. 
 
 Controls: unemployment in 2015, college educated share of population, male share of population, layoffs in service sector, white share of population (to control for demographic trends). We want to know if there's something singular about manufacturing jobs.
+
+## Extension Relative to 
+
 
 ## Findings
 
@@ -65,6 +68,8 @@ library(knitr)
 library(kableExtra)
 library(readxl)
 library(scales)
+library(tigris)
+
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
@@ -97,8 +102,6 @@ ggplot(data = national_ts %>% filter(year >= 1995), aes(x = year, y = net_job_ch
 
 # load map
 model_input <- readRDS("../model_5_input.rds")
-
-library(tigris)
 
 # state shapefile
 county_shape <- counties(

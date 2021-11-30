@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.29)  29 NOV 2021 19:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.29)  29 NOV 2021 20:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -725,232 +725,256 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-19.
+22.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 222.
-<Draft_files/figure-latex/unnamed-chunk-1-1.pdf, id=88, 469.755pt x 325.215pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 225.
+[2]
+<Draft_files/figure-latex/unnamed-chunk-1-1.pdf, id=102, 469.755pt x 325.215pt>
+
 File: Draft_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 <use Draft_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-1-1.pdf  used o
-n input line 251.
+n input line 254.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[2]
-Underfull \hbox (badness 1062) in paragraph at lines 257--324
-\T1/lmr/m/n/12 | 9% | |======== | 11% | |======== | 12% | |========== | 14% |
+
+Underfull \hbox (badness 1867) in paragraph at lines 260--327
+\T1/lmr/m/n/12 9% | |======== | 11% | |======== | 12% | |========== | 14% |
  []
 
 
-Overfull \hbox (28.80612pt too wide) in paragraph at lines 257--324
-\T1/lmr/m/n/12 |============== | 19% | |=============== | 21% | |==============
-==
+Underfull \hbox (badness 1005) in paragraph at lines 260--327
+\T1/lmr/m/n/12 |========== | 15% | |============= | 19% | |==============
  []
 
 
-Overfull \hbox (62.61237pt too wide) in paragraph at lines 257--324
-\T1/lmr/m/n/12 34% | |======================== | 34% | |=======================
-===
+Underfull \hbox (badness 2689) in paragraph at lines 260--327
+\T1/lmr/m/n/12 |================== | 26% | |=================== | 27% |
  []
 
 
-Overfull \hbox (123.39081pt too wide) in paragraph at lines 257--324
-\T1/lmr/m/n/12 | 37% | |=========================== | 39% | |==================
-===========
+Overfull \hbox (29.32031pt too wide) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | |======================== | 34% | |=========================
  []
 
 
-Overfull \hbox (159.94684pt too wide) in paragraph at lines 257--324
-\T1/lmr/m/n/12 | 41% | |============================= | 42% | |================
+Overfull \hbox (95.97379pt too wide) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | 36% | |========================== | 37% | |===================
+========
+ []
+
+
+Overfull \hbox (159.94684pt too wide) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | 39% | |============================= | 42% | |================
 ===============
  []
 
 
-Overfull \hbox (214.78088pt too wide) in paragraph at lines 257--324
-\T1/lmr/m/n/12 | 44% | |=============================== | 45% | |==============
-=====================
+Overfull \hbox (233.0589pt too wide) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | 45% | |================================= | 47% | |============
+=======================
  []
 
 
-Underfull \hbox (badness 6961) in paragraph at lines 257--324
-\T1/lmr/m/n/12 | 49% | |===================================== | 52% |
+Underfull \hbox (badness 10000) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | 49% | |==================================== | 51% |
  []
 
 
-Overfull \hbox (288.40714pt too wide) in paragraph at lines 257--324
-\T1/lmr/m/n/12 |====================================== | 54% | |===============
-=========================
+Overfull \hbox (260.99011pt too wide) in paragraph at lines 260--327
+\T1/lmr/m/n/12 |===================================== | 52% | |================
+======================
  []
 
 
-Underfull \hbox (badness 1038) in paragraph at lines 257--324
-\T1/lmr/m/n/12 | |============================================ | 63% |
+Underfull \hbox (badness 2384) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | 54% | |======================================== | 57%
  []
 
 
-Underfull \hbox (badness 1728) in paragraph at lines 257--324
+Underfull \hbox (badness 10000) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | |========================================= | 59% |
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 260--327
+\T1/lmr/m/n/12 |========================================== | 60% |
+ []
+
+
+Underfull \hbox (badness 1728) in paragraph at lines 260--327
 \T1/lmr/m/n/12 |============================================= | 64% |
  []
 
 
-Overfull \hbox (20.62613pt too wide) in paragraph at lines 257--324
+Overfull \hbox (20.62613pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 71% | |==================================================
  []
 
 
-Overfull \hbox (44.84854pt too wide) in paragraph at lines 257--324
+Overfull \hbox (44.84854pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 72% | |====================================================
  []
 
 
-Overfull \hbox (63.12656pt too wide) in paragraph at lines 257--324
+Overfull \hbox (63.12656pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 75% | |======================================================
  []
 
 
-Overfull \hbox (72.26556pt too wide) in paragraph at lines 257--324
+Overfull \hbox (81.40457pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 77% | |=======================================================
-
- []
-
-
-Overfull \hbox (81.40457pt too wide) in paragraph at lines 257--324
-\T1/lmr/m/n/12 | 78% | |=======================================================
 =
  []
 
 
-Overfull \hbox (90.54358pt too wide) in paragraph at lines 257--324
+Overfull \hbox (90.54358pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 79% | |=======================================================
 ==
  []
 
 
-Overfull \hbox (99.68259pt too wide) in paragraph at lines 257--324
+Overfull \hbox (99.68259pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 81% | |=======================================================
 ===
  []
 
 
-Overfull \hbox (117.9606pt too wide) in paragraph at lines 257--324
+Overfull \hbox (108.8216pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 82% | |=======================================================
+====
+ []
+
+
+Overfull \hbox (117.9606pt too wide) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | 84% | |=======================================================
 =====
  []
 
 
-Overfull \hbox (127.09961pt too wide) in paragraph at lines 257--324
+Overfull \hbox (127.09961pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 86% | |=======================================================
 ======
  []
 
 
-Overfull \hbox (136.23862pt too wide) in paragraph at lines 257--324
+Overfull \hbox (136.23862pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 87% | |=======================================================
 =======
  []
 
 
-Overfull \hbox (145.37762pt too wide) in paragraph at lines 257--324
+Overfull \hbox (145.37762pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 89% | |=======================================================
 ========
  []
 
 
-Overfull \hbox (154.51663pt too wide) in paragraph at lines 257--324
+Overfull \hbox (154.51663pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 90% | |=======================================================
 =========
  []
 
 
-Overfull \hbox (172.79465pt too wide) in paragraph at lines 257--324
+Overfull \hbox (172.79465pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 92% | |=======================================================
 ===========
  []
 
 
-Overfull \hbox (191.07266pt too wide) in paragraph at lines 257--324
+Overfull \hbox (181.93365pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 94% | |=======================================================
+============
+ []
+
+
+Overfull \hbox (191.07266pt too wide) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | 96% | |=======================================================
 =============
  []
 
 
-Overfull \hbox (212.684pt too wide) in paragraph at lines 257--324
+Overfull \hbox (200.21167pt too wide) in paragraph at lines 260--327
 \T1/lmr/m/n/12 | 97% | |=======================================================
+==============
+ []
+
+
+Overfull \hbox (212.684pt too wide) in paragraph at lines 260--327
+\T1/lmr/m/n/12 | 99% | |=======================================================
 ===============|
  []
 
 [3 <./Draft_files/figure-latex/unnamed-chunk-1-1.pdf>]
-<Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=108, 469.755pt x 325.215pt>
+<Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=113, 469.755pt x 325.215pt>
 
 File: Draft_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use Draft_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-2-1.pdf  used o
-n input line 325.
+n input line 328.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[4]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 347.
+(Font)              <12> on input line 350.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 347.
+(Font)              <8> on input line 350.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 347.
+(Font)              <6> on input line 350.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[4 <./Draft_files/figure-latex/unnamed-chunk-2-1.pdf>]
-<Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=119, 469.755pt x 325.215pt>
-
-File: Draft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use Draft_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-6-1.pdf  used o
-n input line 443.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [5pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.446 ... Michigan}\label{example-state-michigan}}
+l.409 \end{table}
+                  <./Draft_files/figure-latex/unnamed-chunk-2-1.pdf>]
+<Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=130, 469.755pt x 325.215pt>
+
+File: Draft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
+<use Draft_files/figure-latex/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: Draft_files/figure-latex/unnamed-chunk-6-1.pdf  used o
+n input line 446.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[6pdfTeX warning (ext4): destination with the same identifier (name{table.2}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.449 ... Michigan}\label{example-state-michigan}}
                                                   pdfTeX warning (ext4): destin
-ation with the same identifier (name{table.2}) has been already used, duplicate
+ation with the same identifier (name{table.3}) has been already used, duplicate
  ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.446 ... Michigan}\label{example-state-michigan}}
-                                                  ] [6pdfTeX warning (ext4): de
-stination with the same identifier (name{table.3}) has been already used, dupli
-cate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.446 ... Michigan}\label{example-state-michigan}}
-                                                  pdfTeX warning (ext4): destin
-ation with the same identifier (name{table.4}) has been already used, duplicate
- ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.446 ... Michigan}\label{example-state-michigan}}
+l.449 ... Michigan}\label{example-state-michigan}}
                                                   ]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4
-57.
+60.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [7 <./Draft_files/figure-latex/unnamed-chunk-6-1.pdf>] [8] (./Draft.aux)
+) [7pdfTeX warning (ext4): destination with the same identifier (name{table.4})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.464   D
+         isaggregation: Instead of instrumenting by manufacturing share, <./Dra
+ft_files/figure-latex/unnamed-chunk-6-1.pdf>] [8] (./Draft.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Draft.out' has not changed.
-(rerunfilecheck)             Checksum: 1C3F2AB8BEAAF2AEEF0AB785024D5525;2390.
+(rerunfilecheck)             Checksum: 78F1B655A4602FCE5A2C048801D6A0BB;2547.
  ) 
 Here is how much of TeX's memory you used:
- 13076 strings out of 480313
- 209514 string characters out of 5895779
- 528640 words of memory out of 5000000
- 30629 multiletter control sequences out of 15000+600000
+ 13080 strings out of 480313
+ 209582 string characters out of 5895779
+ 526623 words of memory out of 5000000
+ 30631 multiletter control sequences out of 15000+600000
  470354 words of font info for 88 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,11n,63p,371b,386s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,11n,63p,371b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.
 enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ma
 thit.enc}{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/
@@ -968,10 +992,10 @@ TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Users/darin/AppData/Roam
 ing/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/darin/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb><c:/Users/darin/Ap
 pData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Draft.pdf (8 pages, 614925 bytes).
+Output written on Draft.pdf (8 pages, 615977 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 187 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
- 152 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 233 PDF objects out of 1000 (max. 8388607)
+ 192 compressed objects within 2 object streams
+ 51 named destinations out of 1000 (max. 500000)
+ 160 words of extra memory for PDF output out of 10000 (max. 10000000)
 
