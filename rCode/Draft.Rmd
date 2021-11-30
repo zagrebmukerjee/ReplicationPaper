@@ -1,5 +1,5 @@
 ---
-title: 'bf Brother, can you spare a manufacturing job? White Voters reaction to Deindustrialization'
+title: '\bf Brother, Can You Spare a Manufacturing Job? White Voter Reactions to Deindustrialization'
 author: 'Catherine Darin and Zagreb Mukerjee'
 date: '11/29/2021'
 fontsize: 12pt
@@ -66,6 +66,7 @@ library(kableExtra)
 library(readxl)
 library(scales)
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
 ## Findings
@@ -103,7 +104,8 @@ library(tigris)
 # state shapefile
 county_shape <- counties(
   cb = TRUE,
-  resolution = "20m"
+  resolution = "20m",
+  progress_bar = F
 ) %>%
   shift_geometry() %>%
   mutate(STATEFP = as.numeric(STATEFP),
@@ -111,7 +113,8 @@ county_shape <- counties(
 
 state_shape <- states(
   cb = TRUE,
-  resolution = "20m"
+  resolution = "20m",
+  progress_bar = F
 ) %>%
   filter(GEOID != "72") %>%
   shift_geometry()
@@ -353,7 +356,7 @@ model_input <- model_input %>%
   mutate(
     
     # calculate the counterfactual change in democratic vote share
-    # by multipling our regression coefficient against the difference
+    # by multiplying our regression coefficient against the difference
     # between observed manufacturing layoffs (our measure) and the
     # 25th percentile of layoffs (nationally)
          CF_netchange = p25,
@@ -461,7 +464,8 @@ library(tigris)
 # state shapefile
 state_shape <- states(
   cb = TRUE,
-  resolution = "20m"
+  resolution = "20m",
+  progress_bar = F
 ) %>%
   filter(GEOID != "72") %>%
   shift_geometry()
@@ -470,7 +474,7 @@ mapping <- inner_join(state_shape, state_summary,
                       by = c("NAME" = "state_name"))
 
 
-#devtools::install_github("yutannihilation/ggsflabel")
+# devtools::install_github("yutannihilation/ggsflabel")
 library(ggsflabel)
 
 
@@ -504,11 +508,6 @@ ggplot() +
 ```
 
 
-
-
-### example state: Michigan
-
-### 2020
 
 ## Potential Future Work
 
