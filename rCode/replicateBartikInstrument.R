@@ -1,7 +1,7 @@
 
 ################################################################
-countyLevelData <- readRDS("data/censusDataByCounty.rds")
-natlResult <- readRDS("data/natlResult.rds") 
+countyLevelData <- readRDS(here::here("data/censusDataByCounty.rds"))
+natlResult <- readRDS(here::here("data/natlResult.rds"))
 ################################################################
 
 aggregate <- totalData %>%  left_join(mfgData) %>%

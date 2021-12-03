@@ -8,7 +8,7 @@
 # maybe they omit bedford city because their list is post 2013
 
 
-countyLevelRaw <- read_dta("OriginalMaterials/county_level.dta")
+countyLevelRaw <- read_dta(here::here("OriginalMaterials/county_level.dta"))
 
 
 allFIPS <- tidycensus::fips_codes %>%  tibble() %>% 
@@ -41,7 +41,7 @@ countyLevel <- countyLevel0 %>%  left_join(allFIPSBW %>%  dplyr::select(id, coun
 # these are missing in BW as well
 
 
-saveRDS(countyLevel, "data/BWCountyLevel.rds")
+saveRDS(countyLevel, here::here("data/BWCountyLevel.rds"))
 
 
 
