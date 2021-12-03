@@ -1,7 +1,7 @@
 
 
-source("rCode/preamble.R")
-BWDataByCounty <- readRDS("data/BWCountyLevel.rds")
+source("preamble.R")
+BWDataByCounty <- readRDS(here::here("data/BWCountyLevel.rds"))
 
 #################################################################################
 # First we run our code with their data to replicate 
@@ -524,3 +524,4 @@ saveRDS(list(
   secondStageModelNetC04 = secondStageModelOurs04_3,
   secondStageModelWNetC04 = secondStageModelOurs04_6),
   file = "regresults.rds")
+

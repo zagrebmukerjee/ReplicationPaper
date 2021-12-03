@@ -73,7 +73,7 @@ saveRDS(list(
   whiteEmpl = whiteEmpl$whiteEmp,
   nonwhiteLayoffs = nonwhiteLayoffs$nonwhiteLayoffs,
   nonwhiteNetChange = nonwhiteNetChange$nonwhiteNetChange,
-  nonwhiteEmpl = nonwhiteEmpl$nonwhiteEmp), "data/natlResult.rds")
+  nonwhiteEmpl = nonwhiteEmpl$nonwhiteEmp), here::here("data/natlResult.rds"))
 
 
 

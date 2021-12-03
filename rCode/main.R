@@ -1,5 +1,5 @@
 # load packages 
-source("rCode/preamble.R")
+source("preamble.R")
 
 # Global vars
 ########################################################
@@ -16,15 +16,15 @@ QWIName <- "timeseries/qwi/rh"
 
 # Pull census data if it doesn't exist
 ########################################################
-if(!file.exists("data/censusDataByCounty.rds")){ source("rCode/censusAPIPull.R") }
+if(!file.exists("data/censusDataByCounty.rds")){ source("censusAPIPull.R") }
 # clean up BW data if not done - add FIPS code guesses etc
 if(!file.exists("data/BWCountyLevel.rds")){ source("rCode/fipsCodeLabel.R")}
-BWDataByCounty <- readRDS("data/BWCountyLevel.rds")
+BWDataByCounty <- readRDS(here::here("data/BWCountyLevel.rds"))
 # national aggregates for employment
-if(!file.exists("data/natlResult.rds")){ source("rCode/natlCalcs.R")}
-natlResult <- readRDS("data/natlResult.rds")
+if(!file.exists("data/natlResult.rds")){ source("natlCalcs.R")}
+natlResult <- readRDS(here::here("data/natlResult.rds"))
 # create our own bartik instrument
-if(!file.exists("data/finalBartik.RDS")){ source("rCode/replicateBartikInstrument.R")}
+if(!file.exists("data/finalBartik.RDS")){ source("replicateBartikInstrument.R")}
 bartikOurs <- readRDS("data/finalBartik.RDS")
 
 ########################################################
