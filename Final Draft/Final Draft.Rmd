@@ -1,34 +1,49 @@
 ---
-title: "Untitled"
-short: "A shorter title"
-journal: "AER" # AER, AEJ, PP, JEL
+title: "Brother, Can You Spare a Manufacturing Job?  How Voters React to Deindustrialization"
+short: ""
+journal: "" # AER, AEJ, PP, JEL
 month: "`r format(Sys.Date(), '%m')`"
 year: "`r format(Sys.Date(), '%Y')`"
 vol: 1
 issue: 1
 jel:
-  - A10
-  - A11
+  - 
+  -
 keywords:
-  - first keyword
-  - second keyword
+  - 
+  - 
 author:
-  - name: Alice Anonymous
-    firstname: Alice
-    surname: Anonymous
-    email: alice@example.com
-    affiliation: Some Institute of Technology
-  - name: Bob Security
-    firstname: Bob
-    surname: Security
-    email: bob@example.com
-    affiliation: Another University
-acknowledgements: |
-  Acknowledgements
+  - name: Catherine Darin
+    firstname: Catherine
+    surname: Darin
+    email: cdarin@hks.harvard.edu
+    affiliation: Harvard University
+  - name: Zagreb Mukerjee
+    firstname: Zagreb
+    surname: Mukergee
+    email: zagrebmukerjee@fas.harvard.edu
+    affiliation: Harvard University
+acknowledgements: 
 abstract: |
-  Abstract goes here
+  What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. Counties differ by exposure to manufacturing, which we use in an instrumental-variable approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
 output: rticles::aea_article
 ---
+
+
+\section{First Section in Body}
+
+Sample figure:
+
+
+
+
+
+
+
+
+
+
+
 
 American Economic Review Pointers:
 
