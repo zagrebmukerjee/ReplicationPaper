@@ -211,6 +211,7 @@ datasetOurs <- datasetClean(electionYear = 2016, startYear = 2011, aggregateYear
 datasetOurs04 <- datasetClean(electionYear = 2016, startYear = 2004, aggregateYears = 2004:2015)
 datasetOurs12 <- datasetClean(electionYear = 2012, startYear = 2007, aggregateYears = 2008:2011)
 datasetOurs1204 <- datasetClean(electionYear = 2012, startYear = 2004, aggregateYears = 2004:2011)
+datasetOurs_04_11 <- datasetClean(electionYear = 2012, startYear = 2004, aggregateYears = 2004:2011)
 
 
 ###############################################################
@@ -524,3 +525,123 @@ saveRDS(list(
   secondStageModelNetC04 = secondStageModelOurs04_3,
   secondStageModelWNetC04 = secondStageModelOurs04_6),
   file = "regresults.rds")
+
+
+##################################################
+#
+##################################################
+
+
+datasetOurs04_15 <- datasetClean(electionYear = 2016, startYear = 2004, aggregateYears = 2004:2015)
+datasetOurs04_11 <- datasetClean(electionYear = 2016, startYear = 2004, aggregateYears = 2004:2011)
+datasetOurs12_15 <- datasetClean(electionYear = 2016, startYear = 2011, aggregateYears = 2012:2015)
+
+
+summary_12_15 <- datasetOurs12_15 %>% 
+  group_by() %>%
+  dplyr::select(id:county,
+    mfgNetChange_total) %>% 
+  rename(mfgNetChange_12_15 = mfgNetChange_total)
+    
+
+summary_04_15 <- datasetOurs04_15 %>% 
+  group_by() %>%
+  dplyr::select(id:county,
+                mfgNetChange_total) %>% 
+  rename(mfgNetChange_04_15 = mfgNetChange_total)
+
+summary_04_11 <- datasetOurs04_11 %>% 
+  group_by() %>%
+  dplyr::select(id:county,
+                mfgNetChange_total) %>% 
+  rename(mfgNetChange_04_11 = mfgNetChange_total)
+
+
+summary_vshape <- inner_join(summary_12_15, summary_04_15)
+summary_vshape <- inner_join(summary_vshape, summary_04_11)
+
+#library(ggpubr)
+
+ggplot(data = summary_vshape # %>% filter(state_name == "Tennessee")
+       ,
+       aes(x = mfgNetChange_04_15, y = mfgNetChange_12_15)) +
+  geom_point() +
+  theme_bw() + stat_cor(method = "pearson", label.x = 0, label.y = .3)
+
+summary_vshape <- summary_vshape %>%
+  mutate(
+    n_tile_04_15 = as.character(ntile(mfgNetChange_04_15, 10)),
+    
+    n_tile_04_11 = as.character(ntile(mfgNetChange_04_11, 10)),
+    n_tile_12_15 = as.character(ntile(mfgNetChange_12_15, 10))
+  ) %>%
+  group_by() %>%
+  arrange(mfgNetChange_04_11) %>%
+  mutate(rank_04_11 = row_number()) %>%
+  arrange(mfgNetChange_12_15) %>%
+  mutate(rank_12_15 = row_number())
+
+ggplot(data = summary_vshape  %>% filter(!is.na(rank_04_11),
+                                         !is.na(rank_12_15))
+       ,
+       aes(x = rank_04_11, y = rank_12_15)) +
+  geom_point()  +
+  stat_summary_bin(fun.y='mean', bins=10,
+                   color='orange', size=4, geom='point') +
+  theme_bw()
+
+  
+
+
+summary_ntile <- summary_vshape %>%
+  group_by(n_tile_04_11) %>%
+  summarize(mean_12_15 = mean(mfgNetChange_12_15),
+            mean_04_11 = mean(mfgNetChange_04_11))
+
+
+ggplot(data = summary_ntile,
+       aes(x = n_tile_04_11, y = mean_04_11)) +
+  theme_minimal() +
+  ylab("Manufacturing Layoffs (04-11)") +
+  xlab("Decile")+
+  ggtitle("Manufacturing Layoffs from 2004-2011 by Deciles") +
+  geom_col(fill = "#4287f5") +
+  scale_x_continuous(breaks=seq(1,10,1))
+
+
+ggplot(data = summary_ntile,
+       aes(x = n_tile_04_11, y = mean_12_15)) +
+  theme_minimal() +
+  ylab("Manufacturing Layoffs (12-15)") +
+  xlab("Decile of Manufacturing Layoffs (04-11)")+
+  ggtitle("Manufacturing Layoffs from 2012-2015 by 2004-2011 Deciles") +
+  geom_col(fill = "#4287f5") +
+  scale_x_continuous(breaks=seq(1,10,1))
+
+
+
+
+write.excel <- function(x,
+                        row.names = FALSE,
+                        col.names = TRUE,
+                        ...) {
+  write.table(
+    x,
+    "clipboard",
+    sep = "\t",
+    row.names = row.names,
+    col.names = col.names,
+    ...
+  )
+} 
+
+write.excel(summary_ntile)
+
+
+
+ggplot(data = summary_vshape # %>% filter(state_name == "Tennessee")
+       ,
+       aes(x = mfgNetChange_04_11, y = mfgNetChange_12_15)) +
+  geom_point()  +
+  stat_summary_bin(fun.y='mean', bins=5,
+                   color='orange', size=2, geom='point')

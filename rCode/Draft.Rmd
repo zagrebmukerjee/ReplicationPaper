@@ -9,7 +9,6 @@ urlcolor: red
 header-includes:
   - \usepackage{bm}
 ---
-
 \renewcommand{\arraystretch}{1.1}
 \renewcommand{\topfraction}{.85}
 \renewcommand{\bottomfraction}{.7}
@@ -18,6 +17,10 @@ header-includes:
 \setcounter{topnumber}{3}
 \setcounter{bottomnumber}{3}
 \setcounter{totalnumber}{4}
+
+# ```{r, include=FALSE}
+# options(tinytex.verbose = TRUE)
+# ```
 
 ## Replication Instructions
 
@@ -119,12 +122,12 @@ national_ts <- national_ts %>%
   rename(year = 1,
          net_job_change = 2) %>%
   dplyr::select(year, net_job_change) %>%
-  rename(Year = year, `Job Change per Worker` = net_job_change) %>% 
+  rename(Year = year, `Job Change per Worker` = net_job_change) %>%
   mutate(
     Year = as.numeric(Year),
     `Job Change per Worker` = `Job Change per Worker`*4) %>% group_by()
 
-ggplot(data = national_ts %>% filter(Year >= 1995), 
+ggplot(data = national_ts %>% filter(Year >= 1995),
        aes(x = Year, y = `Job Change per Worker`)) +
   ylab("Millions of Jobs") +
   ggtitle("Figure 1. Nationwide Change in Manufacturing Employment, 1995-2019") +
@@ -133,11 +136,12 @@ ggplot(data = national_ts %>% filter(Year >= 1995),
   theme_minimal()
 
 
-
 ```
 
 \newpage
 ### Geographic Concentration of Layoffs
+
+### 04 to 15
 
 ```{r,  echo=F, message = F, results = "asis"}
 
@@ -159,9 +163,9 @@ state_shape <- states(
   resolution = "20m",
   progress_bar = F
 ) %>%
-  filter(GEOID != "72" & GEOID != "02", GEOID != "15") 
+  filter(GEOID != "72" & GEOID != "02", GEOID != "15")
 
-# group counties into sextiles 
+# group counties into sextiles
 model_input <- model_input %>%
   group_by() %>%
   mutate(ntile_mfg = as.character(ntile(mfgNetChange_total , 6)))
@@ -181,7 +185,7 @@ labels = c(
   "5" = "3% to 6% Loss",
   "6" = "6% or Greater Loss")
 
-  
+
 colors <- c("1" = "#778868",
             "2" = "#b5b991",
             "3" = "#f6edbd",
@@ -195,7 +199,7 @@ mapping_county <- inner_join(county_shape, model_input,
                              "COUNTYFP" = "county_fips"))
 
 ggplot() +
-  geom_sf(data = mapping_county, aes(fill = ntile_mfg), 
+  geom_sf(data = mapping_county, aes(fill = ntile_mfg),
           color = NA, size = .01) +
   scale_fill_manual(values = colors,
                     labels = labels) +
@@ -208,10 +212,91 @@ ggplot() +
   #                    size = 2.5) +
   theme(  axis.title.x=element_blank(),
           axis.title.y=element_blank(),
-          text = element_text(size = 8)) + 
+          text = element_text(size = 8)) +
   labs(title = "Figure 2: Net Change in Manufacturing Employment from 2004 to 2015",
        subtitle = "Normalized by 2004 Overall Employment Levels",
        fill = "Cumulative Change in Manufacturing\nEmployment (2004-2015) per\n2004 Worker")
+
+
+```
+
+\newpage
+
+### 12 to 15
+
+```{r,  echo=F, message = F, results = "asis"}
+
+# load map
+model_input <- readRDS("../input_12_16.rds")
+
+# state shapefile
+county_shape <- counties(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  shift_geometry() %>%
+  mutate(STATEFP = as.numeric(STATEFP),
+         COUNTYFP = as.numeric(COUNTYFP))
+
+state_shape <- states(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  filter(GEOID != "72" & GEOID != "02", GEOID != "15")
+
+# group counties into sextiles
+model_input <- model_input %>%
+  group_by() %>%
+  mutate(ntile_mfg = as.character(ntile(mfgNetChange_total , 6)))
+
+# find cutoffs
+
+sum <- model_input %>%
+  group_by(ntile_mfg) %>%
+  summarize(min = min(mfgNetChange_total),
+            max = max(mfgNetChange_total))
+
+labels = c(
+  "1" = "1% or Greater Gain",
+  "2" = "0% to 1% Gain",
+  "3" = "0% to 1% Loss",
+  "4" = "1% to 3% Loss",
+  "5" = "3% to 6% Loss",
+  "6" = "6% or Greater Loss")
+
+
+colors <- c("1" = "#778868",
+            "2" = "#b5b991",
+            "3" = "#f6edbd",
+            "4" = "#edbb8a",
+            "5" = "#de8a5a",
+            "6" = "#ca562c")
+
+#3d5941,#778868,#b5b991,#f6edbd,#edbb8a,#de8a5a,#ca562c
+mapping_county <- inner_join(county_shape, model_input,
+                      by = c("STATEFP" = "state_fips",
+                             "COUNTYFP" = "county_fips"))
+
+ggplot() +
+  geom_sf(data = mapping_county, aes(fill = ntile_mfg),
+          color = NA, size = .01) +
+  scale_fill_manual(values = colors,
+                    labels = labels) +
+  # add state lines
+  geom_sf(data = state_shape, fill = NA, color = "black", size = .1) +
+  coord_sf(datum = NA) +
+  theme_minimal() +
+  # geom_sf_text_repel(aes(label = state), data = mapping_small,
+  #                    force = .00001,  seed = 10,
+  #                    size = 2.5) +
+  theme(  axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          text = element_text(size = 8)) +
+  labs(title = "Figure 2: Net Change in Manufacturing Employment from 2012 to 2015",
+       subtitle = "Normalized by 2011 Overall Employment Levels",
+       fill = "Cumulative Change in Manufacturing\nEmployment (2012-2015) per\n2011 Worker")
 
 
 ```

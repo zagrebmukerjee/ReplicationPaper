@@ -1,0 +1,297 @@
+---
+title: "Brother, Can You Spare a Manufacturing Job?  How Voters React to Deindustrialization"
+author: 'Catherine Darin and Zagreb Mukerjee'
+date: '11/29/2021'
+fontsize: 12pt
+output:
+  pdf_document: default
+urlcolor: red
+header-includes:
+  - \usepackage{bm}
+---
+\renewcommand{\arraystretch}{1.1}
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
+
+## Replication Instructions
+
+Please find instructions and relevant code to replicate our analysis here: https://github.com/zagrebmukerjee/ReplicationPaper
+
+## Introduction
+
+What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. Counties differ by exposure to manufacturing, which we use in an instrumental-variable approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
+
+Base paper: Baccini and Weymouth 2021, "Gone For Good: Deindustrialization, White Voter Backlash, and US Presidential Voting." *APSR*.
+
+## Outline
+
+#### Framing story
+
+To do: Qualitative description of the trajectory of XYZ county that swung from Obama to Trump and suffered big manufacturing layoffs. This will establish the stakes and connect this to the broader conversation.
+
+### Substantive importance
+
+Why did Trump win in 2016? There is a longstanding debate about relative importance of race and economic factors. Complicated by the interaction of the two. We hope to identify the importance of manufacturing job losses, both in aggregate and for different racial groups. Eventually we think that people should stop asking "race or economics" when the answer is likely both. 
+
+### Empirical strategy
+
+Differential manufacturing exposure across counties allows for identification of the causal effect of deindustrialization on change in Dem vote share. Further differences in racial exposure to mfg layoffs allows for identification of the interaction between race and deindustrialization. 
+
+### Data and methods
+
+Data is Census Quarterly Workforce Indicators, which break down county employment by industry, race and ethnicity. Augmented with public data on vote shares, employment, etc. 
+
+We look at total employment and manufacturing employment (NAICS 31-33, see extensions below). We then  compute net change in mfg jobs (long term job loss) from 2004 to 2015, relative to employment in 2004.
+
+We might be worried about endogeneity for manufacturing job losses. So we use a shift-share instrument: we predict net job losses per worker with county-level manufacturing as a share of total employment, plus controls. 
+
+Controls: unemployment in 2015, college educated share of population, male share of population, layoffs in service sector, white share of population (to control for demographic trends). We want to know if there's something singular about manufacturing jobs.
+
+### Extension Relative to Baccini and Weymouth (2021)
+
+In their main model, Baccini and Weymouth looked at the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
+
+Our key extension of Baccini and Weymouth's analysis is changing the quantity of interest from **gross** manufacturing job losses to **net** manufacturing job losses. For example, in Baccini and Weymouth's model, if a county lost 400 manufacturing jobs from 2012-2015 and also gained 400 manufacturing jobs over the same period, they would count 400 overall layoffs. Using our measure of *net* manufacturing job losses, we would consider this example a 0 net change in manufacturing employment. Given that job destruction and creation is a natural dynamic within the economy (i.e. seasonal employment, creative destruction), we think that *net* job losses is a more meaningful measure.
+
+Using *net* manufacturing job losses as our outcome, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing (gross) job losses to explain the change in Democratic vote share in 2016. Using their specifications, we find totally opposite results - that a *net* increase in white manufacturing jobs *increased* Democratic vote share, while a *net* increase in non-white manufacturing jobs *decreased* Democratic vote share. (See Table 3)
+
+However, we don't think this is capturing the important dynamic at play. From 2012 to 2015, the national economy experienced a net increase in manufacturing jobs following the 2008 recession (See Figure 1). During this time of recovery, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. [To DO: Empirically show negative correlation described here]
+
+If we expand our measure of net manufacturing job losses to include the 2004 to 2011 period - which covers most of the period when the U.S. manufacturing economy was hit most intensely (See Figure 1) -- we get a result that corroborates the core intuition of Baccini and Weymouth (See Table 4). That is, we find that net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased Democratic vote share.
+
+It is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analysis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. The mechanisms of these lagged effects merit further study.
+
+[Note: to demonstrate our point about **variable** effects, In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in Democratic vote share in other elections (2012 and 2020).]
+
+### Key Findings
+
+
+
+We find that, in aggregate, manufacturing job losses were associated with loss of Democratic vote share in the 2016 election. 10 manufacturing job losses per worker in a county since 2004 corresponded to a 3.8 \% loss in vote share, plus or minus 3.3 \%. Breaking it down by race, we see that [TO DO: complete thought]. 
+
+Figure 3 demonstrates the practical significance of our estimates. Using our main results from regression 3 in Table 4, we simulate a counterfactual 2016 election assuming that all counties experienced white manufacturing job losses equivalent to the county at the 25th national percentile. We highlight states in purple if this counterfactual shows a state flipping from Trump to Clinton. 
+
+Additionally, we find that, given the evolution of the business cycle, considering only recent job losses can paint a misleading picture of the relationship between manufacturing job losses and changes in vote share. In fact, we find that net manufacturing job losses from 2004 to 2011 are crucial to explaining Trump's 2016 win. This finding suggests that economic changes, like manufacturing layoffs, can have lagged and variable political consequence.
+
+
+
+### Potential Future Work
+
+- Temporal: Finding a better way to characterize the potentially lagged effect of manufacturing job losses on Democratic votes. Incorporating study of the 2008, 2012, 2020 elections. 
+- Disaggregation: Instead of instrumenting by manufacturing share, perhaps we can look at layoffs by industry in each county. While aggregate manufacturing employment may be endogenous, there's less reason to believe that specific industries would be (cf. Autor, Dorn and Hanson). This may also allow us to get further away from ecological inference problems.
+- Trend-cycle estimation: There are techniques from econometrics and other places that could potentially be used to decompose gross layoffs into seasonal and non-seasonal components. 
+- Mechanisms: survey work to examine where the racial difference in economic voting behavior comes from. Is it expressive? Is it because information is transmitted along racially segregated networks?
+
+
+## Tables and Figures
+
+```{r setup, echo=F, message = F, warning= F}
+library(tidyverse)
+library(stargazer)
+library(sandwich)
+library(lmtest)
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(scales)
+library(tigris)
+
+knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+
+
+### Manufacturing Layoffs Over Time
+
+```{r, message = F}
+# manufacturing layoffs over time
+
+national_ts <- read_xlsx("../National_Data_TS.xlsx")
+
+national_ts <- national_ts %>%
+  rename(year = 1,
+         net_job_change = 2) %>%
+  dplyr::select(year, net_job_change) %>%
+  rename(Year = year, `Job Change per Worker` = net_job_change) %>%
+  mutate(
+    Year = as.numeric(Year),
+    `Job Change per Worker` = `Job Change per Worker`*4) %>% group_by()
+
+ggplot(data = national_ts %>% filter(Year >= 1995),
+       aes(x = Year, y = `Job Change per Worker`)) +
+  ylab("Millions of Jobs") +
+  ggtitle("Figure 1. Nationwide Change in Manufacturing Employment, 1995-2019") +
+  geom_col(fill = "#4287f5") + scale_x_continuous(breaks=seq(1995,2019,2)) +
+	scale_y_continuous(labels = label_number(suffix = "", scale = 1e-6)) +
+  theme_minimal()
+
+
+```
+
+\newpage
+### Geographic Concentration of Layoffs
+
+### 04 to 15
+
+```{r,  echo=F, message = F, results = "asis"}
+
+# load map
+model_input <- readRDS("../model_5_input.rds")
+
+# state shapefile
+county_shape <- counties(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  shift_geometry() %>%
+  mutate(STATEFP = as.numeric(STATEFP),
+         COUNTYFP = as.numeric(COUNTYFP))
+
+state_shape <- states(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  filter(GEOID != "72" & GEOID != "02", GEOID != "15")
+
+# group counties into sextiles
+model_input <- model_input %>%
+  group_by() %>%
+  mutate(ntile_mfg = as.character(ntile(mfgNetChange_total , 6)))
+
+# find cutoffs
+
+sum <- model_input %>%
+  group_by(ntile_mfg) %>%
+  summarize(min = min(mfgNetChange_total),
+            max = max(mfgNetChange_total))
+
+labels = c(
+  "1" = "1% or Greater Gain",
+  "2" = "0% to 1% Gain",
+  "3" = "0% to 1% Loss",
+  "4" = "1% to 3% Loss",
+  "5" = "3% to 6% Loss",
+  "6" = "6% or Greater Loss")
+
+
+colors <- c("1" = "#778868",
+            "2" = "#b5b991",
+            "3" = "#f6edbd",
+            "4" = "#edbb8a",
+            "5" = "#de8a5a",
+            "6" = "#ca562c")
+
+#3d5941,#778868,#b5b991,#f6edbd,#edbb8a,#de8a5a,#ca562c
+mapping_county <- inner_join(county_shape, model_input,
+                      by = c("STATEFP" = "state_fips",
+                             "COUNTYFP" = "county_fips"))
+
+ggplot() +
+  geom_sf(data = mapping_county, aes(fill = ntile_mfg),
+          color = NA, size = .01) +
+  scale_fill_manual(values = colors,
+                    labels = labels) +
+  # add state lines
+  geom_sf(data = state_shape, fill = NA, color = "black", size = .1) +
+  coord_sf(datum = NA) +
+  theme_minimal() +
+  # geom_sf_text_repel(aes(label = state), data = mapping_small,
+  #                    force = .00001,  seed = 10,
+  #                    size = 2.5) +
+  theme(  axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          text = element_text(size = 8)) +
+  labs(title = "Figure 2: Net Change in Manufacturing Employment from 2004 to 2015",
+       subtitle = "Normalized by 2004 Overall Employment Levels",
+       fill = "Cumulative Change in Manufacturing\nEmployment (2004-2015) per\n2004 Worker")
+
+
+```
+
+\newpage
+
+### 12 to 15
+
+```{r,  echo=F, message = F, results = "asis"}
+
+# load map
+model_input <- readRDS("../input_12_16.rds")
+
+# state shapefile
+county_shape <- counties(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  shift_geometry() %>%
+  mutate(STATEFP = as.numeric(STATEFP),
+         COUNTYFP = as.numeric(COUNTYFP))
+
+state_shape <- states(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  filter(GEOID != "72" & GEOID != "02", GEOID != "15")
+
+# group counties into sextiles
+model_input <- model_input %>%
+  group_by() %>%
+  mutate(ntile_mfg = as.character(ntile(mfgNetChange_total , 6)))
+
+# find cutoffs
+
+sum <- model_input %>%
+  group_by(ntile_mfg) %>%
+  summarize(min = min(mfgNetChange_total),
+            max = max(mfgNetChange_total))
+
+labels = c(
+  "1" = "1% or Greater Gain",
+  "2" = "0% to 1% Gain",
+  "3" = "0% to 1% Loss",
+  "4" = "1% to 3% Loss",
+  "5" = "3% to 6% Loss",
+  "6" = "6% or Greater Loss")
+
+
+colors <- c("1" = "#778868",
+            "2" = "#b5b991",
+            "3" = "#f6edbd",
+            "4" = "#edbb8a",
+            "5" = "#de8a5a",
+            "6" = "#ca562c")
+
+#3d5941,#778868,#b5b991,#f6edbd,#edbb8a,#de8a5a,#ca562c
+mapping_county <- inner_join(county_shape, model_input,
+                      by = c("STATEFP" = "state_fips",
+                             "COUNTYFP" = "county_fips"))
+
+ggplot() +
+  geom_sf(data = mapping_county, aes(fill = ntile_mfg),
+          color = NA, size = .01) +
+  scale_fill_manual(values = colors,
+                    labels = labels) +
+  # add state lines
+  geom_sf(data = state_shape, fill = NA, color = "black", size = .1) +
+  coord_sf(datum = NA) +
+  theme_minimal() +
+  # geom_sf_text_repel(aes(label = state), data = mapping_small,
+  #                    force = .00001,  seed = 10,
+  #                    size = 2.5) +
+  theme(  axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          text = element_text(size = 8)) +
+  labs(title = "Figure 2: Net Change in Manufacturing Employment from 2012 to 2015",
+       subtitle = "Normalized by 2011 Overall Employment Levels",
+       fill = "Cumulative Change in Manufacturing\nEmployment (2012-2015) per\n2011 Worker")
+
+
+```
