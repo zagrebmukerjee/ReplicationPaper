@@ -6,12 +6,6 @@ month: "`r format(Sys.Date(), '%m')`"
 year: "`r format(Sys.Date(), '%Y')`"
 vol: 1
 issue: 1
-jel:
-  - 
-  -
-keywords:
-  - 
-  - 
 author:
   - name: Catherine Darin
     firstname: Catherine
@@ -20,7 +14,7 @@ author:
     affiliation: Harvard University
   - name: Zagreb Mukerjee
     firstname: Zagreb
-    surname: Mukergee
+    surname: Mukerjee
     email: zagrebmukerjee@fas.harvard.edu
     affiliation: Harvard University
 acknowledgements: 
@@ -30,13 +24,15 @@ output: rticles::aea_article
 ---
 
 
-\section{First Section in Body}
-
-Sample figure:
 
 
+\section{Data and Methods}
 
+\subsection{Data}
 
+Following \cite{BW}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also on the local economy. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain this from XXXXXXXXX
+
+We want to measure the causal relationship between deindustrialization and the change in vote share. As a measure of deindustrialization, we use the destruction of manufacturing jobs, as a share of the total manufacturing  
 
 
 
