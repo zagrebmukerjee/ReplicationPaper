@@ -29,12 +29,68 @@ abstract: |
 output: rticles::aea_article
 ---
 
+```{r}
+library(tidyverse)
+library(stargazer)
+library(sandwich)
+library(lmtest)
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(scales)
+library(tigris)
+
+
+#knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
+#knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+
+
+\section{Introduction}
+
+We replicate Baccini and Wemouth (2021), which analyzes the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
+
+We extend Baccini and Weymouth's analysis by changing the quantity of interest from **gross** manufacturing job losses to **net** manufacturing job losses. For example, in Baccini and Weymouth's model, if a county lost 400 manufacturing jobs from 2012-2015 and also gained 400 manufacturing jobs over the same period, they would count 400 overall layoffs. Using our measure of *net* manufacturing job losses, we would consider this example a 0 net change in manufacturing employment. Given that job destruction and creation is a natural dynamic within the economy (i.e. seasonal employment, creative destruction), we think that *net* job losses is a more meaningful measure.
+
+
+Using *net* manufacturing job losses as our outcome, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing (gross) job losses to explain the change in Democratic vote share in 2016. Using their specifications, we find totally opposite results - that a *net* increase in white manufacturing jobs *increased* Democratic vote share, while a *net* increase in non-white manufacturing jobs *decreased* Democratic vote share. 
+
+However, we don't think this is capturing the important dynamic at play. From 2012 to 2015, the national economy experienced a net increase in manufacturing jobs following the 2008 recession (See Figure 1). During this time of recovery, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. 
 
 \section{First Section in Body}
 
 Sample figure:
+  
+  \begin{figure}
 
 
+
+```{r}
+
+
+
+```
+
+\caption{Caption for figure below.}
+\begin{figurenotes}
+Figure notes without optional leadin.
+\end{figurenotes}
+\begin{figurenotes}[Source]
+Figure notes with optional leadin (Source, in this case).
+\end{figurenotes}
+\end{figure}
+
+
+
+
+If we expand our measure of net manufacturing job losses to include the 2004 to 2011 period - which covers most of the period when the U.S. manufacturing economy was hit most intensely (See Figure 1) -- we get a result that corroborates the core intuition of Baccini and Weymouth (See Table 4). That is, we find that net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased Democratic vote share.
+
+It is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analysis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. The mechanisms of these lagged effects merit further study.
+
+[Note: to demonstrate our point about **variable** effects, In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in Democratic vote share in other elections (2012 and 2020).]
+
+
+Sample figure:
 
 
 
