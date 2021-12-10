@@ -1,6 +1,6 @@
 ---
 title: "Brother, Can You Spare a Manufacturing Job?  How Voters React to Deindustrialization"
-short: ""
+short: "Brother, Can You Spare a Manufacturing Job? "
 journal: "" # AER, AEJ, PP, JEL
 month: "`r format(Sys.Date(), '%m')`"
 year: "`r format(Sys.Date(), '%Y')`"
@@ -23,29 +23,13 @@ abstract: |
 output: rticles::aea_article
 ---
 
-```{r}
-library(tidyverse)
-library(stargazer)
-library(sandwich)
-library(lmtest)
-library(knitr)
-library(kableExtra)
-library(readxl)
-library(scales)
-library(tigris)
-
-
-#knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
-#knitr::opts_chunk$set(echo = FALSE, message = FALSE)
-```
 
 
 \section{Introduction}
 
-We replicate Baccini and Wemouth (2021), which analyzes the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
+We replicate \cite{BW21}, which analyzes the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
 
-We extend Baccini and Weymouth's analysis by changing the quantity of interest from **gross** manufacturing job losses to **net** manufacturing job losses. For example, in Baccini and Weymouth's model, if a county lost 400 manufacturing jobs from 2012-2015 and also gained 400 manufacturing jobs over the same period, they would count 400 overall layoffs. Using our measure of *net* manufacturing job losses, we would consider this example a 0 net change in manufacturing employment. Given that job destruction and creation is a natural dynamic within the economy (i.e. seasonal employment, creative destruction), we think that *net* job losses is a more meaningful measure.
-
+We extend Baccini and Weymouth's analysis by changing the quantity of interest from **gross** manufacturing job losses to **net** manufacturing job losses. For example, in Baccini and Weymouth's model, if a county lost 400 manufacturing jobs from 2012-2015 and also gained 400 manufacturing jobs over the same period, they would count 400 overall layoffs. Using our measure of *net* manufacturing job losses, we would consider this example a 0 net change in manufacturing employment. Given that job destruction and creation is a natural dynamic within the economy (i.e. seasonal employment, creative destruction), we think that *net* job losses is a more meaningful measure. 
 
 Using *net* manufacturing job losses as our outcome, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing (gross) job losses to explain the change in Democratic vote share in 2016. Using their specifications, we find totally opposite results - that a *net* increase in white manufacturing jobs *increased* Democratic vote share, while a *net* increase in non-white manufacturing jobs *decreased* Democratic vote share. 
 
@@ -55,10 +39,37 @@ However, we don't think this is capturing the important dynamic at play. From 20
 
 \subsection{Data}
 
-Following \cite{BW}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also on the local economy. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain this from XXXXXXXXX
+Following \cite{BW21}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also on the local economy. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain this from XXXXXXXXX
+
+We want to measure the causal relationship between deindustrialization and the change in vote share. As a measure of deindustrialization, we use the loss of manufacturing jobs as a share of the total beginning-of-period employment in each county. Suppose at the beginning of our period there were $2000$ manufacturing workers in a county, and $8000$ non-manufacturing workers. At the end there are only $1500$ manufacturing workers. This is a loss of $500/10000 = 5\%.$
+
+In this choice we diverge from \cite{BW21}, which uses **gross** manufacturing job losses. For example, if a county lost $450$ manufacturing jobs from 2012-2015 and also gained $400$ manufacturing jobs over the same period, this would be $450$ **gross** job losses, but only $50$ **net** job losses. The **gross** measure captures several dynamics unrelated to deindustrialization - for example, seasonal unemployment in a food-manufacturing region, or workers moving between jobs. Thus we believe the **net** job losses over a period are the more accurate measure. 
+
+Data on job gains and losses are obtained, using an API, from the Census Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains (among other things) information about employment by industry and county. These statistics are further disaggregated by race and ethnicity. The Census Bureau obtains this data from a combination of sources, such as administrative tax data and the U.S. Census. 
+
+XXXXXXXXXXXXXXXX sources of other data
 
 
-We want to measure the causal relationship between deindustrialization and the change in vote share. As a measure of deindustrialization, we use the destruction of manufacturing jobs, as a share of the total employment in each county.  
+
+\subsection{Methods}
+
+We conduct two related tests of our hypothesis. Our first test involves an instrumental-variable approach. A regression of change in Democratic vote share on manufacturing job losses risks endogeneity, in case counties with manufacturing job losses were otherwise predisposed to turn towards Trump (a singular candidate, after all). To mitigate these risks, \cite{BW21} uses a Bartik instrument, which we adapt. This instrument essentially uses the cross-county distribution of manufacturing employment as a source of exogenous variation. 
+
+$$
+\begin{aligned}
+b_{j,c} &=& \frac{\text{Manufacturing Employment}_{j,c} \text{ at } t_0}{\text{Total Employment}_c \text{ at }t_0}  \\
+&&  * \frac{\text{National Manufacturing Job Change}_{j,c} }{\text{Total National Employment at }t_0} \\
+\end{aligned}
+$$
+
+
+
+
+
+
+
+
+
 
 
 

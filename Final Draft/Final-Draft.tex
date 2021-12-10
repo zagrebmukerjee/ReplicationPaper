@@ -24,63 +24,9 @@
 \draftSpacing{1.5}
 
 % For Pandoc highlighting needs
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
 % Pandoc citation processing
 
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-\usepackage{xcolor}
 
 \usepackage{hyperref}
 
@@ -127,135 +73,11 @@ voters process economic hardship.
 
 \maketitle
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
-\end{verbatim}
-
-\begin{verbatim}
-## v ggplot2 3.3.5     v purrr   0.3.4
-## v tibble  3.1.4     v dplyr   1.0.5
-## v tidyr   1.1.3     v stringr 1.4.0
-## v readr   1.4.0     v forcats 0.5.1
-\end{verbatim}
-
-\begin{verbatim}
-## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(stargazer)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Please cite as:
-\end{verbatim}
-
-\begin{verbatim}
-##  Hlavac, Marek (2018). stargazer: Well-Formatted Regression and Summary Statistics Tables.
-\end{verbatim}
-
-\begin{verbatim}
-##  R package version 5.2.2. https://CRAN.R-project.org/package=stargazer
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(sandwich)}
-\FunctionTok{library}\NormalTok{(lmtest)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Loading required package: zoo
-\end{verbatim}
-
-\begin{verbatim}
-## 
-## Attaching package: 'zoo'
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:base':
-## 
-##     as.Date, as.Date.numeric
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(knitr)}
-\FunctionTok{library}\NormalTok{(kableExtra)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'kableExtra'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:dplyr':
-## 
-##     group_rows
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(readxl)}
-\FunctionTok{library}\NormalTok{(scales)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'scales'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:purrr':
-## 
-##     discard
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:readr':
-## 
-##     col_factor
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tigris)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## To enable 
-## caching of data, set `options(tigris_use_cache = TRUE)` in your R script or .Rprofile.
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#knitr::opts\_chunk$set(fig.pos = "!H", out.extra = "")}
-\CommentTok{\#knitr::opts\_chunk$set(echo = FALSE, message = FALSE)}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Introduction}
 
-We replicate Baccini and Wemouth (2021), which analyzes the effect of
-gross manufacturing job losses from 2012 to 2015 on the change in
-Democratic vote share in the 2016 presidential election.
+We replicate \cite{BW21}, which analyzes the effect of gross
+manufacturing job losses from 2012 to 2015 on the change in Democratic
+vote share in the 2016 presidential election.
 
 We extend Baccini and Weymouth's analysis by changing the quantity of
 interest from \textbf{gross} manufacturing job losses to \textbf{net}
@@ -288,30 +110,56 @@ focusing only on 2012-2015 job losses/gains paints a distorted picture.
 
 \subsection{Data}
 
-Following \cite{BW}, our unit of analysis is the county. This allows us
-to capture not only the direct effects of deindustrialization on
+Following \cite{BW21}, our unit of analysis is the county. This allows
+us to capture not only the direct effects of deindustrialization on
 laid-off manufacturing workers, but also on the local economy. The
 primary outcome variable is the county's change in Democratic vote share
 between 2012 and 2016. We obtain this from XXXXXXXXX
 
 We want to measure the causal relationship between deindustrialization
 and the change in vote share. As a measure of deindustrialization, we
-use the destruction of manufacturing jobs, as a share of the total
-employment in each county.
+use the loss of manufacturing jobs as a share of the total
+beginning-of-period employment in each county. Suppose at the beginning
+of our period there were \(2000\) manufacturing workers in a county, and
+\(8000\) non-manufacturing workers. At the end there are only \(1500\)
+manufacturing workers. This is a loss of \(500/10000 = 5\%.\)
 
-\begin{figure}
+In this choice we diverge from \cite{BW21}, which uses \textbf{gross}
+manufacturing job losses. For example, if a county lost \(450\)
+manufacturing jobs from 2012-2015 and also gained \(400\) manufacturing
+jobs over the same period, this would be \(450\) \textbf{gross} job
+losses, but only \(50\) \textbf{net} job losses. The \textbf{gross}
+measure captures several dynamics unrelated to deindustrialization - for
+example, seasonal unemployment in a food-manufacturing region, or
+workers moving between jobs. Thus we believe the \textbf{net} job losses
+over a period are the more accurate measure.
 
+Data on job gains and losses are obtained, using an API, from the Census
+Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains
+(among other things) information about employment by industry and
+county. These statistics are further disaggregated by race and
+ethnicity. The Census Bureau obtains this data from a combination of
+sources, such as administrative tax data and the U.S. Census.
 
+XXXXXXXXXXXXXXXX sources of other data
 
+\subsection{Methods}
 
-\caption{Caption for figure below.}
-\begin{figurenotes}
-Figure notes without optional leadin.
-\end{figurenotes}
-\begin{figurenotes}[Source]
-Figure notes with optional leadin (Source, in this case).
-\end{figurenotes}
-\end{figure}
+We conduct two related tests of our hypothesis. Our first test involves
+an instrumental-variable approach. A regression of change in Democratic
+vote share on manufacturing job losses risks endogeneity, in case
+counties with manufacturing job losses were otherwise predisposed to
+turn towards Trump (a singular candidate, after all). To mitigate these
+risks, \cite{BW21} uses a Bartik instrument, which we adapt. This
+instrument essentially uses the cross-county distribution of
+manufacturing employment as a source of exogenous variation.
+
+\[
+\begin{aligned}
+b_{j,c} &=& \frac{\text{Manufacturing Employment}_{j,c} \text{ at } t_0}{\text{Total Employment}_c \text{ at }t_0}  \\
+&&  * \frac{\text{National Manufacturing Job Change}_{j,c} }{\text{Total National Employment at }t_0} \\
+\end{aligned}
+\]
 
 If we expand our measure of net manufacturing job losses to include the
 2004 to 2011 period - which covers most of the period when the U.S.
