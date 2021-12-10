@@ -34,7 +34,7 @@
 
 \title{Brother, Can You Spare a Manufacturing Job? How Voters React to
 Deindustrialization}
-
+\shortTitle{Brother, Can You Spare a Manufacturing Job?}
 % \author{Author1 and Author2\thanks{Surname1: affiliation1, address1, email1.
 % Surname2: affiliation2, address2, email2. Acknowledgements}}
 
@@ -75,7 +75,7 @@ voters process economic hardship.
 
 \section{Introduction}
 
-We replicate \cite{BW21}, which analyzes the effect of gross
+We replicate \cite{Baccini21}, which analyzes the effect of gross
 manufacturing job losses from 2012 to 2015 on the change in Democratic
 vote share in the 2016 presidential election.
 
@@ -110,9 +110,9 @@ focusing only on 2012-2015 job losses/gains paints a distorted picture.
 
 \subsection{Data}
 
-Following \cite{BW21}, our unit of analysis is the county. This allows
-us to capture not only the direct effects of deindustrialization on
-laid-off manufacturing workers, but also on the local economy. The
+Following \cite{Baccini21}, our unit of analysis is the county. This
+allows us to capture not only the direct effects of deindustrialization
+on laid-off manufacturing workers, but also on the local economy. The
 primary outcome variable is the county's change in Democratic vote share
 between 2012 and 2016. We obtain this from XXXXXXXXX
 
@@ -124,15 +124,16 @@ of our period there were \(2000\) manufacturing workers in a county, and
 \(8000\) non-manufacturing workers. At the end there are only \(1500\)
 manufacturing workers. This is a loss of \(500/10000 = 5\%.\)
 
-In this choice we diverge from \cite{BW21}, which uses \textbf{gross}
-manufacturing job losses. For example, if a county lost \(450\)
-manufacturing jobs from 2012-2015 and also gained \(400\) manufacturing
-jobs over the same period, this would be \(450\) \textbf{gross} job
-losses, but only \(50\) \textbf{net} job losses. The \textbf{gross}
-measure captures several dynamics unrelated to deindustrialization - for
-example, seasonal unemployment in a food-manufacturing region, or
-workers moving between jobs. Thus we believe the \textbf{net} job losses
-over a period are the more accurate measure.
+In this choice we diverge from \cite{Baccini21}, which uses
+\textbf{gross} manufacturing job losses. For example, if a county lost
+\(450\) manufacturing jobs from 2012-2015 and also gained \(400\)
+manufacturing jobs over the same period, this would be \(450\)
+\textbf{gross} job losses, but only \(50\) \textbf{net} job losses. The
+\textbf{gross} measure captures several dynamics unrelated to
+deindustrialization - for example, seasonal unemployment in a
+food-manufacturing region, or workers moving between jobs. Thus we
+believe the \textbf{net} job losses over a period are the more accurate
+measure.
 
 Data on job gains and losses are obtained, using an API, from the Census
 Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains
@@ -150,7 +151,7 @@ an instrumental-variable approach. A regression of change in Democratic
 vote share on manufacturing job losses risks endogeneity, in case
 counties with manufacturing job losses were otherwise predisposed to
 turn towards Trump (a singular candidate, after all). To mitigate these
-risks, \cite{BW21} uses a Bartik instrument, which we adapt. This
+risks, \cite{Baccini21} uses a Bartik instrument, which we adapt. This
 instrument essentially uses the cross-county distribution of
 manufacturing employment as a source of exogenous variation.
 
@@ -160,6 +161,9 @@ b_{j,c} &=& \frac{\text{Manufacturing Employment}_{j,c} \text{ at } t_0}{\text{T
 &&  * \frac{\text{National Manufacturing Job Change}_{j,c} }{\text{Total National Employment at }t_0} \\
 \end{aligned}
 \]
+
+Using this instrument, we then conduct a two stage regression. First we
+estimate manufacturing job loss with the Bartik Instrument
 
 If we expand our measure of net manufacturing job losses to include the
 2004 to 2011 period - which covers most of the period when the U.S.
