@@ -77,8 +77,8 @@ above. Note: you can't use both packages at once or compile-time errors will res
 
 Sample figure:
 
+
 \begin{figure}
-Figure here.
 
 \caption{Caption for figure below.}
 \begin{figurenotes}
