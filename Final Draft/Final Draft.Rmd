@@ -19,25 +19,20 @@ author:
     affiliation: Harvard University
 acknowledgements: 
 abstract: |
-  What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. Counties differ by exposure to manufacturing, which we use in an instrumental-variable approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
+  What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. We use an instrumental-variable approach and a covariate-balancing approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
 output: rticles::aea_article
 ---
 
+This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has frequently focused on racial animus, trade, or the conjunction of the two (\cite{Autor20}; \cite{che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the effects of deindustrialization in a localized way. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created knock-on adverse effects in many formerly industrial areas. Along with \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. However, we find that the related effects in the 2016 election are not associated with recent manufacturing job loss; rather, the opposite. Counties with manufacturing job losses from 2012-2015 tended to become more Democratic. We extend the analysis to the 2004-2015 period, to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job loss swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
 
 
-\section{Introduction}
+Our analysis extends \cite{Baccini21} in several ways. First, we change focus from a measure of gross losses in manufacturing jobs to net losses. As discussed in \ref{datasec}, we believe this to be a more accurate measure of deindustrialization. Second, we change the temporal focus. Rather than focusing on manufacturing job loss in 2012-2015, we extend our analysis back to 2004. This is an important change. As shown XXXXXXXXXXXXXX FIGURE XXXXXXXXXXXXXXX, the bulk of U.S. manufacturing job loss took place prior to 2012; in fact, the 2012-2015 period was characterized by a slight rebound in manufacturing jobs. During this rebound, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery XXXXXXXXXXXXXXX FIGURE XXXXXXXXXXXXX. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. Finally, we augment the instrumental-variable approach with one based on covariate balancing, which produces similar results.
 
-We replicate \cite{Baccini21}, which analyzes the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election.
+\section{Data and Methods} 
+\label{datamethods}
 
-We extend Baccini and Weymouth's analysis by changing the quantity of interest from **gross** manufacturing job losses to **net** manufacturing job losses. For example, in Baccini and Weymouth's model, if a county lost 400 manufacturing jobs from 2012-2015 and also gained 400 manufacturing jobs over the same period, they would count 400 overall layoffs. Using our measure of *net* manufacturing job losses, we would consider this example a 0 net change in manufacturing employment. Given that job destruction and creation is a natural dynamic within the economy (i.e. seasonal employment, creative destruction), we think that *net* job losses is a more meaningful measure. 
-
-Using *net* manufacturing job losses as our outcome, we replicate Baccini and Weymouth's main model, which uses 2012-2015 manufacturing (gross) job losses to explain the change in Democratic vote share in 2016. Using their specifications, we find totally opposite results - that a *net* increase in white manufacturing jobs *increased* Democratic vote share, while a *net* increase in non-white manufacturing jobs *decreased* Democratic vote share. 
-
-However, we don't think this is capturing the important dynamic at play. From 2012 to 2015, the national economy experienced a net increase in manufacturing jobs following the 2008 recession (See Figure 1). During this time of recovery, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. 
-
-\section{Data and Methods}
-
-\subsection{Data}
+\subsection{Data} 
+\label{datasec}
 
 Following \cite{Baccini21}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also on the local economy. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain this from XXXXXXXXX
 
@@ -51,7 +46,8 @@ XXXXXXXXXXXXXXXX sources of other data
 
 
 
-\subsection{Methods}
+\subsection{Methods} 
+\label{methodssec}
 
 We conduct two related tests of our hypothesis. Our first test involves an instrumental-variable approach. A regression of change in Democratic vote share on manufacturing job losses risks endogeneity, in case counties with manufacturing job losses were otherwise predisposed to turn towards Trump (a singular candidate, after all). To mitigate these risks, \cite{Baccini21} uses a Bartik instrument, which we adapt (see \cite{Bartik91}). This instrument essentially uses the cross-county distribution of manufacturing employment as a source of exogenous variation. 
 
@@ -62,16 +58,14 @@ b_{j,c} &=& \frac{\text{Manufacturing Employment}_{j,c} \text{ at } t_0}{\text{T
 \end{aligned}
 $$
 
-Using this instrument, we then conduct a two stage regression. First we estimate manufacturing job loss with the Bartik Instrument 
+Using this instrument, we then conduct a two stage regression. First we estimate manufacturing job loss with the Bartik Instrument and a set of county-level controls; then we use the estimated values of job losses to predict Democratic vote share. In these regressions we control for unemployment, service layoffs, the share of college-educated voters, and the share of male voters. For some estimates, we also control for the white share of the population. These controls are similar to those of \cite{Baccini21}.
+
+Our second approach involves attempting to balance the covariates of the deindustrialization treatment. We use the same covariates as are used in controls above, as well as manufacturing as share of the population and total population. We apply the method of Covariate Balancing Propensity Scores, as developed by \cite{Imai14}; this method generates weights to reduce the correlation between covariates and treatment, while addressing several of the issues with propensity score weights. Given covariate-balancing weights, we then conduct a single-stage weighted regression of change in Democratic vote share on manufacturing job loss, using the same controls as above.
+
+XXXXXXXXXXXXXXX BALANCE FIGURE??? XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
-
-
-
-
-
-
-
+\subsection{Results}
 
 
 
@@ -80,6 +74,13 @@ If we expand our measure of net manufacturing job losses to include the 2004 to 
 It is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analysis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. The mechanisms of these lagged effects merit further study.
 
 [Note: to demonstrate our point about **variable** effects, In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in Democratic vote share in other elections (2012 and 2020).]
+
+
+
+
+
+\subsection{Conclusion}
+
 
 
 Sample figure:
