@@ -14,19 +14,88 @@ author:
     surname: Mukerjee
     email: zagrebmukerjee@fas.harvard.edu
     affiliation: Harvard University
-acknowledgements: 
+acknowledgements: | 
+  Code available at https://github.com/zagrebmukerjee/ReplicationPaper
 abstract: |
   What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. We use an instrumental-variable approach and a covariate-balancing approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
 output: rticles::aea_article
+header-includes: 
+ - \usepackage{graphicx}
+ - \usepackage{amsmath}
+ - \usepackage{amssymb}
 ---
 
-This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has frequently focused on racial animus, trade, or the conjunction of the two (\cite{Autor20}; \cite{che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. This experience has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing XXXXXXXXXXXX MAP FIGURE XXXXXXXXXXX. We believe the localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(rticles)
+library(tidyverse)
+library(stargazer)
+library(sandwich)
+library(lmtest)
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(scales)
+library(tigris)
+
+knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
+```
+
+This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has frequently focused on racial animus, trade, or the conjunction of the two (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. This incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing XXXXXXXXXXXX MAP FIGURE XXXXXXXXXXX. We believe the localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
 
 Along with \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. However, we find that the related effects in the 2016 election are not associated with recent manufacturing job loss; rather, the opposite. Counties with manufacturing job losses from 2012-2015 tended to become more Democratic. We extend the analysis to the 2004-2015 period, to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job losses swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
 
 
-Our analysis extends \cite{Baccini21} in several ways. First, we change focus from a measure of gross losses in manufacturing jobs to net losses. As discussed in \ref{datasec}, we believe this to be a more accurate measure of deindustrialization. Second, we change the temporal focus. Rather than focusing on manufacturing job loss in 2012-2015, we extend our analysis back to 2004. This is an important change. As shown XXXXXXXXXXXXXX FIGURE XXXXXXXXXXXXXXX, the bulk of U.S. manufacturing job loss took place prior to 2012; in fact, the 2012-2015 period was characterized by a slight rebound in manufacturing jobs. During this rebound, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery XXXXXXXXXXXXXXX FIGURE XXXXXXXXXXXXX. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. Finally, we augment the instrumental-variable approach with one based on covariate balancing, which produces similar results.
+Our analysis extends \cite{Baccini21} in several ways. First, we change focus from a measure of gross losses in manufacturing jobs to net losses. As discussed in \ref{datasec}, we believe this to be a more accurate measure of deindustrialization. Second, we change the temporal focus. Rather than focusing on manufacturing job loss in 2012-2015, we extend our analysis back to 2004. This is an important change. As shown in Figure \ref{natlPlot}, the bulk of U.S. manufacturing job loss took place prior to 2012; in fact, the 2012-2015 period was characterized by a slight rebound in manufacturing jobs. During this rebound, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery, as described in Figure \ref{vShapePlot}. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. Finally, we augment the instrumental-variable approach with one based on covariate balancing, which produces similar results.
+
+
+\begin{figure} \label{natlPlot}
+\caption{Nationwide Change in Manufacturing Employment, 1995-2019}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+# manufacturing layoffs over time
+
+national_ts <- read_xlsx("../National_Data_TS.xlsx")
+
+national_ts <- national_ts %>%
+  rename(year = 1,
+         net_job_change = 2) %>%
+  dplyr::select(year, net_job_change) %>%
+  rename(Year = year, `Job Change per Worker` = net_job_change) %>%
+  mutate(
+    Year = as.numeric(Year),
+    `Job Change per Worker` = `Job Change per Worker`*4) %>% group_by()
+
+ggplot(data = national_ts %>% filter(Year >= 1995),
+       aes(x = Year, y = `Job Change per Worker`)) +
+  ylab("Millions of Jobs") +
+  geom_col(fill = "#4287f5") + scale_x_continuous(breaks=seq(1995,2020,5)) +
+	scale_y_continuous(labels = label_number(suffix = "", scale = 1e-6)) +
+  theme_classic() +
+  theme(title = element_text(size = 8, hjust = .5),
+        axis.title.x = element_text(size = 8), 
+        axis.title.y = element_text(size = 8))
+
+
+```
+
+\begin{figurenotes}
+Gain or loss of national manufacturing jobs, divided by total national workforce.
+\end{figurenotes}
+\end{figure}
+
+
+
+\begin{figure} \label{vShapePlot}
+\caption{}
+
+\begin{figurenotes}
+Figure notes without optional leadin.
+\end{figurenotes}
+\end{figure}
+
+
+
 
 \section{Data and Methods} 
 \label{datamethods}
@@ -43,6 +112,21 @@ In this choice we diverge from \cite{Baccini21}, which uses **gross** manufactur
 Data on job gains and losses are obtained, using an API, from the Census Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains (among other things) information about employment by industry and county. These statistics are further disaggregated by race and ethnicity. The Census Bureau obtains this data from a combination of sources, such as administrative tax data and the U.S. Census. 
 
 XXXXXXXXXXXXXXXX sources of other data
+
+Basic descriptive statistics of job losses and other key covariates can be seen in Table \ref{tab:descTable}.
+
+
+
+```{r,  echo=F}
+descriptiveData <-  readRDS("../tableData.rds")
+
+knitr::kable(descriptiveData$table04,
+             caption = "Manufacturing Job Changes 2004-2015",label = "descTable",
+             booktabs = TRUE, digits = 2, format = 'latex')  %>%
+  kable_styling(latex_options = c("hold_position", "scale_down"))
+
+```
+
 
 
 
@@ -69,30 +153,156 @@ XXXXXXXXXXXXXXX BALANCE FIGURE??? XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 We find that counties experiencing deindustrialization from 2004-2015 are substantially more likely to vote for Trump. Further, we find that this effect is largely attributable to whites. In other words, net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased Democratic vote share. We find the same effect when using covariate balancing, albeit of reduced size. 
 
-The results can be found in XXXXXXXXXXXXX. The regression coefficient in Model 4, for instance, means that a loss of $10$ manufacturing jobs per $100$ workers in a county (a relatively extreme value) corresponds to a loss of $3.2 \%$ in Democratic vote share.
+The results can be found in Table \ref{regResult04}. The regression coefficient in Model 4, for instance, means that a loss of $10$ manufacturing jobs per $100$ workers in a county (a relatively extreme value) corresponds to a loss of $3.2 \%$ in Democratic vote share.
+
+
+```{r,  echo=F, message = F, results = "asis"}
+
+regResultList <- readRDS("../regresults.rds")
+
+
+rownames(regResultList$secondStageModelNetC04A$coefficients )[rownames(regResultList$secondStageModelNetC04A$coefficients)=="firstStageModelOurs04_2$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC04$coefficients )[rownames(regResultList$secondStageModelNetC04$coefficients)=="firstStageModelOurs04_3$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04A$coefficients )[rownames(regResultList$secondStageModelWNetC04A$coefficients)=="firstStageModelOurs04_5$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04$coefficients )[rownames(regResultList$secondStageModelWNetC04$coefficients)=="firstStageModelOurs04_6$fitted.values"] <-  "White Manufacturing Layoffs"
+
+rownames(regResultList$secondStageModelWNetC04A$coefficients
+)[rownames(regResultList$secondStageModelWNetC04A$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04$coefficients
+)[rownames(regResultList$secondStageModelWNetC04$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+
+
+rownames(regResultList$secondStageModelNetC04A$beta )[rownames(regResultList$secondStageModelNetC04A$beta) =="firstStageModelOurs04_2$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC04$beta )[rownames(regResultList$secondStageModelNetC04$beta)=="firstStageModelOurs04_3$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04A$beta )[rownames(regResultList$secondStageModelWNetC04A$beta)=="firstStageModelOurs04_5$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04$beta )[rownames(regResultList$secondStageModelWNetC04$beta)=="firstStageModelOurs04_6$fitted.values"] <-  "White Manufacturing Layoffs"
+
+rownames(regResultList$secondStageModelWNetC04A$beta )[rownames(regResultList$secondStageModelWNetC04A$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04$beta )[rownames(regResultList$secondStageModelWNetC04$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+
+
+
+names(regResultList$rseNetC04A_2)[1] <- "Manufacturing Layoffs"
+names(regResultList$rseNetC04_2)[1] <- "Manufacturing Layoffs"
+names(regResultList$rseWNetC04A_2)[1] <- "White Manufacturing Layoffs"
+names(regResultList$rseWNetC04_2)[1] <- "White Manufacturing Layoffs"
+
+names(regResultList$rseWNetC04A_2)[names(regResultList$rseWNetC04A_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+names(regResultList$rseWNetC04_2)[names(regResultList$rseWNetC04_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+
+
+
+
+stargazer(regResultList$secondStageModelNetC04A,
+          regResultList$secondStageModelNetC04,
+          regResultList$secondStageModelWNetC04A,
+          regResultList$secondStageModelWNetC04,
+          se = list(
+            regResultList$rseNetC04A_2,
+            regResultList$rseNetC04_2,
+            regResultList$rseWNetC04A_2,
+            regResultList$rseWNetC04_2
+          ),
+          title = "Effect of Manufacturing Job Loss from 2004 to 2015",
+          dep.var.labels = "Change in Dem. Share, 2016-2012",
+          omit.stat = c("rsq","ser"),
+          keep = c("Manufacturing Layoffs", "White Manufacturing Layoffs", "Nonwhite Manufacturing Layoffs"),
+          add.lines = list(
+            c("White Share/Svc Layoffs Control", "No", "Yes", "No", "Yes")
+          ),
+          digits = 2,
+          header = F,
+          type = "latex",
+          label = "regResult04"
+)
+
+```
 
 This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties experienced job losses
+
+
 
 XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
 
 \subsubsection{Timing}
 
-Restricting our analysis to only the 2012-2015 period produces an opposite effect, in contrast to \cite{BW21} (when we use a net job loss metric). The loss of Democratic vote share seems to be associated with a gain in manufacturing jobs, both in general and among whites. We believe this time-restricted analysis suffers from an omitted variable bias. As discussed above, the 2012-2015 period can be broadly characterized as a slight rebound from the manufacturing job losses in the 2008 financial crisis. The counties that experience job losses from 2004-2012 are more likely to have job gains in 2012-2015. An apparent relationship between 2012-2015 job gains and loss of Democratic vote share in fact represents 2004-2012 job losses that may lead to both the later job gains and the loss of vote share.
-XXXXXXXXXXXXX FIGURE XXXXXXXXXXXX
+Restricting our analysis to only the 2012-2015 period, while continuing to use the net job loss metric, produces an effect opposite to that of \cite{Baccini21}. The loss of Democratic vote share seems to be associated with a gain in manufacturing jobs, both in general and among whites. We believe this time-restricted analysis suffers from an omitted variable bias. As discussed above, the 2012-2015 period can be broadly characterized as a slight rebound from the manufacturing job losses in the 2008 financial crisis. The counties that experience job losses from 2004-2012 are more likely to have job gains in 2012-2015 (see \ref{vShapePlot}). An apparent relationship between 2012-2015 job gains and loss of Democratic vote share in fact represents 2004-2012 job losses that may lead to both the later job gains and the loss of vote share. These results can be seen in Table \ref{regResult12}.
 
-This result suggests an important temporal dimension to the political effects of deindustrialization - job losses in 2004-2012 make their effects felt in 2016. In some ways, this result is more plausible than if the 2012-2015 job losses were a significant covariate of voting. The effects of job loss may take some time to be felt, at both individual and community levels (see XXXXXXXXXXXXXX CITE). The mechanisms of this relationship make a good topic for subsequent research. 
+
+```{r,  echo=F, message = F, results = "asis"}
+
+rownames(regResultList$secondStageModelNetCA$coefficients )[rownames(regResultList$secondStageModelNetCA$coefficients)=="firstStageModelOurs_2$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC$coefficients )[rownames(regResultList$secondStageModelNetC$coefficients)=="firstStageModelOurs_3$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetCA$coefficients )[rownames(regResultList$secondStageModelWNetCA$coefficients)=="firstStageModelOurs_5$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC$coefficients )[rownames(regResultList$secondStageModelWNetC$coefficients)=="firstStageModelOurs_6$fitted.values"] <-  "White Manufacturing Layoffs"
+
+rownames(regResultList$secondStageModelWNetCA$coefficients 
+)[rownames(regResultList$secondStageModelWNetCA$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC$coefficients
+)[rownames(regResultList$secondStageModelWNetC$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+
+
+rownames(regResultList$secondStageModelNetCA$beta )[rownames(regResultList$secondStageModelNetCA$beta) =="firstStageModelOurs_2$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC$beta )[rownames(regResultList$secondStageModelNetC$beta)=="firstStageModelOurs_3$fitted.values"] <-  "Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetCA$beta )[rownames(regResultList$secondStageModelWNetCA$beta)=="firstStageModelOurs_5$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC$beta )[rownames(regResultList$secondStageModelWNetC$beta)=="firstStageModelOurs_6$fitted.values"] <-  "White Manufacturing Layoffs"
+
+rownames(regResultList$secondStageModelWNetCA$beta )[rownames(regResultList$secondStageModelWNetCA$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC$beta )[rownames(regResultList$secondStageModelWNetC$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+
+
+
+names(regResultList$rseNetCA_2)[1] <- "Manufacturing Layoffs"
+names(regResultList$rseNetC_2)[1] <- "Manufacturing Layoffs"
+names(regResultList$rseWNetCA_2)[1] <- "White Manufacturing Layoffs"
+names(regResultList$rseWNetC_2)[1] <- "White Manufacturing Layoffs"
+
+names(regResultList$rseWNetCA_2)[names(regResultList$rseWNetCA_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+names(regResultList$rseWNetC_2)[names(regResultList$rseWNetC_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+
+
+
+
+stargazer(regResultList$secondStageModelNetCA,
+          regResultList$secondStageModelNetC,
+          regResultList$secondStageModelWNetCA,
+          regResultList$secondStageModelWNetC,
+          se = list(
+            regResultList$rseNetCA_2,
+            regResultList$rseNetC_2,
+            regResultList$rseWNetCA_2,
+            regResultList$rseWNetC_2
+          ),
+          title = "Effect of Manufacturing Job Loss from 2004 to 2015",
+          dep.var.labels = "Change in Dem. Share, 2016-2012",
+          omit.stat = c("rsq","ser"),
+          keep = c("Manufacturing Layoffs", "White Manufacturing Layoffs", "Nonwhite Manufacturing Layoffs"),
+          add.lines = list(
+            c("White Share/Svc Layoffs Control", "No", "Yes", "No", "Yes")
+          ),
+          digits = 2,
+          header = F,
+          type = "latex",
+          label = "regResult12"
+)
+
+```
+
+
+
+This result suggests an important temporal dimension to the political effects of deindustrialization - job losses in 2004-2012 make their effects felt in 2016. In some ways, this result is more plausible than if the 2012-2015 job losses were a significant covariate of voting. The effects of job loss may take some time to be felt, at both individual and community levels (see \cite{Mckee09}, \cite{Foote19}). The mechanisms of this relationship make a good topic for subsequent research. 
 
 
 \subsection{Conclusion}
 
-As much research has noted, the national and global implications of American  deindustrialization are only beginning to be felt - from the 2016 election to isolationism to the opioid epidemic. Previous analyses have often focused on choosing between explanations grounded in racial issues or political-economic evolutions XXXXXXXXXXXXXXXXXXXXXxxx CITE. We are joining a growing body of scholars searching for explanations at the intersection of the two. We believe that deindustrialization is fundamentally connected to particular places, and so the localized approach adopted by \cite{BW21} offers a great deal of promise. Further research might explore further ways in which geography has influenced the rightward turn in the U.S., for example through the use of techniques of spatial econometrics or the careful use of ethnography. 
+As much research has noted, the national and global implications of American  deindustrialization are only beginning to be felt - from the 2016 election to isolationism to the opioid epidemic. Previous analyses have often focused on choosing between explanations grounded in racial issues or political-economic evolutions (ex: \cite{Green19}, \cite{Reny19}). We are joining a growing body of scholars searching for explanations at the intersection of the two. We believe that deindustrialization is fundamentally connected to particular places, and so the localized approach adopted by \cite{Baccini21} offers a great deal of promise. Further research might explore further ways in which geography has influenced the rightward turn in the U.S., for example through the use of techniques of spatial econometrics or the careful use of ethnography. 
 
-While our study is oriented towards history, deindustrialization is in no way confined to the past. The trajectory of American manufacturing employment is far from certain, with continued competition from abroad and the perennial threat of automation. We believe the case of the U.S. also offers insight that is applicable to the phenomenon of 'premature deindustrialization' in the developing world, and the concurrent growth of populist parties in Hungary, Brazil, India and elsewhere. XXXXXXXXXXXXXXX CITES XXXXXXxx
+While our study is oriented towards history, deindustrialization is in no way confined to the past. The trajectory of American manufacturing employment is far from certain, with continued competition from abroad and the perennial threat of automation. We believe the case of the U.S. also offers insight that is applicable to the phenomenon of 'premature deindustrialization' in the developing world, and the concurrent growth of populist parties in Hungary, Brazil, India and elsewhere (\cite{Rodrik15}, \cite{Castillo16}).
 
 
-\begin{figure}
-
+\begin{figure} \label{}
 \caption{Caption for figure below.}
+
 \begin{figurenotes}
 Figure notes without optional leadin.
 \end{figurenotes}
@@ -102,7 +312,7 @@ Figure notes with optional leadin (Source, in this case).
 \end{figure}
 
 
-\nocite{stargazer}
+\nocite{Stargazer}
 \bibliographystyle{aea}
 \bibliography{references}
 
