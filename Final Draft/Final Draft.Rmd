@@ -1,11 +1,8 @@
 ---
 title: "Brother, Can You Spare a Manufacturing Job?  How Voters React to Deindustrialization"
 short: "Brother, Can You Spare a Manufacturing Job? "
-journal: "" # AER, AEJ, PP, JEL
 month: "`r format(Sys.Date(), '%m')`"
 year: "`r format(Sys.Date(), '%Y')`"
-vol: 1
-issue: 1
 author:
   - name: Catherine Darin
     firstname: Catherine
@@ -23,7 +20,10 @@ abstract: |
 output: rticles::aea_article
 ---
 
-This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has frequently focused on racial animus, trade, or the conjunction of the two (\cite{Autor20}; \cite{che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the effects of deindustrialization in a localized way. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created knock-on adverse effects in many formerly industrial areas. Along with \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. However, we find that the related effects in the 2016 election are not associated with recent manufacturing job loss; rather, the opposite. Counties with manufacturing job losses from 2012-2015 tended to become more Democratic. We extend the analysis to the 2004-2015 period, to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job loss swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
+This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has frequently focused on racial animus, trade, or the conjunction of the two (\cite{Autor20}; \cite{che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. This experience has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing XXXXXXXXXXXX MAP FIGURE XXXXXXXXXXX. We believe the localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
+
+
+Along with \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. However, we find that the related effects in the 2016 election are not associated with recent manufacturing job loss; rather, the opposite. Counties with manufacturing job losses from 2012-2015 tended to become more Democratic. We extend the analysis to the 2004-2015 period, to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job losses swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
 
 
 Our analysis extends \cite{Baccini21} in several ways. First, we change focus from a measure of gross losses in manufacturing jobs to net losses. As discussed in \ref{datasec}, we believe this to be a more accurate measure of deindustrialization. Second, we change the temporal focus. Rather than focusing on manufacturing job loss in 2012-2015, we extend our analysis back to 2004. This is an important change. As shown XXXXXXXXXXXXXX FIGURE XXXXXXXXXXXXXXX, the bulk of U.S. manufacturing job loss took place prior to 2012; in fact, the 2012-2015 period was characterized by a slight rebound in manufacturing jobs. During this rebound, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery XXXXXXXXXXXXXXX FIGURE XXXXXXXXXXXXX. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. Finally, we augment the instrumental-variable approach with one based on covariate balancing, which produces similar results.
@@ -38,7 +38,7 @@ Following \cite{Baccini21}, our unit of analysis is the county. This allows us t
 
 We want to measure the causal relationship between deindustrialization and the change in vote share. As a measure of deindustrialization, we use the loss of manufacturing jobs as a share of the total beginning-of-period employment in each county. Suppose at the beginning of our period there were $2000$ manufacturing workers in a county, and $8000$ non-manufacturing workers. At the end there are only $1500$ manufacturing workers. This is a loss of $500/10000 = 5\%.$
 
-In this choice we diverge from \cite{Baccini21}, which uses **gross** manufacturing job losses. For example, if a county lost $450$ manufacturing jobs from 2012-2015 and also gained $400$ manufacturing jobs over the same period, this would be $450$ **gross** job losses, but only $50$ **net** job losses. The **gross** measure captures several dynamics unrelated to deindustrialization - for example, seasonal unemployment in a food-manufacturing region, or workers moving between jobs. Thus we believe the **net** job losses over a period are the more accurate measure. 
+In this choice we diverge from \cite{Baccini21}, which uses **gross** manufacturing job losses. For example, if a county lost $450$ manufacturing jobs from 2012-2015 and also gained $400$ manufacturing jobs over the same period, this would be $450$ **gross** job losses, but only $50$ **net** job losses. The **gross** measure captures several dynamics unrelated to deindustrialization - for example, seasonal unemployment in a food-manufacturing region, or workers moving between jobs. Thus we believe the **net** job losses over a period are the more accurate measure. It can be argued that the non-seasonal or non-structural components of gross job losses are a useful covariate. Basic notions of prospect theory suggest that the loss of a job and subsequent regaining of another identical job may still create substantial discontent. Constructing a better measure of gross job losses is an area for further methodological and substantive research.
 
 Data on job gains and losses are obtained, using an API, from the Census Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains (among other things) information about employment by industry and county. These statistics are further disaggregated by race and ethnicity. The Census Bureau obtains this data from a combination of sources, such as administrative tax data and the U.S. Census. 
 
@@ -58,7 +58,7 @@ b_{j,c} &=& \frac{\text{Manufacturing Employment}_{j,c} \text{ at } t_0}{\text{T
 \end{aligned}
 $$
 
-Using this instrument, we then conduct a two stage regression. First we estimate manufacturing job loss with the Bartik Instrument and a set of county-level controls; then we use the estimated values of job losses to predict Democratic vote share. In these regressions we control for unemployment, service layoffs, the share of college-educated voters, and the share of male voters. For some estimates, we also control for the white share of the population. These controls are similar to those of \cite{Baccini21}.
+Using this instrument, we then conduct a two stage regression. First we estimate manufacturing job loss with the Bartik Instrument and a set of county-level controls; then we use the estimated values of job losses to predict Democratic vote share. In these regressions we control for unemployment, service layoffs, the share of college-educated voters, and the share of male voters. For some estimates, we also control for the white share of the population. We also apply state fixed effects to account for a wide variety of state-level changes from 2012-2016 (such as voter suppression tactics). These controls are similar to those of \cite{Baccini21}.
 
 Our second approach involves attempting to balance the covariates of the deindustrialization treatment. We use the same covariates as are used in controls above, as well as manufacturing as share of the population and total population. We apply the method of Covariate Balancing Propensity Scores, as developed by \cite{Imai14}; this method generates weights to reduce the correlation between covariates and treatment, while addressing several of the issues with propensity score weights. Given covariate-balancing weights, we then conduct a single-stage weighted regression of change in Democratic vote share on manufacturing job loss, using the same controls as above.
 
@@ -67,61 +67,27 @@ XXXXXXXXXXXXXXX BALANCE FIGURE??? XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 \subsection{Results}
 
+We find that counties experiencing deindustrialization from 2004-2015 are substantially more likely to vote for Trump. Further, we find that this effect is largely attributable to whites. In other words, net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased Democratic vote share. We find the same effect when using covariate balancing, albeit of reduced size. 
 
+The results can be found in XXXXXXXXXXXXX. The regression coefficient in Model 4, for instance, means that a loss of $10$ manufacturing jobs per $100$ workers in a county (a relatively extreme value) corresponds to a loss of $3.2 \%$ in Democratic vote share.
 
-If we expand our measure of net manufacturing job losses to include the 2004 to 2011 period - which covers most of the period when the U.S. manufacturing economy was hit most intensely (See Figure 1) -- we get a result that corroborates the core intuition of Baccini and Weymouth (See Table 4). That is, we find that net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased Democratic vote share.
+This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties experienced job losses
 
-It is important to highlight the substantive importance of the *timing* of manufacturing layoffs on political outcomes. Whereas Baccini and Weymouth's analysis suggests that economic changes lead to immediate political consequences, our analysis shows that economic changes can have lagged and variable effects on political outcomes. The mechanisms of these lagged effects merit further study.
+XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
 
-[Note: to demonstrate our point about **variable** effects, In our next iteration of the analysis, we will show that manufacturing job losses had little explanatory effect on changes in Democratic vote share in other elections (2012 and 2020).]
+\subsubsection{Timing}
 
+Restricting our analysis to only the 2012-2015 period produces an opposite effect, in contrast to \cite{BW21} (when we use a net job loss metric). The loss of Democratic vote share seems to be associated with a gain in manufacturing jobs, both in general and among whites. We believe this time-restricted analysis suffers from an omitted variable bias. As discussed above, the 2012-2015 period can be broadly characterized as a slight rebound from the manufacturing job losses in the 2008 financial crisis. The counties that experience job losses from 2004-2012 are more likely to have job gains in 2012-2015. An apparent relationship between 2012-2015 job gains and loss of Democratic vote share in fact represents 2004-2012 job losses that may lead to both the later job gains and the loss of vote share.
+XXXXXXXXXXXXX FIGURE XXXXXXXXXXXX
 
-
+This result suggests an important temporal dimension to the political effects of deindustrialization - job losses in 2004-2012 make their effects felt in 2016. In some ways, this result is more plausible than if the 2012-2015 job losses were a significant covariate of voting. The effects of job loss may take some time to be felt, at both individual and community levels (see XXXXXXXXXXXXXX CITE). The mechanisms of this relationship make a good topic for subsequent research. 
 
 
 \subsection{Conclusion}
 
+As much research has noted, the national and global implications of American  deindustrialization are only beginning to be felt - from the 2016 election to isolationism to the opioid epidemic. Previous analyses have often focused on choosing between explanations grounded in racial issues or political-economic evolutions XXXXXXXXXXXXXXXXXXXXXxxx CITE. We are joining a growing body of scholars searching for explanations at the intersection of the two. We believe that deindustrialization is fundamentally connected to particular places, and so the localized approach adopted by \cite{BW21} offers a great deal of promise. Further research might explore further ways in which geography has influenced the rightward turn in the U.S., for example through the use of techniques of spatial econometrics or the careful use of ethnography. 
 
-
-Sample figure:
-
-
-
-American Economic Review Pointers:
-
-\begin{itemize}
-\item Do not use an "Introduction" heading. Begin your introductory material
-before the first section heading.
-
-\item Avoid style markup (except sparingly for emphasis).
-
-\item Avoid using explicit vertical or horizontal space.
-
-\item Captions are short and go below figures but above tables.
-
-\item The tablenotes or figurenotes environments may be used below tables
-or figures, respectively, as demonstrated below.
-
-\item If you have difficulties with the mathtime package, adjust the package
-options appropriately for your platform. If you can't get it to work, just
-remove the package or see our technical support document online (please
-refer to the author instructions).
-
-\item If you are using an appendix, it goes last, after the bibliography.
-Use regular section headings to make the appendix headings.
-
-\item If you are not using an appendix, you may delete the appendix command
-and sample appendix section heading.
-
-\item Either the natbib package or the harvard package may be used with bibtex.
-To include one of these packages, uncomment the appropriate usepackage command
-above. Note: you can't use both packages at once or compile-time errors will result.
-
-\end{itemize}
-
-\section{First Section in Body}
-
-Sample figure:
+While our study is oriented towards history, deindustrialization is in no way confined to the past. The trajectory of American manufacturing employment is far from certain, with continued competition from abroad and the perennial threat of unemployment. We believe the case of the U.S. also offers insight that is applicable to the phenomenon of 'premature deindustrialization' in the developing world, and the concurrent growth of populist parties in Hungary, Brazil, India and elsewhere. XXXXXXXXXXXXXXX CITE XXXXXXxx
 
 
 \begin{figure}
@@ -135,27 +101,8 @@ Figure notes with optional leadin (Source, in this case).
 \end{figurenotes}
 \end{figure}
 
-Sample table:
 
-\begin{table}
-\caption{Caption for table above.}
-
-\begin{tabular}{lll}
-& Heading 1 & Heading 2 \\
-Row 1 & 1 & 2 \\
-Row 2 & 3 & 4%
-\end{tabular}
-\begin{tablenotes}
-Table notes environment without optional leadin.
-\end{tablenotes}
-\begin{tablenotes}[Source]
-Table notes environment with optional leadin (Source, in this case).
-\end{tablenotes}
-\end{table}
-
-References here (manual or bibTeX). If you are using bibTeX, add your bib file
-name in place of BibFile in the bibliography command.
-% Remove or comment out the next two lines if you are not using bibtex.
+\nocite{stargazer}
 \bibliographystyle{aea}
 \bibliography{references}
 
