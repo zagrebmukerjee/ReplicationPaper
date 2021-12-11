@@ -130,9 +130,6 @@ ggplot() +
 
 ```
 
-\begin{figurenotes}
-Calculated as net change in manufacturing employment from 2004-2015 divided by 2004 total employment.
-\end{figurenotes}
 \end{figure}
 
 
@@ -229,7 +226,7 @@ b_{j,c} &=& \frac{\text{Manufacturing Employment}_{j,c} \text{ at } t_0}{\text{T
 \end{aligned}
 $$
 
-Using this instrument, we then conduct a two stage regression. First we estimate manufacturing job loss with the Bartik Instrument and a set of county-level controls; then we use the estimated values of job losses to predict Democratic vote share. In these regressions we control for unemployment, service layoffs, the share of college-educated voters, and the share of male voters. For some estimates, we also control for the white share of the population. We also apply state fixed effects to account for a wide variety of state-level changes from 2012-2016 (such as voter suppression tactics). These controls are similar to those of \cite{Baccini21}.
+Using this instrument, we then conduct a two-stage regression. First we estimate manufacturing job loss with the Bartik Instrument and a set of county-level controls; then we use the estimated values of job losses to predict Democratic vote share. In these regressions we control for unemployment, service layoffs, the share of college-educated voters, and the share of male voters. For some estimates, we also control for the white share of the population. We also apply state fixed effects to account for a wide variety of state-level changes from 2012-2016 (such as voter suppression tactics). These controls are similar to those of \cite{Baccini21}.
 
 Our second approach involves attempting to balance the covariates of the deindustrialization treatment. We use the same covariates as are used in controls above, as well as manufacturing as share of the population and total population. We apply the method of Covariate Balancing Propensity Scores, as developed by \cite{Imai14}; this method generates weights to reduce the correlation between covariates and treatment, while addressing several of the issues with propensity score weights. Given covariate-balancing weights, we then conduct a single-stage weighted regression of change in Democratic vote share on manufacturing job loss, using the same controls as above.
 
@@ -306,7 +303,7 @@ stargazer(regResultList$secondStageModelNetC04A,
 ```
 
 This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties experienced job losses
-
+XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
 
 \begin{figure} \label{natlPlot}
 \caption{Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
@@ -476,8 +473,8 @@ flipped <- mapping_small %>% filter(changed_outcome == "Yes")
 ggplot() +
   geom_sf(data = mapping_small, aes(fill = delta_vs_group), color = "black", size = .1) +
   scale_fill_manual(values = colors) +
-  labs(title = "Figure 3: Impact of Manufacturing Job Lossess on Democratic Vote Share",
-       subtitle = "Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses",
+  labs(title = "",
+       subtitle = "",
        fill = "Change in Democratic Vote Share") +
   geom_sf(data = flipped, fill = NA, 
           aes(color = changed_outcome), 
@@ -493,12 +490,7 @@ ggplot() +
           axis.title.y=element_blank())
 
 ```
-\begin{figurenotes}
-Gain or loss of national manufacturing jobs, divided by total national workforce.
-\end{figurenotes}
 \end{figure}
-
-XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
 
 \subsubsection{Timing}
 
