@@ -42,12 +42,101 @@ library(tigris)
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
-This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has frequently focused on racial animus, trade, or the conjunction of the two (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. This incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing XXXXXXXXXXXX MAP FIGURE XXXXXXXXXXX. We believe the localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
+This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has frequently focused on racial animus, trade, or the conjunction of the two (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. This incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing, as demonstrated in Figure \ref{ManuMap}. We believe the localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
 
 Along with \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. However, we find that the related effects in the 2016 election are not associated with recent manufacturing job loss; rather, the opposite. Counties with manufacturing job losses from 2012-2015 tended to become more Democratic. We extend the analysis to the 2004-2015 period, to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job losses swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
 
 
 Our analysis extends \cite{Baccini21} in several ways. First, we change focus from a measure of gross losses in manufacturing jobs to net losses. As discussed in \ref{datasec}, we believe this to be a more accurate measure of deindustrialization. Second, we change the temporal focus. Rather than focusing on manufacturing job loss in 2012-2015, we extend our analysis back to 2004. This is an important change. As shown in Figure \ref{natlPlot}, the bulk of U.S. manufacturing job loss took place prior to 2012; in fact, the 2012-2015 period was characterized by a slight rebound in manufacturing jobs. During this rebound, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery, as described in Figure \ref{vShapePlot}. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. Finally, we augment the instrumental-variable approach with one based on covariate balancing, which produces similar results.
+
+
+\begin{figure} \label{ManuMap}
+\caption{Net Change in Manufacturing Employment from 2004 to 2015}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+# load map
+model_input <- readRDS("../model_5_input.rds")
+
+# state shapefile
+county_shape <- counties(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  shift_geometry() %>%
+  mutate(STATEFP = as.numeric(STATEFP),
+         COUNTYFP = as.numeric(COUNTYFP))
+
+state_shape <- states(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  filter(GEOID != "72" & GEOID != "02", GEOID != "15")
+
+# group counties into sextiles
+model_input <- model_input %>%
+  group_by() %>%
+  mutate(ntile_mfg = as.character(ntile(mfgNetChange_total , 6)))
+
+# find cutoffs
+
+sum <- model_input %>%
+  group_by(ntile_mfg) %>%
+  summarize(min = min(mfgNetChange_total),
+            max = max(mfgNetChange_total))
+
+labels = c(
+  "1" = "1% or Greater Gain",
+  "2" = "0% to 1% Gain",
+  "3" = "0% to 1% Loss",
+  "4" = "1% to 3% Loss",
+  "5" = "3% to 6% Loss",
+  "6" = "6% or Greater Loss")
+
+
+colors <- c("1" = "#778868",
+            "2" = "#b5b991",
+            "3" = "#f6edbd",
+            "4" = "#edbb8a",
+            "5" = "#de8a5a",
+            "6" = "#ca562c")
+
+#3d5941,#778868,#b5b991,#f6edbd,#edbb8a,#de8a5a,#ca562c
+mapping_county <- inner_join(county_shape, model_input,
+                      by = c("STATEFP" = "state_fips",
+                             "COUNTYFP" = "county_fips"))
+
+ggplot() +
+  geom_sf(data = mapping_county, aes(fill = ntile_mfg),
+          color = NA, size = .01) +
+  scale_fill_manual(values = colors,
+                    labels = labels) +
+  # add state lines
+  geom_sf(data = state_shape, fill = NA, color = "black", size = .1) +
+  coord_sf(datum = NA) +
+  theme_minimal() +
+  # geom_sf_text_repel(aes(label = state), data = mapping_small,
+  #                    force = .00001,  seed = 10,
+  #                    size = 2.5) +
+  theme(  axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          text = element_text(size = 8)) +
+  labs(title = "",
+       subtitle = "",
+       fill = "") +
+  theme(legend.key.size = unit(.4, 'cm'))  
+
+
+
+```
+
+\begin{figurenotes}
+Calculated as net change in manufacturing employment from 2004-2015 divided by 2004 total employment.
+\end{figurenotes}
+\end{figure}
+
+
+
 
 
 \begin{figure} \label{natlPlot}
@@ -126,8 +215,6 @@ knitr::kable(descriptiveData$table04,
   kable_styling(latex_options = c("hold_position", "scale_down"))
 
 ```
-
-
 
 
 \subsection{Methods} 
@@ -221,6 +308,195 @@ stargazer(regResultList$secondStageModelNetC04A,
 This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties experienced job losses
 
 
+\begin{figure} \label{natlPlot}
+\caption{Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+
+# load map
+model_input <- readRDS("../model_5_input.rds")
+model_results <- readRDS("../model_5_results.rds")
+
+
+# load voting data
+library(data.table)
+voting <- fread("..\\voting data.csv")
+
+
+# filter model input based on our regression filtering
+model_input <- model_input %>%
+  filter(is.finite(bartik_leo5_w2),
+         is.finite(mfgNetChange_white),
+         is.finite(mfgNetChange_nonwhite))
+
+# find the 25th percentile in manufacturing layoffs (our measure) across counties
+p25 <- quantile(model_input$mfgNetChange_white, (.25))
+
+# find the predicted democratic vote share
+model_input$P_ddem_1 <- model_results$fitted.values
+
+
+model_input <- model_input %>%
+  mutate(
+    
+    # calculate the counterfactual change in democratic vote share
+    # by multiplying our regression coefficient against the difference
+    # between observed manufacturing layoffs (our measure) and the
+    # 25th percentile of layoffs (nationally)
+    
+    # counterfactual net change in manufacturing job losses     
+    CF_netchange = p25,
+    
+    # difference between counterfactual and actual net manufacturing job losses 
+    CF_d_netchange = CF_netchange - mfgNetChange_white,
+    
+    # effect size -> coeff on white manufacturing layoffs times by the dif between CF and actual
+    CF_ddem_change = CF_d_netchange*model_results$coefficients[1],
+    
+    # counterfactual predicted dem vote share
+    
+    P_ddem_2 = P_ddem_1 + CF_ddem_change) %>%
+  
+  dplyr::select(id, state_fips, state, state_name, county_fips,
+                county, year, dem_votes_pct1, ddem_votes_pct1,
+                P_ddem_1, mfgNetChange_white, mfgNetChange_total,
+                mfgNetChange_nonwhite,
+                CF_netchange,
+                CF_d_netchange,
+                CF_ddem_change,
+                P_ddem_2)
+
+# clear voting data
+voting <- voting %>%
+  dplyr::select(year, state, county_name, county_fips,
+         party, candidatevotes) %>%
+  filter(party == "DEMOCRAT" | party == "REPUBLICAN") %>%
+  group_by(year, county_fips) %>%
+  summarize(total_dem_rep_votes = sum(candidatevotes),
+         dem_votes = sum(candidatevotes[party == "DEMOCRAT"]),
+         rep_votes = sum(candidatevotes[party == "REPUBLICAN"])) %>%
+  mutate(dem_vote_share = dem_votes/total_dem_rep_votes)
+
+# prep model input data to be merged to voting data
+model_input <- model_input %>% mutate(
+  c_fips_long = case_when(
+    str_length(as.character(county_fips)) == 1 ~
+      paste0("00", as.character(county_fips)),
+    str_length(as.character(county_fips)) == 2 ~
+      paste0("0", as.character(county_fips)),
+    TRUE ~ as.character(county_fips)),
+  s_fips_long  = case_when(
+    str_length(as.character(state_fips)) == 1 ~
+      paste0("0", as.character(state_fips)),
+    TRUE ~ as.character(state_fips)),
+
+  fips_long = paste0(s_fips_long, c_fips_long),
+  fips_numeric = as.numeric(fips_long))
+
+# join model input to observed voting data
+model_input <- left_join(model_input, voting,
+                          by = c("fips_numeric" = "county_fips",
+                                 "year" = "year"))
+
+# calculate the counterfactual dem votes and rep votes
+model_input <- model_input %>%
+  mutate(
+    CF_dem_votes = dem_votes + CF_ddem_change*total_dem_rep_votes,
+    CF_rep_votes = rep_votes - CF_ddem_change*total_dem_rep_votes)
+
+# create mapping categories
+order = c(
+ # "+2% or greater", 
+  #"+1% to +2%",
+          "+0.5% to +1%",
+          "+0.25% to +0.5%", 
+          "0% to +0.25%", 
+          "0% to -0.25%")
+
+state_summary <- model_input %>%
+  group_by(state) %>%
+  summarize(actual_trump_votes = sum(rep_votes),
+            actual_dem_votes = sum(dem_votes),
+            CF_trump_votes = sum(CF_rep_votes),
+            CF_dem_votes = sum(CF_dem_votes)) %>%
+
+  mutate(changed_outcome  =
+           ifelse(
+             CF_dem_votes > CF_trump_votes &
+               actual_trump_votes > actual_dem_votes,
+             1, 0),
+    actual_trump_vs =
+      actual_trump_votes/(actual_trump_votes+ actual_dem_votes),
+    CF_trump_vs =
+      CF_trump_votes/(CF_trump_votes+CF_dem_votes),
+    delta_vs = CF_trump_vs - actual_trump_vs) %>%
+  mutate(
+    delta_vs_group = case_when(delta_vs < -.02 ~ "+2% or greater",
+                         delta_vs < -.01 ~ "+1% to +2%",
+                         delta_vs < -.005 ~ "+0.5% to +1%",
+                         delta_vs < -.0025 ~ "+0.25% to +0.5%",
+                         delta_vs < 0 ~ "0% to +0.25%",
+                         delta_vs < .0025 ~ "0% to -0.25%",
+                         delta_vs < .005 ~ "-0.25% to -0.5%",
+                         delta_vs < .01 ~ "-0.5% to -1%",
+                         TRUE ~ "-1% or greater")) %>%
+  mutate(delta_vs_group = factor(delta_vs_group, levels = order))
+
+
+colors =
+   c(
+    # "+2% or greater" = "#0059ff",
+     #"+1% to +2%" = "#4988fc",
+     "+0.5% to +1%" = "#86b0fc",
+     "+0.25% to +0.5%" = "#b8d1ff",
+     "0% to +0.25%" = "#dee9fc",
+     "0% to -0.25%" = "#ffeae8")
+
+# state shapefile
+state_shape <- states(
+  cb = TRUE,
+  resolution = "20m",
+  progress_bar = F
+) %>%
+  filter(GEOID != "72") %>%
+  shift_geometry()
+
+mapping <- inner_join(state_shape, state_summary,
+                      by = c("STUSPS" = "state"))
+
+
+mapping_small <- mapping #%>% filter(state != "DC")
+
+mapping_small <- mapping_small %>%
+  mutate(changed_outcome = ifelse(changed_outcome == 0,
+                                  "No",
+                                  "Yes"))
+
+#  make map
+flipped <- mapping_small %>% filter(changed_outcome == "Yes")
+ggplot() +
+  geom_sf(data = mapping_small, aes(fill = delta_vs_group), color = "black", size = .1) +
+  scale_fill_manual(values = colors) +
+  labs(title = "Figure 3: Impact of Manufacturing Job Lossess on Democratic Vote Share",
+       subtitle = "Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses",
+       fill = "Change in Democratic Vote Share") +
+  geom_sf(data = flipped, fill = NA, 
+          aes(color = changed_outcome), 
+          size = 1) +
+  scale_color_manual(values = "#b32ab5", name = "Flipped Election") +
+  labs(color = "Flipped Election") +
+  coord_sf(datum = NA) +
+  theme_minimal() +
+  # geom_sf_text_repel(aes(label = state), data = mapping_small,
+  #                    force = .00001,  seed = 10,
+  #                    size = 2.5) +
+  theme(  axis.title.x=element_blank(),
+          axis.title.y=element_blank())
+
+```
+\begin{figurenotes}
+Gain or loss of national manufacturing jobs, divided by total national workforce.
+\end{figurenotes}
+\end{figure}
 
 XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
 
