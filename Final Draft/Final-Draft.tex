@@ -89,69 +89,83 @@ suggests a racial component to how voters process economic hardship.
 
 \maketitle
 
+\section{Introduction} 
+\label{Introduction}
+
 This paper analyzes the relationship between deindustrialization, race,
-and the election of Donald Trump in 2016. Previous analysis has focused
-on racial animus, trade, or the conjunction of the two on political
-polarization and election outcomes (\cite{Autor20}; \cite{Che16};
-\cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the
-first papers to examine the political effects of deindustrialization
-that while considering race and localization. Deindustrialization - the
-transition of the U.S. economy away from manufacturing - has led to
-widespread job loss and created adverse knock-on effects for a wide
-swath of Americans. Our measure of dindustrialization incorporates job
-losses due to trade with China and others (see \cite{Acemoglu16}); it
-also includes job losses due to automation, demand changes, and other
-factors. The experience of deindustrialization has not been uniform;
-rather, it has been concentrated in certain areas of the country that
-were previously economically reliant on manufacturing, as demonstrated
-in Figure \label{ManuMap}. The localized nature of this analysis
-highlights the uneven and concentrated harms of deindustrialization.
+and the election of Donald Trump in 2016. Previous analyses have focused
+on the effects of racial animus, trade, or the conjunction of the two on
+political polarization and election outcomes (\cite{Autor20};
+\cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21},
+one of the first papers to examine the political effects of
+deindustrialization while considering race and localization.
+
+Deindustrialization - the transition of the U.S. economy away from
+manufacturing - has led to widespread job loss and created adverse
+knock-on effects for a wide swath of Americans. Our measure of
+dindustrialization incorporates job losses due to trade with China and
+others (see \cite{Acemoglu16}); it also includes job losses due to
+automation, demand changes, and other factors. The experience of
+deindustrialization has not been uniform; rather, it has been
+concentrated in areas of the country that were previously economically
+reliant on manufacturing. As shown in Figure \ref{ManuMap}, states
+across the eastern half of America, particularly in the South and
+Midwest, have experienced the most pronouncd manufacturing employment
+losses. The localized nature of this analysis highlights the uneven and
+concentrated harms of deindustrialization.
 
 \FloatBarrier
 \begin{figure} \label{ManuMap}
-\caption{Concentration of Deindustrialization (2004-2015) in the eastern Heartland}
+\caption{Concentration of Deindustrialization (2004-2015) in the eastern United States }
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-2-1} \end{center}
 
 
 
 \FloatBarrier
-
+\begin{figurenotes}
+Calculated at the county-level as the net change in manufacturing employment between 2004 and 2015 divided by 2004 total employment.
+\end{figurenotes}
 \end{figure}
 \FloatBarrier
 
-Like \cite{Baccini21}, we find evidence that the experience of
-deindustralization was associated with support for Donald Trump,
-particularly among whites. \cite{Baccini21} find that gross
-manufacturing layoffs between 2012-2015 were associated with a loss in
-Democratic vote share. However, using a different measure of
-deindustrialization - \emph{net} change in manufacturing employment - we
-find the oppposite effect: that counties with manufacturing job
-\emph{gains} from 2012-2015 tended to swing towards Donald Trump in
-2016. We extend the analysis to the 2004-2015 period in order to capture
-the long-term effects of deindustrialization on a region. Doing so, we
-find that regions experiencing more manufacturing job losses swung
-towards Donald Trump in 2016, and that this occurred more when those
-losing jobs were white.
+In their central analysis, \cite{Baccini21} analyzed the effect of gross
+manufacturing job losses from 2012 to 2015 on the change in Democratic
+vote share in the 2016 presidential election. \cite{Baccini21} find
+evidence that the experience of deindustralization was associated with
+support for Donald Trump, particularly among whites.
 
 Our analysis extends \cite{Baccini21} in several ways. First, we change
-focus from a measure of gross losses in manufacturing jobs to net
-losses. As discussed in \ref{datasec}, we believe this to be a more
-accurate measure of deindustrialization. Second, we change the temporal
-focus. Rather than focusing on manufacturing job loss in 2012-2015, we
-extend our analysis back to 2004. This is an important change. As shown
-in Figure \ref{natlPlot}, the bulk of U.S. manufacturing job loss took
-place prior to 2012; in fact, the 2012-2015 period was characterized by
-a slight rebound in manufacturing jobs. During this rebound, counties
-that experienced the most pronounced manufacturing job losses in prior
-years were also likely to experience the most pronounced recovery, as
-described in Figure \ref{vShapePlot}. Because of this v-shaped recovery,
-focusing only on 2012-2015 job losses/gains paints a distorted picture.
+focus from a measure of \emph{gross} losses in manufacturing jobs to
+\emph{net} losses. As discussed in \ref{datasec}, we believe this to be
+a more accurate measure of deindustrialization. Second, we change the
+temporal focus. Rather than focusing on manufacturing job loss in
+2012-2015, we extend our analysis back to 2004. This is an important
+change. As shown in Figure \ref{natlPlotTS}, the bulk of U.S.
+manufacturing job loss took place prior to 2012; in fact, the 2012-2015
+period was characterized by a slight rebound in manufacturing jobs.
 Finally, we augment the instrumental-variable approach with one based on
-covariate balancing, which produces similar results.
+covariate balancing.
+
+Like \cite{Baccini21}, our results suggest that the experience of
+deindustralization was associated with support for Donald Trump,
+particularly among whites. However, our results differ from
+\cite{Baccini21} in regards to the \emph{timing} of the impact of
+manufacturing job losses on employment. In fact, using our preferred
+measure of deindustrialization - \emph{net} change in manufacturing
+employment - we find that counties with manufacturing job \emph{gains}
+from 2012-2015 tended to swing towards Donald Trump in 2016. Given this
+counter-intuitive result, we extend the analysis to the 2004-2015 period
+in order to capture the long-term effects of deindustrialization on a
+region. Doing so, we find that regions experiencing more manufacturing
+job losses from 2004-2015 swung towards Donald Trump in 2016, and that
+this occurred more when those losing jobs were white. We get similar
+result using our covariate-matching approach. Relative to
+\cite{Baccini21}, our results point to the substantive importance of the
+timing of manufacturing layoffs on political outcomes.
 
 \FloatBarrier
-\begin{figure} \label{natlPlot}
+\begin{figure} \label{natlPlotTS}
 \caption{Nationwide Change in Manufacturing Employment, 1995-2019}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-3-1} \end{center}
@@ -160,7 +174,7 @@ covariate balancing, which produces similar results.
 
 \FloatBarrier
 \begin{figurenotes}
-"Gain or loss of national manufacturing jobs, divided by total national workforce."
+Annual net change in manufacturing employment in the United States. 
 \end{figurenotes}
 \end{figure}
 \FloatBarrier
@@ -173,9 +187,11 @@ covariate balancing, which produces similar results.
 
 Following \cite{Baccini21}, our unit of analysis is the county. This
 allows us to capture not only the direct effects of deindustrialization
-on laid-off manufacturing workers, but also on the local economy. The
-primary outcome variable is the county's change in Democratic vote share
-between 2012 and 2016. We obtain this from XXXXXXXXX
+on laid-off manufacturing workers, but also possible spillover effects
+on the greater population within the county. The primary outcome
+variable is the county's change in Democratic vote share between 2012
+and 2016. We obtain this from the publically-available replication data
+provided by \cite{Baccini21}.
 
 We want to measure the causal relationship between deindustrialization
 and the change in vote share. As a measure of deindustrialization, we
@@ -183,7 +199,8 @@ use the loss of manufacturing jobs as a share of the total
 beginning-of-period employment in each county. Suppose at the beginning
 of our period there were \(2000\) manufacturing workers in a county, and
 \(8000\) non-manufacturing workers. At the end there are only \(1500\)
-manufacturing workers. This is a loss of \(500/10000 = 5\%.\)
+manufacturing workers. Using our measure of net change in manufacturing
+employment, this is a loss of \(500/10000 = 5\%.\)
 
 In this choice we diverge from \cite{Baccini21}, which uses
 \textbf{gross} manufacturing job losses. For example, if a county lost
@@ -207,8 +224,6 @@ Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains
 county. These statistics are further disaggregated by race and
 ethnicity. The Census Bureau obtains this data from a combination of
 sources, such as administrative tax data and the U.S. Census.
-
-XXXXXXXXXXXXXXXX sources of other data
 
 Basic descriptive statistics of job losses and other key covariates can
 be seen in Table \ref{tab:descTable}. \FloatBarrier
@@ -329,7 +344,7 @@ This coefficient is still somewhat difficult to interpret, and made
 increasingly so by the winner-take-all system by which U.S. Electoral
 College votes are allocated. As an alternative perspective, we examined
 a range of counterfactual scenarios, in which counties experienced job
-losses XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
+losses
 
 \FloatBarrier
 \begin{figure} \label{counterfactual1}
@@ -345,6 +360,7 @@ losses XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
 
 \FloatBarrier
 \begin{figure} \label{counterfactual2}
+
 \caption{Clinton Electoral College Votes}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-7-1} \end{center}
