@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.7)  12 DEC 2021 15:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.7)  12 DEC 2021 16:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -640,60 +640,68 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [3]
 
 Package natbib Warning: Citation `Autor21' on page 4 undefined on input line 25
-2.
+3.
 
-[4 <./Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf>] [5]
-Overfull \hbox (92.2463pt too wide) in paragraph at lines 333--334
+[4 <./Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf>]
+Underfull \vbox (badness 7047) has occurred while \output is active []
+
+[5]
+Overfull \hbox (92.2463pt too wide) in paragraph at lines 334--335
 []\OT1/cmr/m/n/10.95 XXXXXXXXXXXXXXX BAL-ANCE FIG-URE??? XXXXXXXXXXXXXXXXXXXXXX
 XXXXX 
  []
 
 
-Overfull \hbox (3.94821pt too wide) in paragraph at lines 354--379
+Overfull \hbox (3.94821pt too wide) in paragraph at lines 355--380
  [] 
  []
 
 [6] [7]
-<Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=141, 397.485pt x 180.
+<Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=142, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf  
-used on input line 392.
+used on input line 407.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 392--392
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 407--407
  [] 
  []
 
-<Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf, id=142, 397.485pt x 180.
+<Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf, id=143, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf  
-used on input line 406.
+used on input line 420.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 406--406
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 420--420
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 427--429
+[][] 
+ []
+
 [8 <./Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf>]
-<Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf, id=153, 397.485pt x 180.
+<Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf, id=154, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf  
-used on input line 418.
+used on input line 435.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 418--418
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 435--435
  [] 
  []
 
@@ -722,32 +730,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--71
  []
 
 )
-<Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf, id=209, 397.485pt x 180
+<Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf, id=210, 397.485pt x 180
 .675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type 
 pdf)
 <use Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf 
- used on input line 519.
+ used on input line 536.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 519--519
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 536--536
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf, id=210, 397.485pt x 180
+<Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf, id=211, 397.485pt x 180
 .675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type 
 pdf)
 <use Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf 
- used on input line 532.
+ used on input line 549.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 532--532
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 549--549
  [] 
  []
 
@@ -774,7 +782,7 @@ Here is how much of TeX's memory you used:
  29652 multiletter control sequences out of 15000+600000
  412968 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,11n,76p,234b,441s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,11n,76p,292b,441s stack positions out of 5000i,500n,10000p,200000b,80000s
  <c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/e
 c/tcrm0600.600pk> <c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/lj
 four/jknappen/ec/tcrm0800.600pk><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-d
@@ -791,10 +799,10 @@ ng/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/darin
 :/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmti10.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmti8.pfb>
-Output written on Final-Draft.pdf (13 pages, 588716 bytes).
+Output written on Final-Draft.pdf (13 pages, 590281 bytes).
 PDF statistics:
- 301 PDF objects out of 1000 (max. 8388607)
- 245 compressed objects within 3 object streams
+ 302 PDF objects out of 1000 (max. 8388607)
+ 246 compressed objects within 3 object streams
  48 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

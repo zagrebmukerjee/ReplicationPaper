@@ -318,16 +318,14 @@ stargazer(regResultList$secondStageModelNetC04A,
 
 ```
 \FloatBarrier
-This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties manufacturing experienced job losses between the 1st and 99th percentiles across all counties. For example, in the map below, we assume that all counties in the US experienced a loss in white manufacturing employment equivalent to the level experienced by a county at the 25th percentile. Here, that level is equivalent to a 0 net loss in white manufacturing jobs between 2004-2015 per 100 workers in 2004 (a relatively low level of job losses). Setting all counties' white manufacturing job losses to 0, we use the point estimates of our regression coefficients from Model 3 in \ref{regResult04} to estimate the counterfactual change in Democratic vote share. We then aggregate our county-level findings to estimate the overall counterfactual change in Democratic vote share at the state level. We find that, had all counties experienced the 25th percentile level in manufacturing job losses, most states would have leaned more Democratic in 2016, and that Michigan and Pennsylvania would have flipped.
+This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties manufacturing experienced job losses between the 1st and 99th percentiles across all counties. 
 
-
-
-
+For example, in the map below, we assume that all counties in the US experienced a loss in white manufacturing employment equivalent to the level experienced by a county at the 25th percentile. Here, that level is equivalent to a 0 net loss in white manufacturing jobs between 2004-2015 per 100 workers in 2004 (a relatively low level of job losses). Setting all counties' white manufacturing job losses to 0, we use the point estimates of our regression coefficients from Model 3 in Table \ref{regResult04} to estimate the counterfactual change in Democratic vote share. We find that, had all counties experienced the 25th percentile level in manufacturing job losses, most states would have leaned more Democratic in 2016, and that Michigan and Pennsylvania would have flipped.
 
 
 \FloatBarrier
 \begin{figure} \label{counterfactual1}
-\caption{Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
+\caption{Counterfactual Scenario: Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 # load map
@@ -508,7 +506,9 @@ ggplot() +
   #                    force = .00001,  seed = 10,
   #                    size = 2.5) +
   theme(  axis.title.x=element_blank(),
-          axis.title.y=element_blank())
+          axis.title.y=element_blank(),
+          legend.key.size = unit(.3, 'cm'))
+
 
 ```
 \end{figure}
@@ -516,9 +516,8 @@ ggplot() +
 
 \FloatBarrier
 \begin{figure} \label{counterfactual2}
-<<<<<<< HEAD
 
-\caption{Clinton Electoral College Votes}
+\caption{Counterfactual Simulation Results: Democratic Electoral College Votes Assuming White Manufacturing Job Losses Between 1st and 99th Percentile }
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 # load map
@@ -547,6 +546,9 @@ ggplot(summary, aes(ptile, median_result)) +
 
 
 ```
+\begin{figurenotes}
+Figures show a 95% confidence interval for Democratic Electoral College Votes at Each Percentile of Manufacturing Job Losses.
+\end{figurenotes}
 \end{figure}
 \FloatBarrier
 
