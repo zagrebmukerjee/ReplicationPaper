@@ -89,33 +89,46 @@ suggests a racial component to how voters process economic hardship.
 \maketitle
 
 This paper analyzes the relationship between deindustrialization, race,
-and the election of Donald Trump in 2016. Previous analysis has
-frequently focused on racial animus, trade, or the conjunction of the
-two (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis
-of \cite{Baccini21}, one of the first papers to examine the political
-effects of deindustrialization while considering race and localization.
-Deindustrialization - the transition of the U.S. economy away from
-manufacturing - has led to widespread job loss and created adverse
-knock-on effects for a wide swath of Americans. This incorporates job
+and the election of Donald Trump in 2016. Previous analysis has focused
+on racial animus, trade, or the conjunction of the two on political
+polarization and election outcomes (\cite{Autor20}; \cite{Che16};
+\cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the
+first papers to examine the political effects of deindustrialization
+that while considering race and localization. Deindustrialization - the
+transition of the U.S. economy away from manufacturing - has led to
+widespread job loss and created adverse knock-on effects for a wide
+swath of Americans. Our measure of dindustrialization incorporates job
 losses due to trade with China and others (see \cite{Acemoglu16}); it
 also includes job losses due to automation, demand changes, and other
 factors. The experience of deindustrialization has not been uniform;
 rather, it has been concentrated in certain areas of the country that
 were previously economically reliant on manufacturing, as demonstrated
-in Figure \ref{ManuMap}. We believe the localized nature of this
-analysis highlights the uneven and concentrated harms of
-deindustrialization.
+in Figure \label{ManuMap}. The localized nature of this analysis
+highlights the uneven and concentrated harms of deindustrialization.
 
-Along with \cite{Baccini21}, we find evidence that the experience of
+\begin{figure} \label{ManuMap}
+\caption{Concentration of Deindustrialization (2004-2015) in the eastern Heartland}
+
+\begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-2-1} \end{center}
+
+\begin{figurenotes}
+Calculated as net change in manufacturing employment from 2004-2015 divided by 2004 total employment.
+\end{figurenotes}
+\end{figure}
+
+Like \cite{Baccini21}, we find evidence that the experience of
 deindustralization was associated with support for Donald Trump,
-particularly among whites. However, we find that the related effects in
-the 2016 election are not associated with recent manufacturing job loss;
-rather, the opposite. Counties with manufacturing job losses from
-2012-2015 tended to become more Democratic. We extend the analysis to
-the 2004-2015 period, to capture the long-term effects of
-deindustrialization on a region. Doing so, we find that regions
-experiencing more manufacturing job losses swung towards Donald Trump in
-2016, and that this occurred more when those losing jobs were white.
+particularly among whites. \cite{Baccini21} find that gross
+manufacturing layoffs between 2012-2015 were associated with a loss in
+Democratic vote share. However, using a different measure of
+deindustrialization - \emph{net} change in manufacturing employment - we
+find the oppposite effect: that counties with manufacturing job
+\emph{gains} from 2012-2015 tended to swing towards Donald Trump in
+2016. We extend the analysis to the 2004-2015 period in order to capture
+the long-term effects of deindustrialization on a region. Doing so, we
+find that regions experiencing more manufacturing job losses swung
+towards Donald Trump in 2016, and that this occurred more when those
+losing jobs were white.
 
 Our analysis extends \cite{Baccini21} in several ways. First, we change
 focus from a measure of gross losses in manufacturing jobs to net
@@ -133,31 +146,12 @@ focusing only on 2012-2015 job losses/gains paints a distorted picture.
 Finally, we augment the instrumental-variable approach with one based on
 covariate balancing, which produces similar results.
 
-\begin{figure} \label{ManuMap}
-\caption{Net Change in Manufacturing Employment from 2004 to 2015}
-
-\begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-2-1} \end{center}
-
-\begin{figurenotes}
-Calculated as net change in manufacturing employment from 2004-2015 divided by 2004 total employment.
-\end{figurenotes}
-\end{figure}
-
 \begin{figure} \label{natlPlot}
 \caption{Nationwide Change in Manufacturing Employment, 1995-2019}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-3-1} \end{center}
-
 \begin{figurenotes}
-Gain or loss of national manufacturing jobs, divided by total national workforce.
-\end{figurenotes}
-\end{figure}
-
-\begin{figure} \label{vShapePlot}
-\caption{}
-
-\begin{figurenotes}
-Figure notes without optional leadin.
+"Gain or loss of national manufacturing jobs, divided by total national workforce."
 \end{figurenotes}
 \end{figure}
 
@@ -324,7 +318,7 @@ College votes are allocated. As an alternative perspective, we examined
 a range of counterfactual scenarios, in which counties experienced job
 losses
 
-\begin{figure} \label{natlPlot}
+\begin{figure} \label{counterfactual}
 \caption{Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-6-1} \end{center}
@@ -430,6 +424,29 @@ Figure notes with optional leadin (Source, in this case).
 
 \bibliographystyle{aea}
 \bibliography{references}
+
+\appendix
+
+\section{Appendix}
+
+\begin{figure} \label{vShapePlot}
+\caption{V-Shaped Recovery in Manufacturing Job Losses}
+
+\begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{figurenotes}
+"Stuff here"
+\end{figurenotes}
+\end{figure}
+
+\begin{figure} \label{vShapePlot}
+\caption{V-Shaped Recovery in Manufacturing Job Losses}
+
+\begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-9-1} \end{center}
+
+\begin{figurenotes}
+"Stuff here"
+\end{figurenotes}
+\end{figure}
 
 \end{document}
 

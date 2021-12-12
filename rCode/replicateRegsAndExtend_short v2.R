@@ -528,22 +528,20 @@ saveRDS(list(
 
 
 ##################################################
-#
+# show v-shaped recovery
 ##################################################
-
 
 datasetOurs04_15 <- datasetClean(electionYear = 2016, startYear = 2004, aggregateYears = 2004:2015)
 datasetOurs04_11 <- datasetClean(electionYear = 2016, startYear = 2004, aggregateYears = 2004:2011)
 datasetOurs12_15 <- datasetClean(electionYear = 2016, startYear = 2011, aggregateYears = 2012:2015)
 
-
+# merge together manu layoffs over different time periods
 summary_12_15 <- datasetOurs12_15 %>% 
   group_by() %>%
   dplyr::select(id:county,
     mfgNetChange_total) %>% 
   rename(mfgNetChange_12_15 = mfgNetChange_total)
     
-
 summary_04_15 <- datasetOurs04_15 %>% 
   group_by() %>%
   dplyr::select(id:county,
@@ -556,22 +554,14 @@ summary_04_11 <- datasetOurs04_11 %>%
                 mfgNetChange_total) %>% 
   rename(mfgNetChange_04_11 = mfgNetChange_total)
 
-
+# merge everything together
 summary_vshape <- inner_join(summary_12_15, summary_04_15)
 summary_vshape <- inner_join(summary_vshape, summary_04_11)
 
-#library(ggpubr)
-
-ggplot(data = summary_vshape # %>% filter(state_name == "Tennessee")
-       ,
-       aes(x = mfgNetChange_04_15, y = mfgNetChange_12_15)) +
-  geom_point() +
-  theme_bw() + stat_cor(method = "pearson", label.x = 0, label.y = .3)
 
 summary_vshape <- summary_vshape %>%
   mutate(
     n_tile_04_15 = as.character(ntile(mfgNetChange_04_15, 10)),
-    
     n_tile_04_11 = as.character(ntile(mfgNetChange_04_11, 10)),
     n_tile_12_15 = as.character(ntile(mfgNetChange_12_15, 10))
   ) %>%
@@ -581,17 +571,6 @@ summary_vshape <- summary_vshape %>%
   arrange(mfgNetChange_12_15) %>%
   mutate(rank_12_15 = row_number())
 
-ggplot(data = summary_vshape  %>% filter(!is.na(rank_04_11),
-                                         !is.na(rank_12_15))
-       ,
-       aes(x = rank_04_11, y = rank_12_15)) +
-  geom_point()  +
-  stat_summary_bin(fun.y='mean', bins=10,
-                   color='orange', size=4, geom='point') +
-  theme_bw()
-
-  
-
 
 summary_ntile <- summary_vshape %>%
   group_by(n_tile_04_11) %>%
@@ -599,6 +578,10 @@ summary_ntile <- summary_vshape %>%
             mean_04_11 = mean(mfgNetChange_04_11))
 
 
+saveRDS(summary_ntile, "v_shaped_recovery.rds")
+
+
+# plot 2004-2011 manu layoffs by deciles
 ggplot(data = summary_ntile,
        aes(x = n_tile_04_11, y = mean_04_11)) +
   theme_minimal() +
@@ -608,7 +591,7 @@ ggplot(data = summary_ntile,
   geom_col(fill = "#4287f5") +
   scale_x_continuous(breaks=seq(1,10,1))
 
-
+# plot 2012-2015 manu layoffs by deciles
 ggplot(data = summary_ntile,
        aes(x = n_tile_04_11, y = mean_12_15)) +
   theme_minimal() +
@@ -618,30 +601,3 @@ ggplot(data = summary_ntile,
   geom_col(fill = "#4287f5") +
   scale_x_continuous(breaks=seq(1,10,1))
 
-
-
-
-write.excel <- function(x,
-                        row.names = FALSE,
-                        col.names = TRUE,
-                        ...) {
-  write.table(
-    x,
-    "clipboard",
-    sep = "\t",
-    row.names = row.names,
-    col.names = col.names,
-    ...
-  )
-} 
-
-write.excel(summary_ntile)
-
-
-
-ggplot(data = summary_vshape # %>% filter(state_name == "Tennessee")
-       ,
-       aes(x = mfgNetChange_04_11, y = mfgNetChange_12_15)) +
-  geom_point()  +
-  stat_summary_bin(fun.y='mean', bins=5,
-                   color='orange', size=2, geom='point')
