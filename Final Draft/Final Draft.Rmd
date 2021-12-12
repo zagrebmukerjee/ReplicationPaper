@@ -177,7 +177,8 @@ ggplot(data = national_ts %>% filter(Year >= 1995),
 \subsection{Data} 
 \label{datasec}
 
-Following \cite{Baccini21}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also on the local economy. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain this from XXXXXXXXX
+Following \cite{Baccini21}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also on the local economy. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain this from 
+<!--  sources of electoral data -->
 
 We want to measure the causal relationship between deindustrialization and the change in vote share. As a measure of deindustrialization, we use the loss of manufacturing jobs as a share of the total beginning-of-period employment in each county. Suppose at the beginning of our period there were $2000$ manufacturing workers in a county, and $8000$ non-manufacturing workers. At the end there are only $1500$ manufacturing workers. This is a loss of $500/10000 = 5\%.$
 
@@ -185,7 +186,7 @@ In this choice we diverge from \cite{Baccini21}, which uses **gross** manufactur
 
 Data on job gains and losses are obtained, using an API, from the Census Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains (among other things) information about employment by industry and county. These statistics are further disaggregated by race and ethnicity. The Census Bureau obtains this data from a combination of sources, such as administrative tax data and the U.S. Census. 
 
-XXXXXXXXXXXXXXXX sources of other data
+<!--  sources of other data -->
 
 Basic descriptive statistics of job losses and other key covariates can be seen in Table \ref{tab:descTable}.
 
@@ -291,7 +292,7 @@ stargazer(regResultList$secondStageModelNetC04A,
 ```
 
 This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties experienced job losses
-XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
+<!--  what should I read in the counterfactual -->
 
 \begin{figure} \label{counterfactual1}
 \caption{Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
@@ -483,7 +484,7 @@ ggplot() +
 
 
 \begin{figure} \label{counterfactual2}
-\caption{Clinton Electoral College Votes}
+\caption{Counterfactual Presidential Election Simulation Results}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
 
 # load map
@@ -507,9 +508,8 @@ ggplot(summary, aes(ptile, median_result)) +
                 color = "blue") +
   geom_hline(yintercept = 270, color = "red") +
   theme_bw() +
-  ylab("Outcome: Clinton Electoral College Votes\n") +
-  xlab("Input Assumption: Percentile of Manufacturing Layoffs\n") +
-  ggtitle("Counterfactual Presidential Election Simulation Results")
+  ylab("Clinton Electoral College Votes\n") +
+  xlab("Assumed Percentile of Manufacturing Layoffs\n") 
 
 
 ```
