@@ -23,6 +23,7 @@ header-includes:
  - \usepackage{graphicx}
  - \usepackage{amsmath}
  - \usepackage{amssymb}
+ - \usepackage{placeins}
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
@@ -40,15 +41,34 @@ library(scales)
 library(tigris)
 library(dplyr)
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
+
+knitr::knit_hooks$set(plot = function (x, options) {
+  float_correct <- function(f, y, opts)  {
+    if (is.null(opts$regfloat) || opts$regfloat==FALSE)
+      paste0(f(y, opts), "\n\n\\FloatBarrier\n")
+    else
+      f(y, opts)
+  }
+  if (!is.null(options$out.width) || !is.null(options$out.height) ||
+      !is.null(options$out.extra) || options$fig.align != "default" ||
+      !is.null(options$fig.subcap)) {
+    if (is.null(options$fig.scap))
+      options$fig.scap = NA
+    return(float_correct(knitr:::hook_plot_tex, x, options))
+  }
+  return(float_correct(knitr:::hook_plot_md_base, x, options))
+})
+
 ```
 
 This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has  focused on racial animus, trade, or the conjunction of the two on  political polarization and election outcomes (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization that while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of dindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing, as demonstrated in Figure \label{ManuMap}. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
 
 <!-- FIGURE X: MAP OF DEINDUSTRIALIZATION HERE  -->
 
+\FloatBarrier
 \begin{figure} \label{ManuMap}
 \caption{Concentration of Deindustrialization (2004-2015) in the eastern Heartland}
-```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center" , regfloat=FALSE}
 # load map
 model_input <- readRDS("../model_5_input.rds")
 
@@ -127,6 +147,7 @@ ggplot() +
 ```
 
 \end{figure}
+\FloatBarrier
 
 Like \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. \cite{Baccini21}
 find that gross manufacturing layoffs between 2012-2015 were associated with a loss in Democratic vote share. However, using a different measure of deindustrialization - *net* change in manufacturing employment - we find the oppposite effect: that counties with manufacturing job *gains* from 2012-2015 tended to swing towards Donald Trump in 2016. We extend the analysis to the 2004-2015 period in order to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job losses swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
@@ -136,10 +157,10 @@ Our analysis extends \cite{Baccini21} in several ways. First, we change focus fr
 
 
 <!-- FIGURE X: TIME SERIES OF MANUFACUTRING EMPLOYMENT  -->
-
+\FloatBarrier
 \begin{figure} \label{natlPlot}
 \caption{Nationwide Change in Manufacturing Employment, 1995-2019}
-```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 # manufacturing layoffs over time
 
 national_ts <- read_xlsx("../National_Data_TS.xlsx")
@@ -169,7 +190,7 @@ ggplot(data = national_ts %>% filter(Year >= 1995),
 "Gain or loss of national manufacturing jobs, divided by total national workforce."
 \end{figurenotes}
 \end{figure}
-
+\FloatBarrier
 
 \section{Data and Methods} 
 \label{datamethods}
@@ -188,10 +209,8 @@ Data on job gains and losses are obtained, using an API, from the Census Bureau'
 XXXXXXXXXXXXXXXX sources of other data
 
 Basic descriptive statistics of job losses and other key covariates can be seen in Table \ref{tab:descTable}.
-
-
-
-```{r,  echo=F}
+\FloatBarrier
+```{r,  echo=F, regfloat=FALSE}
 descriptiveData <-  readRDS("../tableData.rds")
 
 knitr::kable(descriptiveData$table04,
@@ -200,7 +219,7 @@ knitr::kable(descriptiveData$table04,
   kable_styling(latex_options = c("hold_position", "scale_down"))
 
 ```
-
+\FloatBarrier
 
 \subsection{Methods} 
 \label{methodssec}
@@ -220,15 +239,13 @@ Our second approach involves attempting to balance the covariates of the deindus
 
 XXXXXXXXXXXXXXX BALANCE FIGURE??? XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-
 \subsection{Results}
 
 We find that counties experiencing deindustrialization from 2004-2015 are substantially more likely to vote for Trump. Further, we find that this effect is largely attributable to whites. In other words, net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased Democratic vote share. We find the same effect when using covariate balancing, albeit of reduced size. 
 
 The results can be found in Table \ref{regResult04}. The regression coefficient in Model 4, for instance, means that a loss of $10$ manufacturing jobs per $100$ workers in a county (a relatively extreme value) corresponds to a loss of $3.2 \%$ in Democratic vote share.
-
-
-```{r,  echo=F, message = F, results = "asis"}
+\FloatBarrier
+```{r,  echo=F, message = F, results = "asis", regfloat=FALSE}
 
 regResultList <- readRDS("../regresults.rds")
 
@@ -289,13 +306,14 @@ stargazer(regResultList$secondStageModelNetC04A,
 )
 
 ```
-
+\FloatBarrier
 This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties experienced job losses
 XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
 
+\FloatBarrier
 \begin{figure} \label{counterfactual1}
 \caption{Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
-```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 # load map
 model_input <- readRDS("../model_5_input.rds")
@@ -479,12 +497,12 @@ ggplot() +
 
 ```
 \end{figure}
+\FloatBarrier
 
-
-
+\FloatBarrier
 \begin{figure} \label{counterfactual2}
 \caption{Clinton Electoral College Votes}
-```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 # load map
 simulation_results <- readRDS("../counterfactual_simu_results.rds")
@@ -514,11 +532,12 @@ ggplot(summary, aes(ptile, median_result)) +
 
 ```
 \end{figure}
+\FloatBarrier
 
-
+\FloatBarrier
 \begin{figure} \label{counterfactual3}
 \caption{Clinton Winning Freq}
-```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 library(dplyr)
 library(ggplot2)
@@ -539,14 +558,12 @@ ggplot(summary2, aes(ptile, perc_wins)) +
 
 ```
 \end{figure}
-
-
+\FloatBarrier
 \subsubsection{Timing}
 
 Restricting our analysis to only the 2012-2015 period, while continuing to use the net job loss metric, produces an effect opposite to that of \cite{Baccini21}. The loss of Democratic vote share seems to be associated with a gain in manufacturing jobs, both in general and among whites. We believe this time-restricted analysis suffers from an omitted variable bias. As discussed above, the 2012-2015 period can be broadly characterized as a slight rebound from the manufacturing job losses in the 2008 financial crisis. The counties that experience job losses from 2004-2012 are more likely to have job gains in 2012-2015 (see \ref{vShapePlot}). An apparent relationship between 2012-2015 job gains and loss of Democratic vote share in fact represents 2004-2012 job losses that may lead to both the later job gains and the loss of vote share. These results can be seen in Table \ref{regResult12}.
-
-
-```{r,  echo=F, message = F, results = "asis"}
+\FloatBarrier
+```{r,  echo=F, message = F, results = "asis", regfloat=FALSE}
 
 rownames(regResultList$secondStageModelNetCA$coefficients )[rownames(regResultList$secondStageModelNetCA$coefficients)=="firstStageModelOurs_2$fitted.values"] <-  "Manufacturing Layoffs"
 rownames(regResultList$secondStageModelNetC$coefficients )[rownames(regResultList$secondStageModelNetC$coefficients)=="firstStageModelOurs_3$fitted.values"] <-  "Manufacturing Layoffs"
@@ -604,9 +621,7 @@ stargazer(regResultList$secondStageModelNetCA,
 )
 
 ```
-
-
-
+\FloatBarrier
 This result suggests an important temporal dimension to the political effects of deindustrialization - job losses in 2004-2012 make their effects felt in 2016. In some ways, this result is more plausible than if the 2012-2015 job losses were a significant covariate of voting. The effects of job loss may take some time to be felt, at both individual and community levels (see \cite{Mckee09}, \cite{Foote19}). The mechanisms of this relationship make a good topic for subsequent research. 
 
 
@@ -627,9 +642,6 @@ Figure notes without optional leadin.
 Figure notes with optional leadin (Source, in this case).
 \end{figurenotes}
 \end{figure}
-
-
-
 
 
 
