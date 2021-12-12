@@ -17,7 +17,7 @@ author:
 acknowledgements: | 
   Code available at https://github.com/zagrebmukerjee/ReplicationPaper
 abstract: |
-  What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. We use an instrumental-variable approach and a covariate-balancing approach to identify the effect of manufacturing job loss on change in Democratic vote share. We find that Democratic vote share falls in counties with high manufacturing job loss since 2004. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
+  What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. We exploit county-level differences in manufacturing density as a source of exogenous variation, using both instrumental-variable regression and covariate balancing methods. Counterintuitively, we find that counties that gained manufacturing jobs from 2012-2015 are more likely to have swung towards Trump. We believe this is due to an omitted variable - the job loss experienced from 2004 to 2012. Counties that experienced prior deindustrialization were more likely to exhibit increased support for Trump, as well as a slight manufacturing rebound in 2012-2015. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
 output: rticles::aea_article
 header-includes: 
  - \usepackage{graphicx}
@@ -61,7 +61,7 @@ knitr::knit_hooks$set(plot = function (x, options) {
 
 ```
 
-This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has  focused on racial animus, trade, or the conjunction of the two on  political polarization and election outcomes (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization that while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of dindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing, as demonstrated in Figure \label{ManuMap}. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
+This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has  focused on racial animus, trade, or the conjunction of the two on  political polarization and election outcomes (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization that while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of dindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing, as demonstrated in Figure \ref{ManuMap}. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
 
 <!-- FIGURE X: MAP OF DEINDUSTRIALIZATION HERE  -->
 
@@ -149,8 +149,7 @@ ggplot() +
 \end{figure}
 \FloatBarrier
 
-Like \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. \cite{Baccini21}
-find that gross manufacturing layoffs between 2012-2015 were associated with a loss in Democratic vote share. However, using a different measure of deindustrialization - *net* change in manufacturing employment - we find the oppposite effect: that counties with manufacturing job *gains* from 2012-2015 tended to swing towards Donald Trump in 2016. We extend the analysis to the 2004-2015 period in order to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job losses swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
+Like \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. \cite{Baccini21} find that gross manufacturing layoffs between 2012-2015 were associated with a loss in Democratic vote share. However, using a different measure of deindustrialization - *net* change in manufacturing employment - we find the oppposite effect: that counties with manufacturing job *gains* from 2012-2015 tended to swing towards Donald Trump in 2016. We extend the analysis to the 2004-2015 period in order to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job losses swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
 
 
 Our analysis extends \cite{Baccini21} in several ways. First, we change focus from a measure of gross losses in manufacturing jobs to net losses. As discussed in \ref{datasec}, we believe this to be a more accurate measure of deindustrialization. Second, we change the temporal focus. Rather than focusing on manufacturing job loss in 2012-2015, we extend our analysis back to 2004. This is an important change. As shown in Figure \ref{natlPlot}, the bulk of U.S. manufacturing job loss took place prior to 2012; in fact, the 2012-2015 period was characterized by a slight rebound in manufacturing jobs. During this rebound, counties that experienced the most pronounced manufacturing job losses in prior years were also likely to experience the most pronounced recovery, as described in Figure \ref{vShapePlot}. Because of this v-shaped recovery, focusing only on 2012-2015 job losses/gains paints a distorted picture. Finally, we augment the instrumental-variable approach with one based on covariate balancing, which produces similar results.
@@ -630,18 +629,6 @@ This result suggests an important temporal dimension to the political effects of
 As much research has noted, the national and global implications of American  deindustrialization are only beginning to be felt - from the 2016 election to isolationism to the opioid epidemic. Previous analyses have often focused on choosing between explanations grounded in racial issues or political-economic evolutions (ex: \cite{Green19}, \cite{Reny19}). We are joining a growing body of scholars searching for explanations at the intersection of the two. We believe that deindustrialization is fundamentally connected to particular places, and so the localized approach adopted by \cite{Baccini21} offers a great deal of promise. Further research might explore further ways in which geography has influenced the rightward turn in the U.S., for example through the use of techniques of spatial econometrics or the careful use of ethnography. 
 
 While our study is oriented towards history, deindustrialization is in no way confined to the past. The trajectory of American manufacturing employment is far from certain, with continued competition from abroad and the perennial threat of automation. We believe the case of the U.S. also offers insight that is applicable to the phenomenon of 'premature deindustrialization' in the developing world, and the concurrent growth of populist parties in Hungary, Brazil, India and elsewhere (\cite{Rodrik15}, \cite{Castillo16}).
-
-
-\begin{figure} \label{}
-\caption{Caption for figure below.}
-
-\begin{figurenotes}
-Figure notes without optional leadin.
-\end{figurenotes}
-\begin{figurenotes}[Source]
-Figure notes with optional leadin (Source, in this case).
-\end{figurenotes}
-\end{figure}
 
 
 
