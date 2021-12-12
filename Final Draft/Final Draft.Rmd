@@ -502,13 +502,8 @@ ggplot() +
 
 \FloatBarrier
 \begin{figure} \label{counterfactual2}
-<<<<<<< HEAD
-\caption{Clinton Electoral College Votes}
-```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
-=======
 \caption{Counterfactual Presidential Election Simulation Results}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
->>>>>>> 536a3a7d6e5e0469a04ffc50d4aa9108970c7623
 
 # load map
 simulation_results <- readRDS("../counterfactual_simu_results.rds")
