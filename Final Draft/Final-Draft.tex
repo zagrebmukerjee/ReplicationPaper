@@ -60,8 +60,10 @@ Deindustrialization}
 \author{
   Catherine Darin\\
   Zagreb Mukerjee\thanks{
-  Darin: Harvard University, \href{mailto:cdarin@hks.harvard.edu}{cdarin@hks.harvard.edu}.
-  Mukerjee: Harvard University, \href{mailto:zagrebmukerjee@fas.harvard.edu}{zagrebmukerjee@fas.harvard.edu}.
+  Darin: Harvard
+University, \href{mailto:cdarin@hks.harvard.edu}{cdarin@hks.harvard.edu}.
+  Mukerjee: Harvard
+University, \href{mailto:zagrebmukerjee@fas.harvard.edu}{zagrebmukerjee@fas.harvard.edu}.
   Code available at https://github.com/zagrebmukerjee/ReplicationPaper
 }
 }
@@ -76,14 +78,19 @@ Deindustrialization}
 
 \begin{abstract}
 What led to Donald Trump's surprising 2016 election victory? This paper
-examines the potential contribution of deindustrialization. We use an
-instrumental-variable approach and a covariate-balancing approach to
-identify the effect of manufacturing job loss on change in Democratic
-vote share. We find that Democratic vote share falls in counties with
-high manufacturing job loss since 2004. Disaggregating this result by
-race shows that the Democratic vote share fell where layoffs affected
-white populations, and rose where layoffs affected nonwhites. This
-suggests a racial component to how voters process economic hardship.
+examines the potential contribution of deindustrialization. We exploit
+county-level differences in manufacturing density as a source of
+exogenous variation, using both instrumental-variable regression and
+covariate balancing methods. Counterintuitively, we find that counties
+that gained manufacturing jobs from 2012-2015 are more likely to have
+swung towards Trump. We believe this is due to an omitted variable - the
+job loss experienced from 2004 to 2012. Counties that experienced prior
+deindustrialization were more likely to exhibit increased support for
+Trump, as well as a slight manufacturing rebound in 2012-2015.
+Disaggregating this result by race shows that the Democratic vote share
+fell where layoffs affected white populations, and rose where layoffs
+affected nonwhites. This suggests a racial component to how voters
+process economic hardship.
 \end{abstract}
 
 
@@ -286,12 +293,12 @@ controls above, as well as manufacturing as share of the population and
 total population. We apply the method of Covariate Balancing Propensity
 Scores, as developed by \cite{Imai14}; this method generates weights to
 reduce the correlation between covariates and treatment, while
-addressing several of the issues with propensity score weights. Given
-covariate-balancing weights, we then conduct a single-stage weighted
-regression of change in Democratic vote share on manufacturing job loss,
-using the same controls as above.
-
-XXXXXXXXXXXXXXX BALANCE FIGURE??? XXXXXXXXXXXXXXXXXXXXXXXXXXX
+addressing several of the issues with propensity score weights. We find
+significant imbalance in the data - in other words, it is relatively
+easy to predict the `treatment' of job loss given the covariates (see
+Appendix for balance plots). Given covariate-balancing weights, we then
+conduct a single-stage weighted regression of change in Democratic vote
+share on manufacturing job loss, using the same controls as above.
 
 \subsection{Results}
 
@@ -312,30 +319,31 @@ value) corresponds to a loss of \(3.2 \%\) in Democratic vote share.
 \begin{table}[!htbp] \centering 
   \caption{Effect of Manufacturing Job Loss from 2004 to 2015} 
   \label{regResult04} 
-\begin{tabular}{@{\extracolsep{5pt}}lcccc} 
+\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & \multicolumn{4}{c}{\textit{Dependent variable:}} \\ 
-\cline{2-5} 
-\\[-1.8ex] & \multicolumn{4}{c}{Change in Dem. Share, 2016-2012} \\ 
-\\[-1.8ex] & (1) & (2) & (3) & (4)\\ 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & \multicolumn{6}{c}{Change in Dem. Share, 2016-2012} \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
 \hline \\[-1.8ex] 
- Manufacturing Layoffs & $-$0.34$^{**}$ & $-$0.38$^{**}$ &  &  \\ 
-  & (0.14) & (0.17) &  &  \\ 
-  & & & & \\ 
- White Manufacturing Layoffs &  &  & $-$0.23$^{***}$ & $-$0.32$^{***}$ \\ 
-  &  &  & (0.08) & (0.10) \\ 
-  & & & & \\ 
- Nonwhite Manufacturing Layoffs &  &  & 0.15$^{***}$ & 0.20$^{***}$ \\ 
-  &  &  & (0.05) & (0.06) \\ 
-  & & & & \\ 
+ Job Losses & $-$0.34$^{**}$ & $-$0.38$^{**}$ & $-$0.03$^{***}$ &  &  &  \\ 
+  & (0.14) & (0.17) & (0.01) &  &  &  \\ 
+  & & & & & & \\ 
+ White Job Losses &  &  &  & $-$0.23$^{***}$ & $-$0.32$^{***}$ & $-$0.07$^{***}$ \\ 
+  &  &  &  & (0.08) & (0.10) & (0.02) \\ 
+  & & & & & & \\ 
+ Nonwhite Job Losses &  &  &  & 0.15$^{***}$ & 0.20$^{***}$ & 0.09$^{**}$ \\ 
+  &  &  &  & (0.05) & (0.06) & (0.04) \\ 
+  & & & & & & \\ 
 \hline \\[-1.8ex] 
-White Share/Svc Layoffs Control & No & Yes & No & Yes \\ 
-Observations & 3,049 & 3,049 & 2,750 & 2,750 \\ 
-Adjusted R$^{2}$ & 0.72 & 0.72 & 0.75 & 0.75 \\ 
+White Share/Svc Layoffs & No & Yes & Yes & No & Yes & Yes \\ 
+Covariate Balancing & No & No & Yes & No & No & Yes \\ 
+Observations & 3,049 & 3,049 & 2,750 & 2,750 & 2,750 & 2,750 \\ 
+Adjusted R$^{2}$ & 0.72 & 0.72 & 0.74 & 0.75 & 0.75 & 0.73 \\ 
 \hline 
 \hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table} 
 \FloatBarrier
@@ -361,7 +369,7 @@ losses
 \FloatBarrier
 \begin{figure} \label{counterfactual2}
 
-\caption{Clinton Electoral College Votes}
+\caption{Counterfactual Presidential Election Simulation Results}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
@@ -373,7 +381,7 @@ losses
 
 \FloatBarrier
 \begin{figure} \label{counterfactual3}
-\caption{Clinton Winning Freq}
+\caption{ Counterfactual Clinton Win Frequency}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
@@ -464,17 +472,6 @@ deindustrialization' in the developing world, and the concurrent growth
 of populist parties in Hungary, Brazil, India and elsewhere
 (\cite{Rodrik15}, \cite{Castillo16}).
 
-\begin{figure} \label{}
-\caption{Caption for figure below.}
-
-\begin{figurenotes}
-Figure notes without optional leadin.
-\end{figurenotes}
-\begin{figurenotes}[Source]
-Figure notes with optional leadin (Source, in this case).
-\end{figurenotes}
-\end{figure}
-
 \nocite{Stargazer}
 
 \bibliographystyle{aea}
@@ -511,5 +508,28 @@ Figure notes with optional leadin (Source, in this case).
 \end{figurenotes}
 \end{figure}
 
-\end{document}
+\begin{figure} \label{balPlot}
+\caption{Covariate Balance in Aggregate}
 
+
+\begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-12-1} \end{center}
+
+
+
+\FloatBarrier
+
+\end{figure}
+
+\begin{figure} \label{balPlotWhite}
+\caption{Covariate Balance in Whites}
+
+
+\begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-13-1} \end{center}
+
+
+
+\FloatBarrier
+
+\end{figure}
+
+\end{document}

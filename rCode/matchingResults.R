@@ -17,7 +17,9 @@ fit04 <- CBPS(mfgNetChange_total ~ LAU_unemp_rate_4y + pers_m_total_share_4y +
 fit04_white <- CBPS(mfgNetChange_white ~ LAU_unemp_rate_4y + pers_m_total_share_4y +
                 pers_coll_share_4y + white_counties_4y + msl_service_pc4y + mfgShare_white + totalEmp_white, data = datasetOurs04Limited, method = "exact")
 
-plot(fit04)
+saveRDS(list(fit04 = fit04, fit04_white = fit04_white), "cbpsObjects.rds")
+
+plot(fit04, main = "COV")
 plot(fit04_white)
 
 balance(fit04)
@@ -121,9 +123,6 @@ stargazer(BW_secondStageModel6, secondStageModelOurs04_6,
 ###############################################################
 
 
-
-
-
 # model 2
 secondStageModelOurs04LW_2 <- felm(
   data = datasetOurs04Limited,
@@ -198,7 +197,15 @@ stargazer(BW_secondStageModel6,
           se = list(rse6_2,
                     rseOurs04LW6_2), type = "text")
 
-
+saveRDS(list(rseOurs04LW2_2 = rseOurs04LW2_2,
+             rseOurs04LW3_2 = rseOurs04LW3_2,
+             rseOurs04LW5_2 = rseOurs04LW5_2,
+             rseOurs04LW6_2 = rseOurs04LW6_2,
+             secondStageModelOurs04LW_2 = secondStageModelOurs04LW_2,
+             secondStageModelOurs04LW_3 = secondStageModelOurs04LW_3,
+             secondStageModelOurs04LW_5 = secondStageModelOurs04LW_5,
+             secondStageModelOurs04LW_6 = secondStageModelOurs04LW_6),
+        "cbpsResults.rds")
 
 ###############################################################
 # now with weights and IV
