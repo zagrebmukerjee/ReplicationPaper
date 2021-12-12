@@ -76,14 +76,19 @@ Deindustrialization}
 
 \begin{abstract}
 What led to Donald Trump's surprising 2016 election victory? This paper
-examines the potential contribution of deindustrialization. We use an
-instrumental-variable approach and a covariate-balancing approach to
-identify the effect of manufacturing job loss on change in Democratic
-vote share. We find that Democratic vote share falls in counties with
-high manufacturing job loss since 2004. Disaggregating this result by
-race shows that the Democratic vote share fell where layoffs affected
-white populations, and rose where layoffs affected nonwhites. This
-suggests a racial component to how voters process economic hardship.
+examines the potential contribution of deindustrialization. We exploit
+county-level differences in manufacturing density as a source of
+exogenous variation, using both instrumental-variable regression and
+covariate balancing methods. Counterintuitively, we find that counties
+that gained manufacturing jobs from 2012-2015 are more likely to have
+swung towards Trump. We believe this is due to an omitted variable - the
+job loss experienced from 2004 to 2012. Counties that experienced prior
+deindustrialization were more likely to exhibit increased support for
+Trump, as well as a slight manufacturing rebound in 2012-2015.
+Disaggregating this result by race shows that the Democratic vote share
+fell where layoffs affected white populations, and rose where layoffs
+affected nonwhites. This suggests a racial component to how voters
+process economic hardship.
 \end{abstract}
 
 
@@ -113,6 +118,24 @@ across the eastern half of America, particularly in the South and
 Midwest, have experienced the most pronouncd manufacturing employment
 losses. The localized nature of this analysis highlights the uneven and
 concentrated harms of deindustrialization.
+
+This paper analyzes the relationship between deindustrialization, race,
+and the election of Donald Trump in 2016. Previous analysis has focused
+on racial animus, trade, or the conjunction of the two on political
+polarization and election outcomes (\cite{Autor20}; \cite{Che16};
+\cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the
+first papers to examine the political effects of deindustrialization
+that while considering race and localization. Deindustrialization - the
+transition of the U.S. economy away from manufacturing - has led to
+widespread job loss and created adverse knock-on effects for a wide
+swath of Americans. Our measure of dindustrialization incorporates job
+losses due to trade with China and others (see \cite{Acemoglu16}); it
+also includes job losses due to automation, demand changes, and other
+factors. The experience of deindustrialization has not been uniform;
+rather, it has been concentrated in certain areas of the country that
+were previously economically reliant on manufacturing, as demonstrated
+in Figure \ref{ManuMap}. The localized nature of this analysis
+highlights the uneven and concentrated harms of deindustrialization.
 
 \FloatBarrier
 \begin{figure} \label{ManuMap}
@@ -146,6 +169,20 @@ manufacturing job loss took place prior to 2012; in fact, the 2012-2015
 period was characterized by a slight rebound in manufacturing jobs.
 Finally, we augment the instrumental-variable approach with one based on
 covariate balancing.
+
+Like \cite{Baccini21}, we find evidence that the experience of
+deindustralization was associated with support for Donald Trump,
+particularly among whites. \cite{Baccini21} find that gross
+manufacturing layoffs between 2012-2015 were associated with a loss in
+Democratic vote share. However, using a different measure of
+deindustrialization - \emph{net} change in manufacturing employment - we
+find the oppposite effect: that counties with manufacturing job
+\emph{gains} from 2012-2015 tended to swing towards Donald Trump in
+2016. We extend the analysis to the 2004-2015 period in order to capture
+the long-term effects of deindustrialization on a region. Doing so, we
+find that regions experiencing more manufacturing job losses swung
+towards Donald Trump in 2016, and that this occurred more when those
+losing jobs were white.
 
 Like \cite{Baccini21}, our results suggest that the experience of
 deindustralization was associated with support for Donald Trump,
@@ -202,21 +239,23 @@ of our period there were \(2000\) manufacturing workers in a county, and
 manufacturing workers. Using our measure of net change in manufacturing
 employment, this is a loss of \(500/10000 = 5\%.\)
 
-In this choice we diverge from \cite{Baccini21}, which uses
-\textbf{gross} manufacturing job losses. For example, if a county lost
-\(450\) manufacturing jobs from 2012-2015 and also gained \(400\)
-manufacturing jobs over the same period, this would be \(450\)
-\textbf{gross} job losses, but only \(50\) \textbf{net} job losses. The
-\textbf{gross} measure captures several dynamics unrelated to
-deindustrialization - for example, seasonal unemployment in a
-food-manufacturing region, or workers moving between jobs. Thus we
-believe the \textbf{net} job losses over a period are the more accurate
-measure. It can be argued that the non-seasonal or non-structural
-components of gross job losses are a useful covariate. Basic notions of
-prospect theory suggest that the loss of a job and subsequent regaining
-of another identical job may still create substantial discontent.
-Constructing a better measure of gross job losses is an area for further
-methodological and substantive research.
+In this choice we diverge from \cite{Baccini21}, which uses \emph{gross}
+manufacturing job losses. For example, if a county lost \(450\)
+manufacturing jobs from 2012-2015 and also gained \(400\) manufacturing
+jobs over the same period, this would be \(450\) \emph{gross} job
+losses, but only \(50\) \emph{net} job losses. The \emph{gross} measure
+captures several dynamics unrelated to deindustrialization - for
+example, seasonal unemployment in a food-manufacturing region, or
+workers moving between jobs. Thus we believe the \emph{net} job losses
+over a period are the more accurate measure. Additionally, there is
+precedent in the literature to use \emph{net} employment changes, as
+\cite{Autor21} have done. Nevertheless, it can be argued that the
+non-seasonal or non-structural components of gross job losses are a
+useful covariate. Basic notions of prospect theory suggest that the loss
+of a job and subsequent regaining of another identical job may still
+create substantial discontent. Constructing a better measure of gross
+job losses is an area for further methodological and substantive
+research.
 
 Data on job gains and losses are obtained, using an API, from the Census
 Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains
@@ -360,6 +399,7 @@ losses
 
 \FloatBarrier
 \begin{figure} \label{counterfactual2}
+<<<<<<< HEAD
 
 \caption{Clinton Electoral College Votes}
 
@@ -463,17 +503,6 @@ also offers insight that is applicable to the phenomenon of `premature
 deindustrialization' in the developing world, and the concurrent growth
 of populist parties in Hungary, Brazil, India and elsewhere
 (\cite{Rodrik15}, \cite{Castillo16}).
-
-\begin{figure} \label{}
-\caption{Caption for figure below.}
-
-\begin{figurenotes}
-Figure notes without optional leadin.
-\end{figurenotes}
-\begin{figurenotes}[Source]
-Figure notes with optional leadin (Source, in this case).
-\end{figurenotes}
-\end{figure}
 
 \nocite{Stargazer}
 
