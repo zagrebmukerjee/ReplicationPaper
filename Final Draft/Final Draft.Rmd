@@ -38,7 +38,7 @@ library(kableExtra)
 library(readxl)
 library(scales)
 library(tigris)
-
+library(dplyr)
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 ```
 
@@ -293,7 +293,7 @@ stargazer(regResultList$secondStageModelNetC04A,
 This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties experienced job losses
 XXXXXXXXXXXXXXXXXXXXXX EXPLAIN COUNTERFACTUAL
 
-\begin{figure} \label{counterfactual}
+\begin{figure} \label{counterfactual1}
 \caption{Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
 
@@ -479,6 +479,67 @@ ggplot() +
 
 ```
 \end{figure}
+
+
+
+\begin{figure} \label{counterfactual2}
+\caption{Clinton Electoral College Votes}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+
+# load map
+simulation_results <- readRDS("../counterfactual_simu_results.rds")
+num_sims <- 1000
+
+summary <- simulation_results %>%
+  group_by(ptile) %>%
+  arrange(trump_votes_cf) %>%
+  summarize(median_result = clinton_votes_cf[row_number() == (num_sims/2)],
+            lower = clinton_votes_cf[row_number() == (num_sims/40)],
+            upper = clinton_votes_cf[row_number() ==(num_sims- (num_sims/40))])
+
+
+# plot distribution and each percentile
+
+# first plot CI
+ggplot(summary, aes(ptile, median_result)) + 
+  geom_point() +
+  geom_errorbar(aes(ymin = lower, ymax = upper),
+                color = "blue") +
+  geom_hline(yintercept = 270, color = "red") +
+  theme_bw() +
+  ylab("Outcome: Clinton Electoral College Votes\n") +
+  xlab("Input Assumption: Percentile of Manufacturing Layoffs\n") +
+  ggtitle("Counterfactual Presidential Election Simulation Results")
+
+
+```
+\end{figure}
+
+
+\begin{figure} \label{counterfactual3}
+\caption{Clinton Winning Freq}
+```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
+
+library(dplyr)
+library(ggplot2)
+summary2 <- simulation_results %>%
+  mutate(hil_wins = case_when(clinton_votes_cf > 270 ~ 1,
+                              TRUE ~ 0)) %>%
+  group_by(ptile) %>%
+  summarize(perc_wins =  sum(hil_wins)/n())
+
+
+ggplot(summary2, aes(ptile, perc_wins)) + 
+  geom_col(fill = "#4287f5")  +
+  theme_bw() +
+  ylab("Outcome: Frequency of Clinton Winning\nIn 1000 Simulations") +
+  xlab("Input Assumption: Percentile of Manufacturing Layoffs\n") +
+  ggtitle("Counterfactual Presidential Election Simulation Results")
+
+
+```
+\end{figure}
+
 
 \subsubsection{Timing}
 
