@@ -17,7 +17,7 @@ author:
 acknowledgements: | 
   Code available at https://github.com/zagrebmukerjee/ReplicationPaper
 abstract: |
-  What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. We exploit county-level differences in manufacturing density as a source of exogenous variation, using both instrumental-variable regression and covariate balancing methods. Counterintuitively, we find that counties that gained manufacturing jobs from 2012-2015 are more likely to have swung towards Trump. We believe this is due to an omitted variable - the job loss experienced from 2004 to 2012. Counties that experienced prior deindustrialization were more likely to exhibit increased support for Trump, as well as a slight manufacturing rebound in 2012-2015. Disaggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
+  What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. We exploit county-level differences in manufacturing density as a source of exogenous variation, using both instrumental-variable regression and covariate balancing methods. Counter-intuitively, we find that counties that gained manufacturing jobs from 2012-2015 are more likely to have swung towards Trump. We believe this is due to an omitted variable - the job loss experienced from 2004 to 2012. Counties that experienced prior deindustrialization were more likely to exhibit increased support for Trump, as well as a slight manufacturing rebound in 2012-2015. Dis-aggregating this result by race shows that the Democratic vote share fell where layoffs affected white populations, and rose where layoffs affected nonwhites. This suggests a racial component to how voters process economic hardship.
 output: rticles::aea_article
 header-includes: 
  - \usepackage{graphicx}
@@ -68,9 +68,9 @@ knitr::knit_hooks$set(plot = function (x, options) {
 
 This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analyses have  focused on the effects of racial animus, trade, or the conjunction of the two on  political polarization and election outcomes (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization while considering race and localization. 
 
-Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of dindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in areas of the country that were previously economically reliant on manufacturing. As shown in Figure \ref{ManuMap}, states across the eastern half of America, particularly in the South and Midwest, have experienced the most pronouncd manufacturing employment losses. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
+Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of deindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in areas of the country that were previously economically reliant on manufacturing. As shown in Figure \ref{ManuMap}, states across the eastern half of America, particularly in the South and Midwest, have experienced the most pronounced manufacturing employment losses. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
 
-This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has  focused on racial animus, trade, or the conjunction of the two on  political polarization and election outcomes (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization that while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of dindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing, as demonstrated in Figure \ref{ManuMap}. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
+This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has  focused on racial animus, trade, or the conjunction of the two on  political polarization and election outcomes (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization that while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of deindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing, as demonstrated in Figure \ref{ManuMap}. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
 
 <!-- FIGURE X: MAP OF DEINDUSTRIALIZATION HERE  -->
 
@@ -161,7 +161,7 @@ Calculated at the county-level as the net change in manufacturing employment bet
 \FloatBarrier
 
 
-In their central analysis, \cite{Baccini21} analyzed the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election. \cite{Baccini21} find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. 
+In their central analysis, \cite{Baccini21} analyzed the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election. \cite{Baccini21} find evidence that the experience of deindustrialization was associated with support for Donald Trump, particularly among whites. 
 
 Our analysis extends \cite{Baccini21} in several ways. First, we change focus from a measure of *gross* losses in manufacturing jobs to *net* losses. As discussed in \ref{datasec}, we believe this to be a more accurate measure of deindustrialization. Second, we change the temporal focus. Rather than focusing on manufacturing job loss in 2012-2015, we extend our analysis back to 2004. This is an important change. As shown in Figure \ref{natlPlotTS}, the bulk of U.S. manufacturing job loss took place prior to 2012; in fact, the 2012-2015 period was characterized by a slight rebound in manufacturing jobs. Finally, we augment the instrumental-variable approach with one based on covariate balancing.
 
@@ -210,7 +210,7 @@ Annual net change in manufacturing employment in the United States.
 \subsection{Data} 
 \label{datasec}
 
-Following \cite{Baccini21}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also possible spillover effects on the greater population within the county. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain data on election outocmes and various covariate terms from the publically-available replication data provided by \cite{Baccini21}. 
+Following \cite{Baccini21}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also possible spillover effects on the greater population within the county. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain data on election outcomes and various covariate terms from the publicly-available replication data provided by \cite{Baccini21}. 
 
 We want to measure the causal relationship between deindustrialization and the change in vote share. As a measure of deindustrialization, we use the loss of manufacturing jobs as a share of the total beginning-of-period employment in each county. Suppose at the beginning of our period there were $2000$ manufacturing workers in a county, and $8000$ non-manufacturing workers. At the end there are only $1500$ manufacturing workers. Using our measure of net change in manufacturing employment, this is a loss of $500/10000 = 5\%.$
 
@@ -532,7 +532,7 @@ ggplot() +
 \end{figure}
 \FloatBarrier
 
-We also demonstrate uncertainity around our coefficient estimates using a simulation appraoch. Specifically, for each percentile of white manufacturing job losses, we simulate 1,000 election outcomes by drawing from the distribution around our coefficent point estimate 1,000 times (again, using the results from Model 3 in Table \ref{regResult04}). In Figure \ref{counterfactual2}, we find that, assuming the 24th percentile or lower of white manufacturing job losses, we find that the median estimate in our simulation shows Democratic winning at least 270 electoral college votes. Using the 95\% confidence intervals produced from the simulation exercise, we find that we would be 95\% confident that Democrats would have won the national election had white manufacturing job losses been at the 5th percentile or lower. This result suggest that manufacturing job losses would have had to have been substantially lower and *negative* (e.g., job gains) in order for the national election outcome to have been flipped with 95\% confidence.
+We also demonstrate uncertainty around our coefficient estimates using a simulation approach. Specifically, for each percentile of white manufacturing job losses, we simulate 1,000 election outcomes by drawing from the distribution around our coefficient point estimate 1,000 times (again, using the results from Model 3 in Table \ref{regResult04}). In Figure \ref{counterfactual2}, we find that, assuming the 24th percentile or lower of white manufacturing job losses, we find that the median estimate in our simulation shows Democratic winning at least 270 electoral college votes. Using the 95\% confidence intervals produced from the simulation exercise, we find that we would be 95\% confident that Democrats would have won the national election had white manufacturing job losses been at the 5th percentile or lower. This result suggest that manufacturing job losses would have had to have been substantially lower and *negative* (e.g., job gains) in order for the national election outcome to have been flipped with 95\% confidence.
 
 
 \FloatBarrier
@@ -576,8 +576,9 @@ Figure shows a 95\% confidence interval for Democratic Electoral College Votes a
 \FloatBarrier
 
 
-Finally, using the same simulation approach described above, in Figure \ref{counterfactual3} we illustrate the freuqency with which Demcorats would have won the presidential election (270 votes) given each percentile of white manufacturing job losses. Our simulation results show that, when we assumed 24th percentile or lower of white manufacturing job losses,  Democrats won the presidential election in at least 50 percent of simulations. When we assumed the 17th percentile or lower, Democrats won the presidential election in at least 75 percent of simulations. Taken together, these results suggest that Democrats would have had a significantly higher chance of winning the presidential election had white manufacturing job layoffs been substantially lower.
+Using the same simulation approach described above, in Figure \ref{counterfactual3} we illustrate the frequency with which Democrats would have won the presidential election (270 votes) given each percentile of white manufacturing job losses. Our simulation results show that, when we assumed 24th percentile or lower of white manufacturing job losses,  Democrats won the presidential election in at least 50 percent of simulations. When we assumed the 17th percentile or lower, Democrats won the presidential election in at least 75 percent of simulations. Taken together, these results suggest that Democrats would have had a significantly higher chance of winning the presidential election had white manufacturing job layoffs been substantially lower.
 
+Finally, it is important to note that, in the counterfactual and simulation exercises shown in Figures \ref{counterfactual1}, \ref{counterfactual2}, and \ref{counterfactual3}, we estimate the change in Democratic vote share assuming various levels of white manufacturing job losses *holding all else equal, including non-white manufacturing job losses.* Given that white and non-white manufacturing job losses are weakly-to-moderately correlated across counties (r = .33), this is likely a poor assumption, because, in reality, a decline in white manufacturing job losses would likely correspond to a decline in non-white manufacturing job losses. Given that non-white manufacturing job losses were expected to *increase* Democratic vote share in 2016, this means that our simulation results may be overestimating effect sizes because it does not take into account this second-order impact.
 
 \FloatBarrier
 \begin{figure} \label{counterfactual3}
@@ -690,8 +691,8 @@ While our study is oriented towards history, deindustrialization is in no way co
 
 <!-- FIGURE X: V SHAPED RECOVERY  -->
 
-\begin{figure} \label{vShapePlot}
-\caption{V-Shaped Recovery in Manufacturing Job Losses}
+\begin{figure} \label{vShapePlot1}
+\caption{V-Shaped Recovery in Manufacturing Job Losses: Manufacturing Job Losses (2004-2011) by (2004-2011) Decile Groupings}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
 
 ntile_summary <- readRDS("../v_shaped_recovery.rds")
@@ -701,21 +702,21 @@ ntile_summary <- ntile_summary %>% mutate(n_tile_04_11 = as.numeric(n_tile_04_11
 ggplot(data = ntile_summary,
        aes(x = n_tile_04_11, y = mean_04_11)) +
   theme_minimal() +
-  ylab("Manufacturing Layoffs (04-11)") +
-  xlab("Decile")+
-  ggtitle("Manufacturing Layoffs from 2004-2011 by Deciles") +
+  ylab("Manufacturing Losses (04-11)") +
+  xlab("Deciles")+
+  ggtitle("Manufacturing Job Losses from 2004-2011 by Deciles") +
   geom_col(fill = "#4287f5") +
   scale_x_continuous(breaks=seq(1,10,1))
 
 ```
 \begin{figurenotes}
-"Stuff here"
+Deciles are determined based on our preferred measure of deindustrialization: total net manufacturing job losses from 2004-2015 divided by total 2004 employment. Counties in decile 1 had the lowest manufacturing job losses (i.e., an increase in manufacturing employment) while counties in decile 10 had the highest manufacturing job losses. The y-axis shows the mean measure of manufacturing job lossess (2004-2015) per 2004 worker across counties in each decile group.
 \end{figurenotes}
 \end{figure}
 
 
-\begin{figure} \label{vShapePlot}
-\caption{V-Shaped Recovery in Manufacturing Job Losses}
+\begin{figure} \label{vShapePlot2}
+\caption{V-Shaped Recovery in Manufacturing Job Losses: Manufacturing Job Losses (2012-2015) by 2004-2011 Decile Groupings}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
 
 # plot 2012-2015 manu layoffs by deciles
@@ -732,7 +733,7 @@ ggplot(data = ntile_summary,
 ```
 
 \begin{figurenotes}
-"Stuff here"
+Deciles are determined based on our preferred measure of deindustrialization: total net manufacturing job losses from 2004-2015 divided by total 2004 employment. The y-axis shows the mean measure of manufacturing job losses (2012-2015) per 2011 worker across counties in each decile group. The chart shows that counties with the most manufacturing job losses from 2004-2011 (e.g., in the highest deciles) experienced the most manufacturing *gains* from 2012-2015.
 \end{figurenotes}
 \end{figure}
 
