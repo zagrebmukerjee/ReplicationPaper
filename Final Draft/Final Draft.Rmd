@@ -75,8 +75,9 @@ This paper analyzes the relationship between deindustrialization, race, and the 
 <!-- FIGURE X: MAP OF DEINDUSTRIALIZATION HERE  -->
 
 \FloatBarrier
-\begin{figure} \label{ManuMap}
+\begin{figure} 
 \caption{Concentration of Deindustrialization (2004-2015) in the eastern United States }
+\label{ManuMap}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center" , regfloat=FALSE}
 # load map
 model_input <- readRDS("../model_5_input.rds")
@@ -170,8 +171,9 @@ Like \cite{Baccini21}, our results suggest that the experience of deindustraliza
 
 <!-- FIGURE X: TIME SERIES OF MANUFACUTRING EMPLOYMENT  -->
 \FloatBarrier
-\begin{figure} \label{natlPlotTS}
+\begin{figure}
 \caption{Nationwide Change in Manufacturing Employment, 1995-2019}
+\label{natlPlotTS}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 # manufacturing layoffs over time
 
@@ -331,7 +333,7 @@ stargazer(regResultList$secondStageModelNetC04A,
           digits = 2,
           header = F,
           type = "latex",
-          label = "regResult04"
+          label = "regResult04", column.sep.width = "2pt", font.size = "small"
 )
 
 ```
@@ -342,8 +344,9 @@ For example, in the map in Figure \ref{counterfactual1} below, we assume that al
 
 
 \FloatBarrier
-\begin{figure} \label{counterfactual1}
+\begin{figure} 
 \caption{Counterfactual Scenario: Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
+\label{counterfactual1}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 # load map
@@ -536,9 +539,10 @@ We also demonstrate uncertainty around our coefficient estimates using a simulat
 
 
 \FloatBarrier
-\begin{figure} \label{counterfactual2}
+\begin{figure} 
 
 \caption{Counterfactual Simulation Results: Democratic Electoral College Votes Assuming White Manufacturing Job Losses Between 1st and 99th Percentile }
+\label{counterfactual2}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 # load map
@@ -581,8 +585,9 @@ Using the same simulation approach described above, in Figure \ref{counterfactua
 Finally, it is important to note that, in the counterfactual and simulation exercises shown in Figures \ref{counterfactual1}, \ref{counterfactual2}, and \ref{counterfactual3}, we estimate the change in Democratic vote share assuming various levels of white manufacturing job losses *holding all else equal, including non-white manufacturing job losses.* Given that white and non-white manufacturing job losses are weakly-to-moderately correlated across counties (r = .33), this is likely a poor assumption, because, in reality, a decline in white manufacturing job losses would likely correspond to a decline in non-white manufacturing job losses. Given that non-white manufacturing job losses were expected to *increase* Democratic vote share in 2016, this means that our simulation results may be overestimating effect sizes because it does not take into account this second-order impact.
 
 \FloatBarrier
-\begin{figure} \label{counterfactual3}
+\begin{figure} 
 \caption{Counterfactual Simulation Results: Democratic Presidential Win Frequency}
+\label{counterfactual3}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 library(dplyr)
@@ -608,7 +613,7 @@ ggplot(summary2, aes(ptile, perc_wins)) +
 \FloatBarrier
 \subsubsection{Timing}
 
-Restricting our analysis to only the 2012-2015 period, while continuing to use the net job loss metric, produces an effect opposite to that of \cite{Baccini21}. The loss of Democratic vote share seems to be associated with a gain in manufacturing jobs, both in general and among whites. We believe this time-restricted analysis suffers from an omitted variable bias. As discussed above, the 2012-2015 period can be broadly characterized as a slight rebound from the manufacturing job losses in the 2008 financial crisis. The counties that experience job losses from 2004-2012 are more likely to have job gains in 2012-2015 (see \ref{vShapePlot}). An apparent relationship between 2012-2015 job gains and loss of Democratic vote share in fact represents 2004-2012 job losses that may lead to both the later job gains and the loss of vote share. These results can be seen in Table \ref{regResult12}.
+Restricting our analysis to only the 2012-2015 period, while continuing to use the net job loss metric, produces an effect opposite to that of \cite{Baccini21}. The loss of Democratic vote share seems to be associated with a gain in manufacturing jobs, both in general and among whites. We believe this time-restricted analysis suffers from an omitted variable bias. As discussed above, the 2012-2015 period can be broadly characterized as a slight rebound from the manufacturing job losses in the 2008 financial crisis. The counties that experience job losses from 2004-2012 are more likely to have job gains in 2012-2015 (see \ref{fig:vShapePlot1}). An apparent relationship between 2012-2015 job gains and loss of Democratic vote share in fact represents 2004-2012 job losses that may lead to both the later job gains and the loss of vote share. These results can be seen in Table \ref{regResult12}.
 \FloatBarrier
 ```{r,  echo=F, message = F, results = "asis", regfloat=FALSE}
 
@@ -691,8 +696,9 @@ While our study is oriented towards history, deindustrialization is in no way co
 
 <!-- FIGURE X: V SHAPED RECOVERY  -->
 
-\begin{figure} \label{vShapePlot1}
+\begin{figure} 
 \caption{V-Shaped Recovery in Manufacturing Job Losses: Manufacturing Job Losses (2004-2011) by (2004-2011) Decile Groupings}
+\label{fig:vShapePlot1}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
 
 ntile_summary <- readRDS("../v_shaped_recovery.rds")
@@ -715,8 +721,9 @@ Deciles are determined based on our preferred measure of deindustrialization: to
 \end{figure}
 
 
-\begin{figure} \label{vShapePlot2}
+\begin{figure} 
 \caption{V-Shaped Recovery in Manufacturing Job Losses: Manufacturing Job Losses (2012-2015) by 2004-2011 Decile Groupings}
+\label{vShapePlot2}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center"}
 
 # plot 2012-2015 manu layoffs by deciles
@@ -740,9 +747,9 @@ Deciles are determined based on our preferred measure of deindustrialization: to
 
 
 
-\begin{figure} \label{balPlot}
+\begin{figure} 
 \caption{Covariate Balance in Aggregate}
-
+\label{balPlot}
 ```{r, message = F, fig.width = 5.5, fig.align="center"}
 cbpsObjs <- readRDS("../cbpsObjects.rds")
 plot(cbpsObjs$fit04)
@@ -753,9 +760,9 @@ plot(cbpsObjs$fit04)
 
 
 
-\begin{figure} \label{balPlotWhite}
+\begin{figure} 
 \caption{Covariate Balance in Whites}
-
+\label{balPlotWhite}
 ```{r, message = F, fig.width = 5.5, fig.align="center"}
 plot(cbpsObjs$fit04_white)
 
