@@ -40,6 +40,7 @@ library(readxl)
 library(scales)
 library(tigris)
 library(dplyr)
+library(CBPS)
 knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
 
 knitr::knit_hooks$set(plot = function (x, options) {
@@ -158,11 +159,10 @@ Calculated at the county-level as the net change in manufacturing employment bet
 \end{figure}
 \FloatBarrier
 
+
 In their central analysis, \cite{Baccini21} analyzed the effect of gross manufacturing job losses from 2012 to 2015 on the change in Democratic vote share in the 2016 presidential election. \cite{Baccini21} find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. 
 
 Our analysis extends \cite{Baccini21} in several ways. First, we change focus from a measure of *gross* losses in manufacturing jobs to *net* losses. As discussed in \ref{datasec}, we believe this to be a more accurate measure of deindustrialization. Second, we change the temporal focus. Rather than focusing on manufacturing job loss in 2012-2015, we extend our analysis back to 2004. This is an important change. As shown in Figure \ref{natlPlotTS}, the bulk of U.S. manufacturing job loss took place prior to 2012; in fact, the 2012-2015 period was characterized by a slight rebound in manufacturing jobs. Finally, we augment the instrumental-variable approach with one based on covariate balancing.
-
-Like \cite{Baccini21}, we find evidence that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. \cite{Baccini21} find that gross manufacturing layoffs between 2012-2015 were associated with a loss in Democratic vote share. However, using a different measure of deindustrialization - *net* change in manufacturing employment - we find the oppposite effect: that counties with manufacturing job *gains* from 2012-2015 tended to swing towards Donald Trump in 2016. We extend the analysis to the 2004-2015 period in order to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job losses swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white.
 
 Like \cite{Baccini21}, our results suggest that the experience of deindustralization was associated with support for Donald Trump, particularly among whites. However, our results differ from \cite{Baccini21} in regards to the *timing* of the impact of manufacturing job losses on employment. In fact, using our preferred measure of deindustrialization - *net* change in manufacturing employment - we find that counties with manufacturing job *gains* from 2012-2015 tended to swing towards Donald Trump in 2016. Given this counter-intuitive result, we extend the analysis to the 2004-2015 period in order to capture the long-term effects of deindustrialization on a region. Doing so, we find that regions experiencing more manufacturing job losses from 2004-2015 swung towards Donald Trump in 2016, and that this occurred more when those losing jobs were white. We get similar result using our covariate-matching approach. Relative to \cite{Baccini21}, our results point to the substantive importance of the timing of manufacturing layoffs on political outcomes.
 
@@ -246,9 +246,7 @@ $$
 
 Using this instrument, we then conduct a two-stage regression. First we estimate manufacturing job loss with the Bartik Instrument and a set of county-level controls; then we use the estimated values of job losses to predict Democratic vote share. In these regressions we control for unemployment, the share of college-educated voters, and the share of male voters. For some estimates, we also control for the white share of the population and service layoffs. We also apply state fixed effects to account for a wide variety of state-level changes from 2012-2016 (such as voter suppression tactics). These controls are similar to those of \cite{Baccini21}.
 
-Our second approach involves attempting to balance the covariates of the deindustrialization treatment. We use the same covariates as are used in controls above, as well as manufacturing as share of the population and total population. We apply the method of Covariate Balancing Propensity Scores, as developed by \cite{Imai14}; this method generates weights to reduce the correlation between covariates and treatment, while addressing several of the issues with propensity score weights. Given covariate-balancing weights, we then conduct a single-stage weighted regression of change in Democratic vote share on manufacturing job loss, using the same controls as above.
-
-XXXXXXXXXXXXXXX BALANCE FIGURE??? XXXXXXXXXXXXXXXXXXXXXXXXXXX
+Our second approach involves attempting to balance the covariates of the deindustrialization treatment. We use the same covariates as are used in controls above, as well as manufacturing as share of the population and total population. We apply the method of Covariate Balancing Propensity Scores, as developed by \cite{Imai14}; this method generates weights to reduce the correlation between covariates and treatment, while addressing several of the issues with propensity score weights. We find significant imbalance in the data - in other words, it is relatively easy to predict the 'treatment' of job loss given the covariates (see Appendix for balance plots). Given covariate-balancing weights, we then conduct a single-stage weighted regression of change in Democratic vote share on manufacturing job loss, using the same controls as above. 
 
 \subsection{Results}
 
@@ -259,56 +257,75 @@ The results can be found in Table \ref{regResult04}. The regression coefficient 
 ```{r,  echo=F, message = F, results = "asis", regfloat=FALSE}
 
 regResultList <- readRDS("../regresults.rds")
+matchResultList <- readRDS("../cbpsResults.rds")
 
 
-rownames(regResultList$secondStageModelNetC04A$coefficients )[rownames(regResultList$secondStageModelNetC04A$coefficients)=="firstStageModelOurs04_2$fitted.values"] <-  "Manufacturing Layoffs"
-rownames(regResultList$secondStageModelNetC04$coefficients )[rownames(regResultList$secondStageModelNetC04$coefficients)=="firstStageModelOurs04_3$fitted.values"] <-  "Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetC04A$coefficients )[rownames(regResultList$secondStageModelWNetC04A$coefficients)=="firstStageModelOurs04_5$fitted.values"] <-  "White Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetC04$coefficients )[rownames(regResultList$secondStageModelWNetC04$coefficients)=="firstStageModelOurs04_6$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC04A$coefficients )[rownames(regResultList$secondStageModelNetC04A$coefficients)=="firstStageModelOurs04_2$fitted.values"] <-  "Job Losses"
+rownames(regResultList$secondStageModelNetC04$coefficients )[rownames(regResultList$secondStageModelNetC04$coefficients)=="firstStageModelOurs04_3$fitted.values"] <-  "Job Losses"
+rownames(regResultList$secondStageModelWNetC04A$coefficients )[rownames(regResultList$secondStageModelWNetC04A$coefficients)=="firstStageModelOurs04_5$fitted.values"] <-  "White Job Losses"
+rownames(regResultList$secondStageModelWNetC04$coefficients )[rownames(regResultList$secondStageModelWNetC04$coefficients)=="firstStageModelOurs04_6$fitted.values"] <-  "White Job Losses"
 
 rownames(regResultList$secondStageModelWNetC04A$coefficients
-)[rownames(regResultList$secondStageModelWNetC04A$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+)[rownames(regResultList$secondStageModelWNetC04A$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Job Losses"
 rownames(regResultList$secondStageModelWNetC04$coefficients
-)[rownames(regResultList$secondStageModelWNetC04$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+)[rownames(regResultList$secondStageModelWNetC04$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Job Losses"
 
 
-rownames(regResultList$secondStageModelNetC04A$beta )[rownames(regResultList$secondStageModelNetC04A$beta) =="firstStageModelOurs04_2$fitted.values"] <-  "Manufacturing Layoffs"
-rownames(regResultList$secondStageModelNetC04$beta )[rownames(regResultList$secondStageModelNetC04$beta)=="firstStageModelOurs04_3$fitted.values"] <-  "Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetC04A$beta )[rownames(regResultList$secondStageModelWNetC04A$beta)=="firstStageModelOurs04_5$fitted.values"] <-  "White Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetC04$beta )[rownames(regResultList$secondStageModelWNetC04$beta)=="firstStageModelOurs04_6$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetC04A$beta )[rownames(regResultList$secondStageModelNetC04A$beta) =="firstStageModelOurs04_2$fitted.values"] <-  "Job Losses"
+rownames(regResultList$secondStageModelNetC04$beta )[rownames(regResultList$secondStageModelNetC04$beta)=="firstStageModelOurs04_3$fitted.values"] <-  "Job Losses"
+rownames(regResultList$secondStageModelWNetC04A$beta )[rownames(regResultList$secondStageModelWNetC04A$beta)=="firstStageModelOurs04_5$fitted.values"] <-  "White Job Losses"
+rownames(regResultList$secondStageModelWNetC04$beta )[rownames(regResultList$secondStageModelWNetC04$beta)=="firstStageModelOurs04_6$fitted.values"] <-  "White Job Losses"
 
-rownames(regResultList$secondStageModelWNetC04A$beta )[rownames(regResultList$secondStageModelWNetC04A$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetC04$beta )[rownames(regResultList$secondStageModelWNetC04$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetC04A$beta )[rownames(regResultList$secondStageModelWNetC04A$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Job Losses"
+rownames(regResultList$secondStageModelWNetC04$beta )[rownames(regResultList$secondStageModelWNetC04$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Job Losses"
+
+rownames(matchResultList$secondStageModelOurs04LW_3$coefficients)[rownames(matchResultList$secondStageModelOurs04LW_3$coefficients) == "mfgNetChange_total"] <- "Job Losses"
+rownames(matchResultList$secondStageModelOurs04LW_6$coefficients)[rownames(matchResultList$secondStageModelOurs04LW_6$coefficients) == "mfgNetChange_white"] <- "White Job Losses"
+rownames(matchResultList$secondStageModelOurs04LW_6$coefficients)[rownames(matchResultList$secondStageModelOurs04LW_6$coefficients) == "mfgNetChange_nonwhite"] <- "Nonwhite Job Losses"
+
+
+rownames(matchResultList$secondStageModelOurs04LW_3$beta)[rownames(matchResultList$secondStageModelOurs04LW_3$beta) == "mfgNetChange_total"] <- "Job Losses"
+rownames(matchResultList$secondStageModelOurs04LW_6$beta)[rownames(matchResultList$secondStageModelOurs04LW_6$beta) == "mfgNetChange_white"] <- "White Job Losses"
+rownames(matchResultList$secondStageModelOurs04LW_6$beta)[rownames(matchResultList$secondStageModelOurs04LW_6$beta) == "mfgNetChange_nonwhite"] <- "Nonwhite Job Losses"
+
+
+names(regResultList$rseNetC04A_2)[1] <- "Job Losses"
+names(regResultList$rseNetC04_2)[1] <- "Job Losses"
+names(regResultList$rseWNetC04A_2)[1] <- "White Job Losses"
+names(regResultList$rseWNetC04_2)[1] <- "White Job Losses"
+
+names(regResultList$rseWNetC04A_2)[names(regResultList$rseWNetC04A_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Job Losses"
+names(regResultList$rseWNetC04_2)[names(regResultList$rseWNetC04_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Job Losses"
 
 
 
-names(regResultList$rseNetC04A_2)[1] <- "Manufacturing Layoffs"
-names(regResultList$rseNetC04_2)[1] <- "Manufacturing Layoffs"
-names(regResultList$rseWNetC04A_2)[1] <- "White Manufacturing Layoffs"
-names(regResultList$rseWNetC04_2)[1] <- "White Manufacturing Layoffs"
-
-names(regResultList$rseWNetC04A_2)[names(regResultList$rseWNetC04A_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
-names(regResultList$rseWNetC04_2)[names(regResultList$rseWNetC04_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
-
+names(matchResultList$rseOurs04LW3_2)[1] <- "Job Losses"
+names(matchResultList$rseOurs04LW6_2)[1] <- "White Job Losses"
+names(matchResultList$rseOurs04LW6_2)[names(matchResultList$rseOurs04LW6_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Job Losses"
 
 
 
 stargazer(regResultList$secondStageModelNetC04A,
           regResultList$secondStageModelNetC04,
+          matchResultList$secondStageModelOurs04LW_3,
           regResultList$secondStageModelWNetC04A,
           regResultList$secondStageModelWNetC04,
+          matchResultList$secondStageModelOurs04LW_6,
           se = list(
             regResultList$rseNetC04A_2,
             regResultList$rseNetC04_2,
+            matchResultList$rseOurs04LW3_2,
             regResultList$rseWNetC04A_2,
-            regResultList$rseWNetC04_2
+            regResultList$rseWNetC04_2,
+            matchResultList$rseOurs04LW6_2
           ),
           title = "Effect of Manufacturing Job Loss from 2004 to 2015",
           dep.var.labels = "Change in Dem. Share, 2016-2012",
           omit.stat = c("rsq","ser"),
-          keep = c("Manufacturing Layoffs", "White Manufacturing Layoffs", "Nonwhite Manufacturing Layoffs"),
+          keep = c("Job Losses", "White Job Losses", "Nonwhite Job Losses"),
           add.lines = list(
-            c("White Share/Svc Layoffs Control", "No", "Yes", "No", "Yes")
+            c("White Share/Svc Layoffs", "No", "Yes", "Yes", "No", "Yes", "Yes"),
+            c("Covariate Balancing", "No", "No", "Yes", "No", "No", "Yes")
           ),
           digits = 2,
           header = F,
@@ -517,7 +534,11 @@ ggplot() +
 \FloatBarrier
 \begin{figure} \label{counterfactual2}
 
+<<<<<<< HEAD
 \caption{Counterfactual Simulation Results: Democratic Electoral College Votes Assuming White Manufacturing Job Losses Between 1st and 99th Percentile }
+=======
+\caption{Counterfactual Presidential Election Simulation Results}
+>>>>>>> b07ee51391df2b0937f0000d2dd910daf8156912
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 # load map
@@ -542,7 +563,9 @@ ggplot(summary, aes(ptile, median_result)) +
   geom_hline(yintercept = 270, color = "red") +
   theme_bw() +
   ylab("Clinton Electoral College Votes\n") +
-  xlab("Assumed Percentile of Manufacturing Layoffs\n") 
+  xlab("Assumed Percentile of Manufacturing Layoffs\n")   +
+  theme(axis.title.x = element_text(size = 8), 
+        axis.title.y = element_text(size = 8))
 
 
 ```
@@ -554,7 +577,7 @@ Figures show a 95% confidence interval for Democratic Electoral College Votes at
 
 \FloatBarrier
 \begin{figure} \label{counterfactual3}
-\caption{Clinton Winning Freq}
+\caption{ Counterfactual Clinton Win Frequency}
 ```{r, message = F, fig.height = 2.5, fig.width = 5.5, fig.align="center", regfloat=FALSE}
 
 library(dplyr)
@@ -569,8 +592,8 @@ summary2 <- simulation_results %>%
 ggplot(summary2, aes(ptile, perc_wins)) + 
   geom_col(fill = "#4287f5")  +
   theme_bw() +
-  ylab("Outcome: Frequency of Clinton Winning\nIn 1000 Simulations") +
-  xlab("Input Assumption: Percentile of Manufacturing Layoffs\n") +
+  ylab("Clinton Wins\nIn 1000 Simulations") +
+  xlab("Percentile of Manufacturing Layoffs\n") +
   ggtitle("Counterfactual Presidential Election Simulation Results")
 
 
@@ -660,7 +683,7 @@ While our study is oriented towards history, deindustrialization is in no way co
 
 \section{Appendix}
 
-<!-- FIGURE X: V SHAPRED RECOVERY  -->
+<!-- FIGURE X: V SHAPED RECOVERY  -->
 
 \begin{figure} \label{vShapePlot}
 \caption{V-Shaped Recovery in Manufacturing Job Losses}
@@ -706,4 +729,30 @@ ggplot(data = ntile_summary,
 \begin{figurenotes}
 "Stuff here"
 \end{figurenotes}
+\end{figure}
+
+
+
+
+\begin{figure} \label{balPlot}
+\caption{Covariate Balance in Aggregate}
+
+```{r, message = F, fig.width = 5.5, fig.align="center"}
+cbpsObjs <- readRDS("../cbpsObjects.rds")
+plot(cbpsObjs$fit04)
+
+```
+
+\end{figure}
+
+
+
+\begin{figure} \label{balPlotWhite}
+\caption{Covariate Balance in Whites}
+
+```{r, message = F, fig.width = 5.5, fig.align="center"}
+plot(cbpsObjs$fit04_white)
+
+```
+
 \end{figure}
