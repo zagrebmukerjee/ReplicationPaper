@@ -69,6 +69,8 @@ This paper analyzes the relationship between deindustrialization, race, and the 
 
 Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of dindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in areas of the country that were previously economically reliant on manufacturing. As shown in Figure \ref{ManuMap}, states across the eastern half of America, particularly in the South and Midwest, have experienced the most pronouncd manufacturing employment losses. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
 
+This paper analyzes the relationship between deindustrialization, race, and the election of Donald Trump in 2016. Previous analysis has  focused on racial animus, trade, or the conjunction of the two on  political polarization and election outcomes (\cite{Autor20}; \cite{Che16}; \cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the first papers to examine the political effects of deindustrialization that while considering race and localization. Deindustrialization - the transition of the U.S. economy away from manufacturing - has led to widespread job loss and created adverse knock-on effects for a wide swath of Americans. Our measure of dindustrialization incorporates job losses due to trade with China and others (see \cite{Acemoglu16}); it also includes job losses due to automation, demand changes, and other factors. The experience of deindustrialization has not been uniform; rather, it has been concentrated in certain areas of the country that were previously economically reliant on manufacturing, as demonstrated in Figure \ref{ManuMap}. The localized nature of this analysis highlights the uneven and concentrated harms of deindustrialization. 
+
 <!-- FIGURE X: MAP OF DEINDUSTRIALIZATION HERE  -->
 
 \FloatBarrier
@@ -207,11 +209,11 @@ Annual net change in manufacturing employment in the United States.
 \subsection{Data} 
 \label{datasec}
 
-Following \cite{Baccini21}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also possible spillover effects on the greater population within the county. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain this from the publically-available replication data provided by \cite{Baccini21}. 
+Following \cite{Baccini21}, our unit of analysis is the county. This allows us to capture not only the direct effects of deindustrialization on laid-off manufacturing workers, but also possible spillover effects on the greater population within the county. The primary outcome variable is the county's change in Democratic vote share between 2012 and 2016. We obtain data on election outocmes and various covariate terms from the publically-available replication data provided by \cite{Baccini21}. 
 
 We want to measure the causal relationship between deindustrialization and the change in vote share. As a measure of deindustrialization, we use the loss of manufacturing jobs as a share of the total beginning-of-period employment in each county. Suppose at the beginning of our period there were $2000$ manufacturing workers in a county, and $8000$ non-manufacturing workers. At the end there are only $1500$ manufacturing workers. Using our measure of net change in manufacturing employment, this is a loss of $500/10000 = 5\%.$
 
-In this choice we diverge from \cite{Baccini21}, which uses **gross** manufacturing job losses. For example, if a county lost $450$ manufacturing jobs from 2012-2015 and also gained $400$ manufacturing jobs over the same period, this would be $450$ **gross** job losses, but only $50$ **net** job losses. The **gross** measure captures several dynamics unrelated to deindustrialization - for example, seasonal unemployment in a food-manufacturing region, or workers moving between jobs. Thus we believe the **net** job losses over a period are the more accurate measure. It can be argued that the non-seasonal or non-structural components of gross job losses are a useful covariate. Basic notions of prospect theory suggest that the loss of a job and subsequent regaining of another identical job may still create substantial discontent. Constructing a better measure of gross job losses is an area for further methodological and substantive research.
+In this choice we diverge from \cite{Baccini21}, which uses *gross* manufacturing job losses. For example, if a county lost $450$ manufacturing jobs from 2012-2015 and also gained $400$ manufacturing jobs over the same period, this would be $450$ *gross* job losses, but only $50$ *net* job losses. The *gross* measure captures several dynamics unrelated to deindustrialization - for example, seasonal unemployment in a food-manufacturing region, or workers moving between jobs. Thus we believe the *net* job losses over a period are the more accurate measure. Additionally, there is precedent in the literature to use *net* employment changes, as \cite{Autor21} have done. Nevertheless, it can be argued that the non-seasonal or non-structural components of gross job losses are a useful covariate. For instance, basic notions of prospect theory suggest that the loss of a job and subsequent regaining of another identical job may still create substantial discontent. Constructing a better measure of gross job losses is an area for further methodological and substantive research.
 
 Data on job gains and losses are obtained, using an API, from the Census Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains (among other things) information about employment by industry and county. These statistics are further disaggregated by race and ethnicity. The Census Bureau obtains this data from a combination of sources, such as administrative tax data and the U.S. Census. 
 
@@ -233,7 +235,7 @@ knitr::kable(descriptiveData$table04,
 \subsection{Methods} 
 \label{methodssec}
 
-We conduct two related tests of our hypothesis. Our first test involves an instrumental-variable approach. A regression of change in Democratic vote share on manufacturing job losses risks endogeneity, in case counties with manufacturing job losses were otherwise predisposed to turn towards Trump (a singular candidate, after all). To mitigate these risks, \cite{Baccini21} uses a Bartik instrument, which we adapt (see \cite{Bartik91}). This instrument essentially uses the cross-county distribution of manufacturing employment as a source of exogenous variation. 
+We conduct two related tests of our hypothesis. Our first test involves an instrumental-variable approach. A regression of change in Democratic vote share on manufacturing job losses risks endogeneity, in case counties with manufacturing job losses were otherwise predisposed to turn towards Trump (a singular candidate, after all). To mitigate these risks, \cite{Baccini21} use a Bartik instrument, which we adapt (see \cite{Bartik91}). This instrument essentially uses the cross-county distribution of manufacturing employment as a source of exogenous variation. 
 
 $$
 \begin{aligned}
@@ -242,7 +244,7 @@ b_{j,c} &=& \frac{\text{Manufacturing Employment}_{j,c} \text{ at } t_0}{\text{T
 \end{aligned}
 $$
 
-Using this instrument, we then conduct a two-stage regression. First we estimate manufacturing job loss with the Bartik Instrument and a set of county-level controls; then we use the estimated values of job losses to predict Democratic vote share. In these regressions we control for unemployment, service layoffs, the share of college-educated voters, and the share of male voters. For some estimates, we also control for the white share of the population. We also apply state fixed effects to account for a wide variety of state-level changes from 2012-2016 (such as voter suppression tactics). These controls are similar to those of \cite{Baccini21}.
+Using this instrument, we then conduct a two-stage regression. First we estimate manufacturing job loss with the Bartik Instrument and a set of county-level controls; then we use the estimated values of job losses to predict Democratic vote share. In these regressions we control for unemployment, the share of college-educated voters, and the share of male voters. For some estimates, we also control for the white share of the population and service layoffs. We also apply state fixed effects to account for a wide variety of state-level changes from 2012-2016 (such as voter suppression tactics). These controls are similar to those of \cite{Baccini21}.
 
 Our second approach involves attempting to balance the covariates of the deindustrialization treatment. We use the same covariates as are used in controls above, as well as manufacturing as share of the population and total population. We apply the method of Covariate Balancing Propensity Scores, as developed by \cite{Imai14}; this method generates weights to reduce the correlation between covariates and treatment, while addressing several of the issues with propensity score weights. We find significant imbalance in the data - in other words, it is relatively easy to predict the 'treatment' of job loss given the covariates (see Appendix for balance plots). Given covariate-balancing weights, we then conduct a single-stage weighted regression of change in Democratic vote share on manufacturing job loss, using the same controls as above. 
 
@@ -250,7 +252,7 @@ Our second approach involves attempting to balance the covariates of the deindus
 
 We find that counties experiencing deindustrialization from 2004-2015 are substantially more likely to vote for Trump. Further, we find that this effect is largely attributable to whites. In other words, net white manufacturing job losses decreased Democratic vote share, while net non-white manufacturing job losses increased Democratic vote share. We find the same effect when using covariate balancing, albeit of reduced size. 
 
-The results can be found in Table \ref{regResult04}. The regression coefficient in Model 4, for instance, means that a loss of $10$ manufacturing jobs per $100$ workers in a county (a relatively extreme value) corresponds to a loss of $3.2 \%$ in Democratic vote share.
+The results can be found in Table \ref{regResult04}. The regression coefficient in Model 4, for instance, means that a loss of $10$ white manufacturing jobs per $100$ workers in a county (a relatively extreme value) corresponds to a $3.2$ percentage point loss in Democratic vote share.
 \FloatBarrier
 ```{r,  echo=F, message = F, results = "asis", regfloat=FALSE}
 
@@ -333,8 +335,12 @@ stargazer(regResultList$secondStageModelNetC04A,
 
 ```
 \FloatBarrier
-This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties experienced job losses
-<!--  what should I read in the counterfactual -->
+This coefficient is still somewhat difficult to interpret, and made increasingly so by the winner-take-all system by which U.S. Electoral College votes are allocated. As an alternative perspective, we examined a range of counterfactual scenarios, in which counties manufacturing experienced job losses between the 1st and 99th percentiles across all counties. For example, in the map below, we assume that all counties in the US experienced a loss in white manufacturing employment equivalent to the level experienced by a county at the 25th percentile. Here, that level is equivalent to a 0 net loss in white manufacturing jobs between 2004-2015 per 100 workers in 2004 (a relatively low level of job losses). Setting all counties' white manufacturing job losses to 0, we use the point estimates of our regression coefficients from Model 3 in \ref{regResult04} to estimate the counterfactual change in Democratic vote share. We then aggregate our county-level findings to estimate the overall counterfactual change in Democratic vote share at the state level. We find that, had all counties experienced the 25th percentile level in manufacturing job losses, most states would have leaned more Democratic in 2016, and that Michigan and Pennsylvania would have flipped.
+
+
+
+
+
 
 \FloatBarrier
 \begin{figure} \label{counterfactual1}
