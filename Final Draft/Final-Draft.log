@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.7)  12 DEC 2021 14:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.7)  12 DEC 2021 15:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -536,9 +536,6 @@ File: l3backend-pdftex.def 2021-10-18 L3 backend support: PDF output (pdfTeX)
 \l__pdf_internal_box=\box97
 ) (./Final-Draft.aux
 
-LaTeX Warning: Label `ManuMap' multiply defined.
-
-
 LaTeX Warning: Label `vShapePlot' multiply defined.
 
 )
@@ -607,16 +604,16 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 91.
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=16, 397.485pt x 180.6
+<Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=17, 397.485pt x 180.6
 75pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf  
-used on input line 114.
+used on input line 121.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 114--114
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 121--121
  [] 
  []
 
@@ -626,62 +623,55 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [1
 
 {c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
-x.map}]
-
-Package hyperref Warning: Suppressing empty link on input line 143.
-
-<Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf, id=45, 397.485pt x 180.6
+x.map}] [2 <./Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf>]
+<Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf, id=65, 397.485pt x 180.6
 75pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf  
-used on input line 157.
+used on input line 171.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 157--157
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 171--171
  [] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[2 <./Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf>] [3 <./Final-Draft_
-files/figure-latex/unnamed-chunk-3-1.pdf>] [4]
-Overfull \hbox (92.2463pt too wide) in paragraph at lines 279--280
+[3 <./Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf>] [4]
+Overfull \hbox (92.2463pt too wide) in paragraph at lines 294--295
 []\OT1/cmr/m/n/10.95 XXXXXXXXXXXXXXX BAL-ANCE FIG-URE??? XXXXXXXXXXXXXXXXXXXXXX
 XXXXX 
  []
 
 
-Overfull \hbox (3.94821pt too wide) in paragraph at lines 300--325
+Overfull \hbox (3.94821pt too wide) in paragraph at lines 315--340
  [] 
  []
 
 [5] [6]
-<Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=110, 397.485pt x 180.
+<Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=119, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf  
-used on input line 338.
+used on input line 353.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 338--338
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 353--353
  [] 
  []
 
-<Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf, id=111, 397.485pt x 180.
+<Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf, id=120, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf  
-used on input line 350.
+used on input line 366.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 350--350
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 366--366
  [] 
  []
 
@@ -689,16 +679,16 @@ Overfull \hbox (11.94919pt too wide) in paragraph at lines 350--350
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [7 <./Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf>]
-<Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf, id=123, 397.485pt x 180.
+<Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf, id=132, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf  
-used on input line 362.
+used on input line 378.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 362--362
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 378--378
  [] 
  []
 
@@ -727,32 +717,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--71
  []
 
 )
-<Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf, id=180, 397.485pt x 180
+<Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf, id=190, 397.485pt x 180
 .675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type 
 pdf)
 <use Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf 
- used on input line 474.
+ used on input line 490.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 474--474
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 490--490
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf, id=181, 397.485pt x 180
+<Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf, id=191, 397.485pt x 180
 .675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type 
 pdf)
 <use Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf 
- used on input line 487.
+ used on input line 503.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 487--487
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 503--503
  [] 
  []
 
@@ -770,10 +760,10 @@ Package rerunfilecheck Info: File `Final-Draft.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 12031 strings out of 480313
- 192094 string characters out of 5895780
- 493014 words of memory out of 5000000
- 29652 multiletter control sequences out of 15000+600000
+ 12033 strings out of 480313
+ 192119 string characters out of 5895780
+ 493082 words of memory out of 5000000
+ 29653 multiletter control sequences out of 15000+600000
  412968 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  69i,11n,76p,234b,437s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -793,10 +783,10 @@ ng/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/darin
 :/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmti10.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmti8.pfb>
-Output written on Final-Draft.pdf (12 pages, 585785 bytes).
+Output written on Final-Draft.pdf (12 pages, 586601 bytes).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
- 216 compressed objects within 3 object streams
- 47 named destinations out of 1000 (max. 500000)
+ 281 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
+ 48 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
