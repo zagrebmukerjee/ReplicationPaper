@@ -621,34 +621,34 @@ Restricting our analysis to only the 2012-2015 period, while continuing to use t
 \FloatBarrier
 ```{r,  echo=F, message = F, results = "asis", regfloat=FALSE}
 
-rownames(regResultList$secondStageModelNetCA$coefficients )[rownames(regResultList$secondStageModelNetCA$coefficients)=="firstStageModelOurs_2$fitted.values"] <-  "Manufacturing Layoffs"
-rownames(regResultList$secondStageModelNetC$coefficients )[rownames(regResultList$secondStageModelNetC$coefficients)=="firstStageModelOurs_3$fitted.values"] <-  "Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetCA$coefficients )[rownames(regResultList$secondStageModelWNetCA$coefficients)=="firstStageModelOurs_5$fitted.values"] <-  "White Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetC$coefficients )[rownames(regResultList$secondStageModelWNetC$coefficients)=="firstStageModelOurs_6$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetCA$coefficients )[rownames(regResultList$secondStageModelNetCA$coefficients)=="firstStageModelOurs_2$fitted.values"] <-  "Job Losses"
+rownames(regResultList$secondStageModelNetC$coefficients )[rownames(regResultList$secondStageModelNetC$coefficients)=="firstStageModelOurs_3$fitted.values"] <-  "Job Losses"
+rownames(regResultList$secondStageModelWNetCA$coefficients )[rownames(regResultList$secondStageModelWNetCA$coefficients)=="firstStageModelOurs_5$fitted.values"] <-  "White Job Losses"
+rownames(regResultList$secondStageModelWNetC$coefficients )[rownames(regResultList$secondStageModelWNetC$coefficients)=="firstStageModelOurs_6$fitted.values"] <-  "White Job Losses"
 
 rownames(regResultList$secondStageModelWNetCA$coefficients 
-)[rownames(regResultList$secondStageModelWNetCA$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+)[rownames(regResultList$secondStageModelWNetCA$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Job Losses"
 rownames(regResultList$secondStageModelWNetC$coefficients
-)[rownames(regResultList$secondStageModelWNetC$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+)[rownames(regResultList$secondStageModelWNetC$coefficients)=="mfgNetChange_nonwhite"] <-  "Nonwhite Job Losses"
 
 
-rownames(regResultList$secondStageModelNetCA$beta )[rownames(regResultList$secondStageModelNetCA$beta) =="firstStageModelOurs_2$fitted.values"] <-  "Manufacturing Layoffs"
-rownames(regResultList$secondStageModelNetC$beta )[rownames(regResultList$secondStageModelNetC$beta)=="firstStageModelOurs_3$fitted.values"] <-  "Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetCA$beta )[rownames(regResultList$secondStageModelWNetCA$beta)=="firstStageModelOurs_5$fitted.values"] <-  "White Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetC$beta )[rownames(regResultList$secondStageModelWNetC$beta)=="firstStageModelOurs_6$fitted.values"] <-  "White Manufacturing Layoffs"
+rownames(regResultList$secondStageModelNetCA$beta )[rownames(regResultList$secondStageModelNetCA$beta) =="firstStageModelOurs_2$fitted.values"] <-  "Job Losses"
+rownames(regResultList$secondStageModelNetC$beta )[rownames(regResultList$secondStageModelNetC$beta)=="firstStageModelOurs_3$fitted.values"] <-  "Job Losses"
+rownames(regResultList$secondStageModelWNetCA$beta )[rownames(regResultList$secondStageModelWNetCA$beta)=="firstStageModelOurs_5$fitted.values"] <-  "White Job Losses"
+rownames(regResultList$secondStageModelWNetC$beta )[rownames(regResultList$secondStageModelWNetC$beta)=="firstStageModelOurs_6$fitted.values"] <-  "White Job Losses"
 
-rownames(regResultList$secondStageModelWNetCA$beta )[rownames(regResultList$secondStageModelWNetCA$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
-rownames(regResultList$secondStageModelWNetC$beta )[rownames(regResultList$secondStageModelWNetC$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Manufacturing Layoffs"
+rownames(regResultList$secondStageModelWNetCA$beta )[rownames(regResultList$secondStageModelWNetCA$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Job Losses"
+rownames(regResultList$secondStageModelWNetC$beta )[rownames(regResultList$secondStageModelWNetC$beta)=="mfgNetChange_nonwhite"] <-  "Nonwhite Job Losses"
 
 
 
-names(regResultList$rseNetCA_2)[1] <- "Manufacturing Layoffs"
-names(regResultList$rseNetC_2)[1] <- "Manufacturing Layoffs"
-names(regResultList$rseWNetCA_2)[1] <- "White Manufacturing Layoffs"
-names(regResultList$rseWNetC_2)[1] <- "White Manufacturing Layoffs"
+names(regResultList$rseNetCA_2)[1] <- "Job Losses"
+names(regResultList$rseNetC_2)[1] <- "Job Losses"
+names(regResultList$rseWNetCA_2)[1] <- "White Job Losses"
+names(regResultList$rseWNetC_2)[1] <- "White Job Losses"
 
-names(regResultList$rseWNetCA_2)[names(regResultList$rseWNetCA_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
-names(regResultList$rseWNetC_2)[names(regResultList$rseWNetC_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Manufacturing Layoffs"
+names(regResultList$rseWNetCA_2)[names(regResultList$rseWNetCA_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Job Losses"
+names(regResultList$rseWNetC_2)[names(regResultList$rseWNetC_2) == "mfgNetChange_nonwhite"] <- "Nonwhite Job Losses"
 
 
 
@@ -666,7 +666,7 @@ stargazer(regResultList$secondStageModelNetCA,
           title = "Effect of Manufacturing Job Loss from 2004 to 2015",
           dep.var.labels = "Change in Dem. Share, 2016-2012",
           omit.stat = c("rsq","ser"),
-          keep = c("Manufacturing Layoffs", "White Manufacturing Layoffs", "Nonwhite Manufacturing Layoffs"),
+          keep = c("Job Losses", "White Job Losses", "Nonwhite Job Losses"),
           add.lines = list(
             c("White Share/Svc Layoffs Control", "No", "Yes", "No", "Yes")
           ),
