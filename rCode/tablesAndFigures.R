@@ -17,9 +17,9 @@ tableOurs <- datasetList$datasetOurs %>%
     `Mfg Share of Emp` = mfgShare_total,
     `Mfg Share of Emp (White)` = mfgShare_white,
     `Mfg Share of Emp (Nonwhite)` = mfgShare_nonwhite,
-    `Change in Mfg Jobs/ Worker` = mfgNetChange_total,
-    `Change in Mfg Jobs/ Worker (W)` = mfgNetChange_white,
-    `Change in Mfg Jobs/ Worker (NW)` = mfgNetChange_nonwhite
+    `Mfg Job Loss/ Worker` = mfgNetChange_total,
+    `Mfg Job Loss/ Worker (W)` = mfgNetChange_white,
+    `Mfg Job Loss/ Worker (NW)` = mfgNetChange_nonwhite
   ) %>% 
   pivot_longer(cols = -c( "state_fips", "county_fips") ,names_to = "variable") %>%
   mutate(
@@ -28,9 +28,9 @@ tableOurs <- datasetList$datasetOurs %>%
       "Mfg Share of Emp",
       "Mfg Share of Emp (White)",
       "Mfg Share of Emp (Nonwhite)",
-      "Change in Mfg Jobs/ Worker",
-      "Change in Mfg Jobs/ Worker (W)",
-      "Change in Mfg Jobs/ Worker (NW)"
+      "Mfg Job Loss/ Worker",
+      "Mfg Job Loss/ Worker (W)",
+      "Mfg Job Loss/ Worker (NW)"
       ))) %>% 
   group_by(variable) %>% 
   summarize(
@@ -61,9 +61,9 @@ table04 <- datasetList$datasetOurs04 %>%
     `Mfg Share of Emp` = mfgShare_total,
     `Mfg Share of Emp (White)` = mfgShare_white,
     `Mfg Share of Emp (Nonwhite)` = mfgShare_nonwhite,
-    `Change in Mfg Jobs/ Worker` = mfgNetChange_total,
-    `Change in Mfg Jobs/ Worker (W)` = mfgNetChange_white,
-    `Change in Mfg Jobs/ Worker (NW)` = mfgNetChange_nonwhite
+    `Mfg Job Loss/ Worker` = mfgNetChange_total,
+    `Mfg Job Loss/ Worker (W)` = mfgNetChange_white,
+    `Mfg Job Loss/ Worker (NW)` = mfgNetChange_nonwhite
   ) %>% 
   pivot_longer(cols = -c( "state_fips", "county_fips") ,names_to = "variable") %>%
   mutate(
@@ -72,9 +72,9 @@ table04 <- datasetList$datasetOurs04 %>%
       "Mfg Share of Emp",
       "Mfg Share of Emp (White)",
       "Mfg Share of Emp (Nonwhite)",
-      "Change in Mfg Jobs/ Worker",
-      "Change in Mfg Jobs/ Worker (W)",
-      "Change in Mfg Jobs/ Worker (NW)"
+      "Mfg Job Loss/ Worker",
+      "Mfg Job Loss/ Worker (W)",
+      "Mfg Job Loss/ Worker (NW)"
     ))) %>% 
   group_by(variable) %>% 
   summarize(
