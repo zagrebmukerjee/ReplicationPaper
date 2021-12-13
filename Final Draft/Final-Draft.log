@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.7)  12 DEC 2021 20:34
-=======
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.9)  12 DEC 2021 20:09
->>>>>>> 9e141584c0c8241b8b985487307a12cf103db605
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.7)  12 DEC 2021 20:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -594,74 +590,76 @@ LaTeX Info: Redefining \nameref on input line 51.
 \@outlinefile=\write3
 \openout3 = `Final-Draft.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 96.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 97.
 
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 96.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 97.
 
 (c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-<Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=17, 397.485pt x 180.6
+) [1
+
+{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
+x.map}]
+<Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf, id=40, 397.485pt x 180.6
 75pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf  
-used on input line 127.
+used on input line 128.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 127--127
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 128--128
  [] 
  []
 
-[1
-
-{c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
-x.map}] [2 <./Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf>]
+[2 <./Final-Draft_files/figure-latex/unnamed-chunk-2-1.pdf>]
 <Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf, id=66, 397.485pt x 180.6
 75pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf  
-used on input line 178.
+used on input line 181.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 178--178
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 181--181
  [] 
  []
 
-[3 <./Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf>] [4] [5]
-<Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=118, 397.485pt x 180.
+[3 <./Final-Draft_files/figure-latex/unnamed-chunk-3-1.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[4]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[5] [6]
+<Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf, id=133, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf  
-used on input line 386.
+used on input line 390.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 386--386
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 390--390
  [] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[6]
-<Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf, id=130, 397.485pt x 180.
+<Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf, id=136, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-7-1.pdf  
-used on input line 416.
+used on input line 420.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 416--416
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 420--420
  [] 
  []
 
@@ -669,16 +667,16 @@ Overfull \hbox (11.94919pt too wide) in paragraph at lines 416--416
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [7 <./Final-Draft_files/figure-latex/unnamed-chunk-6-1.pdf>]
-<Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf, id=146, 397.485pt x 180.
+<Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf, id=153, 397.485pt x 180.
 675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type p
 df)
 <use Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-8-1.pdf  
-used on input line 459.
+used on input line 463.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 459--459
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 463--463
  [] 
  []
 
@@ -705,64 +703,64 @@ Underfull \hbox (badness 10000) in paragraph at lines 72--76
  []
 
 [11])
-<Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf, id=208, 397.485pt x 180
+<Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf, id=214, 397.485pt x 180
 .675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type 
 pdf)
 <use Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-10-1.pdf 
- used on input line 577.
+ used on input line 581.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 577--577
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 581--581
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf, id=209, 397.485pt x 180
+<Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf, id=215, 397.485pt x 180
 .675pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type 
 pdf)
 <use Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-11-1.pdf 
- used on input line 591.
+ used on input line 595.
 (pdftex.def)             Requested size: 397.48402pt x 180.67455pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 591--591
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 595--595
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Final-Draft_files/figure-latex/unnamed-chunk-12-1.pdf, id=210, 397.485pt x 325
+<Final-Draft_files/figure-latex/unnamed-chunk-12-1.pdf, id=216, 397.485pt x 325
 .215pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type 
 pdf)
 <use Final-Draft_files/figure-latex/unnamed-chunk-12-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-12-1.pdf 
- used on input line 606.
+ used on input line 610.
 (pdftex.def)             Requested size: 397.48402pt x 325.2142pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 606--606
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 610--610
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<Final-Draft_files/figure-latex/unnamed-chunk-13-1.pdf, id=211, 397.485pt x 325
+<Final-Draft_files/figure-latex/unnamed-chunk-13-1.pdf, id=217, 397.485pt x 325
 .215pt>
 File: Final-Draft_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type 
 pdf)
 <use Final-Draft_files/figure-latex/unnamed-chunk-13-1.pdf>
 Package pdftex.def Info: Final-Draft_files/figure-latex/unnamed-chunk-13-1.pdf 
- used on input line 618.
+ used on input line 622.
 (pdftex.def)             Requested size: 397.48402pt x 325.2142pt.
 
-Overfull \hbox (11.94919pt too wide) in paragraph at lines 618--618
+Overfull \hbox (11.94919pt too wide) in paragraph at lines 622--622
  [] 
  []
 
@@ -787,7 +785,6 @@ Here is how much of TeX's memory you used:
  412968 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  69i,11n,76p,513b,452s stack positions out of 5000i,500n,10000p,200000b,80000s
-<<<<<<< HEAD
  <c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/e
 c/tcrm0600.600pk> <c:/Users/darin/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/lj
 four/jknappen/ec/tcrm0800.600pk><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-d
@@ -806,14 +803,10 @@ cmsy6.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy8.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmti10.pfb><c:/Users/darin/AppData/Roaming/TinyTeX/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on Final-Draft.pdf (16 pages, 625141 bytes).
-=======
- <c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0600.600pk> <c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Users/Zagreb/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on Final-Draft.pdf (16 pages, 626176 bytes).
->>>>>>> 9e141584c0c8241b8b985487307a12cf103db605
+Output written on Final-Draft.pdf (16 pages, 626239 bytes).
 PDF statistics:
- 335 PDF objects out of 1000 (max. 8388607)
- 268 compressed objects within 3 object streams
+ 339 PDF objects out of 1000 (max. 8388607)
+ 272 compressed objects within 3 object streams
  54 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
