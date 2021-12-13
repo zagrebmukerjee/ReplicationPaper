@@ -22,3 +22,5 @@ To generate the tables and figures in our final PDF:
 
 Original Paper: 
 BACCINI, L., & WEYMOUTH, S. (2021). Gone For Good: Deindustrialization, White Voter Backlash, and US Presidential Voting. American Political Science Review, 115(2), 550-567. doi:10.1017/S0003055421000022
+
+Dataverse: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/7U2UIQ
