@@ -60,9 +60,12 @@ Deindustrialization}
 \author{
   Catherine Darin\\
   Zagreb Mukerjee\thanks{
-  Darin: Harvard University, \href{mailto:cdarin@hks.harvard.edu}{cdarin@hks.harvard.edu}.
-  Mukerjee: Harvard University, \href{mailto:zagrebmukerjee@fas.harvard.edu}{zagrebmukerjee@fas.harvard.edu}.
-  Code available at https://github.com/zagrebmukerjee/ReplicationPaper
+  Darin: Harvard
+University, \href{mailto:cdarin@hks.harvard.edu}{cdarin@hks.harvard.edu}.
+  Mukerjee: Harvard
+University, \href{mailto:zagrebmukerjee@fas.harvard.edu}{zagrebmukerjee@fas.harvard.edu}.
+  Code available at https://github.com/zagrebmukerjee/ReplicationPaper;
+  https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/7U2UIQ
 }
 }
 
@@ -165,10 +168,12 @@ counter-intuitive result, we extend the analysis to the 2004-2015 period
 in order to capture the long-term effects of deindustrialization on a
 region. Doing so, we find that regions experiencing more manufacturing
 job losses from 2004-2015 swung towards Donald Trump in 2016, and that
-this occurred more when those losing jobs were white. We get similar
-result using our covariate-matching approach. Relative to
-\cite{Baccini21}, our results point to the substantive importance of the
-timing of manufacturing job losses on political outcomes.
+this occurred more when those losing jobs were white. We get
+directionally similar results using our covariate-matching approach -
+differences in magnitude are an object of further investigation.
+Relative to \cite{Baccini21}, our results point to the substantive
+importance of the timing of manufacturing job losses on political
+outcomes.
 
 \FloatBarrier
 \begin{figure}
@@ -247,13 +252,13 @@ be seen in Table \ref{tab:descTable}. \FloatBarrier
 \toprule
   & Mean & Std Dev & 25th Pctile & Median & 75th Pctile\\
 \midrule
-Mfg Share of Emp & 0.20 & 0.15 & 0.09 & 0.17 & 0.29\\
-Mfg Share of Emp (White) & 0.16 & 0.13 & 0.06 & 0.13 & 0.22\\
-Mfg Share of Emp (Nonwhite) & 0.05 & 0.07 & 0.01 & 0.02 & 0.06\\
-Change in Mfg Jobs/ Worker & 0.04 & 0.09 & -0.01 & 0.02 & 0.06\\
-Change in Mfg Jobs/ Worker (W) & 0.03 & 0.07 & 0.00 & 0.02 & 0.06\\
+Mfg Share of Emp & 0.13 & 0.10 & 0.05 & 0.11 & 0.19\\
+Mfg Share of Emp (White) & 0.10 & 0.08 & 0.04 & 0.08 & 0.15\\
+Mfg Share of Emp (Nonwhite) & 0.03 & 0.04 & 0.00 & 0.01 & 0.04\\
+Mfg Job Loss/ Worker & 0.02 & 0.06 & 0.00 & 0.01 & 0.04\\
+Mfg Job Loss/ Worker (W) & 0.02 & 0.04 & 0.00 & 0.01 & 0.04\\
 \addlinespace
-Change in Mfg Jobs/ Worker (NW) & 0.00 & 0.04 & -0.01 & 0.00 & 0.01\\
+Mfg Job Loss/ Worker (NW) & 0.00 & 0.03 & 0.00 & 0.00 & 0.00\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -290,24 +295,25 @@ as voter suppression tactics). These controls are similar to those of
 \cite{Baccini21}.
 
 A potential weakness of our first approach is that manufacturing
-employment in a county may be correlated with swinging towards Trump for
-reasons other than manufacturing job losses. To account for this
-potential ommitted variable bias, we use a second approach that attempts
-to balance the covariates of the deindustrialization treatment. We use
-the same covariates as are used in controls above, as well as
-manufacturing as share of the population and total population. We apply
-the method of Covariate Balancing Propensity Scores, as developed by
-\cite{Imai14}; this method generates weights to reduce the correlation
-between covariates and treatment, while addressing several of the issues
-with propensity score weights. We find significant imbalance in the data
-- in other words, it is relatively easy to predict the `treatment' of
-job loss given the covariates (see Appendix for balance plots). Given
-covariate-balancing weights, we then conduct a single-stage weighted
-regression of change in Democratic vote share on manufacturing job loss,
-using the same controls as above. Essentially, this approach can be
-conceptualized as a form of matching that reduces the potential ommitted
-variable bias in our first approach, but may introduce selection bias
-(as some counties will be given low weights).
+employment may be correlated with swinging towards Trump for reasons
+other than manufacturing job losses. To account for this potential
+ommitted variable bias, we use a second approach that attempts to
+balance the covariates of the deindustrialization treatment. We use the
+same covariates as are used in controls above, as well as manufacturing
+as share of the population and total population. We apply the method of
+Covariate Balancing Propensity Scores, as developed by \cite{Imai14};
+this method generates weights to reduce the correlation between
+covariates and treatment, while addressing several of the issues with
+propensity score weights. We find significant imbalance in the data - in
+other words, it is relatively easy to predict the `treatment' of job
+loss given the covariates (see Figures \ref{balPlot} and
+\ref{balPlotWhite} for balance plots). Given covariate-balancing
+weights, we then conduct a single-stage weighted regression of change in
+Democratic vote share on manufacturing job loss, using the same controls
+as above. Essentially, this approach can be conceptualized as a form of
+matching that reduces the potential ommitted variable bias in our first
+approach, but may introduce selection bias (as some counties will be
+given low weights).
 
 \subsection{Results}
 
@@ -317,7 +323,7 @@ this effect is largely attributable to whites. In other words, net white
 manufacturing job losses decreased Democratic vote share, while net
 non-white manufacturing job losses increased Democratic vote share. We
 find the same effect when using covariate balancing, albeit of reduced
-size.
+size (we are investigating the difference in magnitude).
 
 The results can be found in Table \ref{regResult04}. The regression
 coefficient in Model 4, for instance, means that a loss of \(10\) white
@@ -624,4 +630,3 @@ Deciles are determined based on our preferred measure of deindustrialization: to
 \end{figure}
 
 \end{document}
-
