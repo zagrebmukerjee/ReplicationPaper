@@ -60,10 +60,8 @@ Deindustrialization}
 \author{
   Catherine Darin\\
   Zagreb Mukerjee\thanks{
-  Darin: Harvard
-University, \href{mailto:cdarin@hks.harvard.edu}{cdarin@hks.harvard.edu}.
-  Mukerjee: Harvard
-University, \href{mailto:zagrebmukerjee@fas.harvard.edu}{zagrebmukerjee@fas.harvard.edu}.
+  Darin: Harvard University, \href{mailto:cdarin@hks.harvard.edu}{cdarin@hks.harvard.edu}.
+  Mukerjee: Harvard University, \href{mailto:zagrebmukerjee@fas.harvard.edu}{zagrebmukerjee@fas.harvard.edu}.
   Code available at https://github.com/zagrebmukerjee/ReplicationPaper
 }
 }
@@ -120,24 +118,6 @@ across the eastern half of America, particularly in the South and
 Midwest, have experienced the most pronounced manufacturing employment
 losses. The localized nature of this analysis highlights the uneven and
 concentrated harms of deindustrialization.
-
-This paper analyzes the relationship between deindustrialization, race,
-and the election of Donald Trump in 2016. Previous analysis has focused
-on racial animus, trade, or the conjunction of the two on political
-polarization and election outcomes (\cite{Autor20}; \cite{Che16};
-\cite{BR21}). We extend the analysis of \cite{Baccini21}, one of the
-first papers to examine the political effects of deindustrialization
-that while considering race and localization. Deindustrialization - the
-transition of the U.S. economy away from manufacturing - has led to
-widespread job loss and created adverse knock-on effects for a wide
-swath of Americans. Our measure of deindustrialization incorporates job
-losses due to trade with China and others (see \cite{Acemoglu16}); it
-also includes job losses due to automation, demand changes, and other
-factors. The experience of deindustrialization has not been uniform;
-rather, it has been concentrated in certain areas of the country that
-were previously economically reliant on manufacturing, as demonstrated
-in Figure \ref{ManuMap}. The localized nature of this analysis
-highlights the uneven and concentrated harms of deindustrialization.
 
 \FloatBarrier
 \begin{figure} 
@@ -227,8 +207,8 @@ use the loss of manufacturing jobs as a share of the total
 beginning-of-period employment in each county. Suppose at the beginning
 of our period there were \(2000\) manufacturing workers in a county, and
 \(8000\) non-manufacturing workers. At the end there are only \(1500\)
-manufacturing workers. Using our measure of net change in manufacturing
-employment, this is a loss of \(500/10000 = 5\%.\)
+manufacturing workers. Using our measure of net manufacturing job
+losses, this is a loss of \(500/10000 = 5\%.\)
 
 In this choice we diverge from \cite{Baccini21}, which uses \emph{gross}
 manufacturing job losses. For example, if a county lost \(450\)
@@ -238,15 +218,15 @@ losses, but only \(50\) \emph{net} job losses. The \emph{gross} measure
 captures several dynamics unrelated to deindustrialization - for
 example, seasonal unemployment in a food-manufacturing region, or
 workers moving between jobs. Thus we believe the \emph{net} job losses
-over a period are the more accurate measure. Additionally, there is
-precedent in the literature to use \emph{net} employment changes, as
-\cite{Autor21} have done. Nevertheless, it can be argued that the
-non-seasonal or non-structural components of gross job losses are a
-useful covariate. For instance, basic notions of prospect theory suggest
-that the loss of a job and subsequent regaining of another identical job
-may still create substantial discontent. Constructing a better measure
-of gross job losses is an area for further methodological and
-substantive research.
+over a period are the more accurate measure of deindustrialization.
+Additionally, there is precedent in the literature to use \emph{net}
+employment changes, as \cite{Autor21} have done. Nevertheless, it can be
+argued that the non-seasonal or non-structural components of gross job
+losses are a useful covariate. For instance, basic notions of prospect
+theory suggest that the loss of a job and subsequent regaining of
+another identical job may still create substantial discontent.
+Constructing a better measure of gross job losses is an area for further
+methodological and substantive research.
 
 Data on job gains and losses are obtained, using an API, from the Census
 Bureau's Quarterly Workforce Indicators (\cite{QWI}), which contains
@@ -286,11 +266,10 @@ We conduct two related tests of our hypothesis. Our first test involves
 an instrumental-variable approach. A regression of change in Democratic
 vote share on manufacturing job losses risks endogeneity, in case
 counties with manufacturing job losses were otherwise predisposed to
-turn towards Trump (a singular candidate, after all). To mitigate these
-risks, \cite{Baccini21} use a Bartik instrument, which we adapt (see
-\cite{Bartik91}). This instrument essentially uses the cross-county
-distribution of manufacturing employment as a source of exogenous
-variation.
+turn towards Trump. To mitigate these risks, \cite{Baccini21} use a
+Bartik instrument, which we adapt (see \cite{Bartik91}). This instrument
+essentially uses the cross-county distribution of manufacturing
+employment as a source of exogenous variation.
 
 \[
 \begin{aligned}
@@ -310,18 +289,25 @@ account for a wide variety of state-level changes from 2012-2016 (such
 as voter suppression tactics). These controls are similar to those of
 \cite{Baccini21}.
 
-Our second approach involves attempting to balance the covariates of the
-deindustrialization treatment. We use the same covariates as are used in
-controls above, as well as manufacturing as share of the population and
-total population. We apply the method of Covariate Balancing Propensity
-Scores, as developed by \cite{Imai14}; this method generates weights to
-reduce the correlation between covariates and treatment, while
-addressing several of the issues with propensity score weights. We find
-significant imbalance in the data - in other words, it is relatively
-easy to predict the `treatment' of job loss given the covariates (see
-Appendix for balance plots). Given covariate-balancing weights, we then
-conduct a single-stage weighted regression of change in Democratic vote
-share on manufacturing job loss, using the same controls as above.
+A potential weakness of our first approach is that manufacturing
+employment in a county may be correlated with swinging towards Trump for
+reasons other than manufacturing job losses. To account for this
+potential ommitted variable bias, we use a second approach that attempts
+to balance the covariates of the deindustrialization treatment. We use
+the same covariates as are used in controls above, as well as
+manufacturing as share of the population and total population. We apply
+the method of Covariate Balancing Propensity Scores, as developed by
+\cite{Imai14}; this method generates weights to reduce the correlation
+between covariates and treatment, while addressing several of the issues
+with propensity score weights. We find significant imbalance in the data
+- in other words, it is relatively easy to predict the `treatment' of
+job loss given the covariates (see Appendix for balance plots). Given
+covariate-balancing weights, we then conduct a single-stage weighted
+regression of change in Democratic vote share on manufacturing job loss,
+using the same controls as above. Essentially, this approach can be
+conceptualized as a form of matching that reduces the potential ommitted
+variable bias in our first approach, but may introduce selection bias
+(as some counties will be given low weights).
 
 \subsection{Results}
 
@@ -638,3 +624,4 @@ Deciles are determined based on our preferred measure of deindustrialization: to
 \end{figure}
 
 \end{document}
+
