@@ -17,7 +17,7 @@ author:
 acknowledgements: | 
   Code available at https://github.com/zagrebmukerjee/ReplicationPaper
 abstract: |
-  What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. We exploit county-level differences in manufacturing density as a source of exogenous variation, using both instrumental-variable regression and covariate balancing methods. Counter-intuitively, we find that counties that gained manufacturing jobs from 2012-2015 are more likely to have swung towards Trump. We believe this is due to an omitted variable - the job loss experienced from 2004 to 2012. Counties that experienced prior deindustrialization were more likely to exhibit increased support for Trump, as well as a slight manufacturing rebound in 2012-2015. Dis-aggregating this result by race shows that the Democratic vote share fell where job losses affected white populations, and rose where job losses affected nonwhites. This suggests a racial component to how voters process economic hardship.
+    What led to Donald Trump's surprising 2016 election victory? This paper examines the potential contribution of deindustrialization. We exploit county-level differences in manufacturing density as a source of exogenous variation, using both instrumental-variable regression and covariate balancing methods. Counter-intuitively, we find that counties that gained manufacturing jobs from 2012-2015 are more likely to have swung towards Trump. We believe this is due to an omitted variable - the job loss experienced from 2004 to 2012. Counties that experienced prior deindustrialization were more likely to exhibit increased support for Trump, as well as a slight manufacturing rebound in 2012-2015. Dis-aggregating this result by race shows that the Democratic vote share fell where job losses affected white populations, and rose where job losses affected nonwhites. This suggests a racial component to how voters process economic hardship.
 output: rticles::aea_article
 header-includes: 
  - \usepackage{graphicx}
@@ -746,7 +746,7 @@ ggplot(data = ntile_summary,
 ```
 
 \begin{figurenotes}
-Deciles are determined based on our preferred measure of deindustrialization: total net manufacturing job losses from 2004-2015 divided by total 2004 employment. The y-axis shows the mean measure of manufacturing job losses (2012-2015) per 2011 worker across counties in each decile group. The chart shows that counties with the most manufacturing job losses from 2004-2011 (e.g., in the highest deciles) experienced the most manufacturing *gains* from 2012-2015.
+Deciles are determined based on our preferred measure of deindustrialization: total net manufacturing job losses from 2004-2015 divided by total 2004 employment. The y-axis shows the mean measure of manufacturing job losses (2012-2015) per 2011 worker across counties in each decile group. The chart shows that counties with the most manufacturing job losses from 2004-2011 (i.e. in the highest deciles) experienced the most manufacturing *gains* from 2012-2015.
 \end{figurenotes}
 \end{figure}
 
