@@ -60,8 +60,10 @@ Deindustrialization}
 \author{
   Catherine Darin\\
   Zagreb Mukerjee\thanks{
-  Darin: Harvard University, \href{mailto:cdarin@hks.harvard.edu}{cdarin@hks.harvard.edu}.
-  Mukerjee: Harvard University, \href{mailto:zagrebmukerjee@fas.harvard.edu}{zagrebmukerjee@fas.harvard.edu}.
+  Darin: Harvard
+University, \href{mailto:cdarin@hks.harvard.edu}{cdarin@hks.harvard.edu}.
+  Mukerjee: Harvard
+University, \href{mailto:zagrebmukerjee@fas.harvard.edu}{zagrebmukerjee@fas.harvard.edu}.
   Code available at https://github.com/zagrebmukerjee/ReplicationPaper
 }
 }
@@ -86,9 +88,9 @@ job loss experienced from 2004 to 2012. Counties that experienced prior
 deindustrialization were more likely to exhibit increased support for
 Trump, as well as a slight manufacturing rebound in 2012-2015.
 Dis-aggregating this result by race shows that the Democratic vote share
-fell where layoffs affected white populations, and rose where layoffs
-affected nonwhites. This suggests a racial component to how voters
-process economic hardship.
+fell where job losses affected white populations, and rose where job
+losses affected nonwhites. This suggests a racial component to how
+voters process economic hardship.
 \end{abstract}
 
 
@@ -138,8 +140,9 @@ in Figure \ref{ManuMap}. The localized nature of this analysis
 highlights the uneven and concentrated harms of deindustrialization.
 
 \FloatBarrier
-\begin{figure} \label{ManuMap}
+\begin{figure} 
 \caption{Concentration of Deindustrialization (2004-2015) in the eastern United States }
+\label{ManuMap}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-2-1} \end{center}
 
@@ -185,11 +188,12 @@ job losses from 2004-2015 swung towards Donald Trump in 2016, and that
 this occurred more when those losing jobs were white. We get similar
 result using our covariate-matching approach. Relative to
 \cite{Baccini21}, our results point to the substantive importance of the
-timing of manufacturing layoffs on political outcomes.
+timing of manufacturing job losses on political outcomes.
 
 \FloatBarrier
-\begin{figure} \label{natlPlotTS}
+\begin{figure}
 \caption{Nationwide Change in Manufacturing Employment, 1995-2019}
+\label{natlPlotTS}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-3-1} \end{center}
 
@@ -338,7 +342,8 @@ share. \FloatBarrier
 \begin{table}[!htbp] \centering 
   \caption{Effect of Manufacturing Job Loss from 2004 to 2015} 
   \label{regResult04} 
-\begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
+\small 
+\begin{tabular}{@{\extracolsep{2pt}}lcccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
  & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
@@ -388,8 +393,9 @@ manufacturing job losses, most states would have leaned more Democratic
 in 2016, and that Michigan and Pennsylvania would have flipped.
 
 \FloatBarrier
-\begin{figure} \label{counterfactual1}
+\begin{figure} 
 \caption{Counterfactual Scenario: Change in Democratic Vote Share Assuming 25th Percentile of Manufacturing Job Losses}
+\label{counterfactual1}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
@@ -416,9 +422,10 @@ substantially lower and \emph{negative} (e.g., job gains) in order for
 the national election outcome to have been flipped with 95\% confidence.
 
 \FloatBarrier
-\begin{figure} \label{counterfactual2}
+\begin{figure} 
 
 \caption{Counterfactual Simulation Results: Democratic Electoral College Votes Assuming White Manufacturing Job Losses Between 1st and 99th Percentile }
+\label{counterfactual2}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
@@ -459,8 +466,9 @@ effect sizes because it does not take into account this second-order
 impact.
 
 \FloatBarrier
-\begin{figure} \label{counterfactual3}
+\begin{figure} 
 \caption{Counterfactual Simulation Results: Democratic Presidential Win Frequency}
+\label{counterfactual3}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
@@ -470,19 +478,20 @@ impact.
 \end{figure}
 \FloatBarrier
 
-Finally, we would like to acknowledge our focus on white manufacturing
-job losses over non-white manufacturing job losses. In this analysis, we
+More broadly, we would like to acknowledge our focus on white
+manufacturing job losses over non-white manufacturing job losses. We
 focus on white manufacturing job losses for two reasons. First, in the
 United States, manufacturing employment and job losses have historically
 been predominately white (See Table \ref{tab:descTable}). Second, our
-results suggest that the white manufacturing job losses have a larger
-negative effect on Democratic vote share relative to the magnitude of
-the positive effect from non-white manufacturing losses. For these
-reasons, our results suggest that, in aggregate, white-manufacturing
-losses have had a more significant effect on political outcomes than
-non-white manufacturing job losses. However, we would like to highlight
-that the political consequences from non-white deindustrialization is an
-important area for future work.
+regression results (See Table \ref{regResult04}) suggest that white
+manufacturing job losses have a larger negative effect on Democratic
+vote share relative to the magnitude of the positive effect from
+non-white manufacturing job losses. For these reasons, our results
+suggest that, in aggregate, white manufacturing job losses have had
+larger effect on political outcomes than non-white manufacturing job
+losses. However, we would like to highlight that the political
+consequences from non-white manufacturing job losses is a topic that is
+under-explored in this paper, and is an important area for future work.
 
 \subsubsection{Timing}
 
@@ -495,8 +504,8 @@ variable bias. As discussed above, the 2012-2015 period can be broadly
 characterized as a slight rebound from the manufacturing job losses in
 the 2008 financial crisis. The counties that experience job losses from
 2004-2012 are more likely to have job gains in 2012-2015 (see
-\ref{vShapePlot}). An apparent relationship between 2012-2015 job gains
-and loss of Democratic vote share in fact represents 2004-2012 job
+\ref{fig:vShapePlot1}). An apparent relationship between 2012-2015 job
+gains and loss of Democratic vote share in fact represents 2004-2012 job
 losses that may lead to both the later job gains and the loss of vote
 share. These results can be seen in Table \ref{regResult12}.
 \FloatBarrier
@@ -575,8 +584,9 @@ of populist parties in Hungary, Brazil, India and elsewhere
 
 \section{Appendix}
 
-\begin{figure} \label{vShapePlot1}
+\begin{figure} 
 \caption{V-Shaped Recovery in Manufacturing Job Losses: Manufacturing Job Losses (2004-2011) by (2004-2011) Decile Groupings}
+\label{fig:vShapePlot1}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
@@ -588,8 +598,9 @@ Deciles are determined based on our preferred measure of deindustrialization: to
 \end{figurenotes}
 \end{figure}
 
-\begin{figure} \label{vShapePlot2}
+\begin{figure} 
 \caption{V-Shaped Recovery in Manufacturing Job Losses: Manufacturing Job Losses (2012-2015) by 2004-2011 Decile Groupings}
+\label{vShapePlot2}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
@@ -602,9 +613,9 @@ Deciles are determined based on our preferred measure of deindustrialization: to
 \end{figurenotes}
 \end{figure}
 
-\begin{figure} \label{balPlot}
+\begin{figure} 
 \caption{Covariate Balance in Aggregate}
-
+\label{balPlot}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
@@ -614,9 +625,9 @@ Deciles are determined based on our preferred measure of deindustrialization: to
 
 \end{figure}
 
-\begin{figure} \label{balPlotWhite}
+\begin{figure} 
 \caption{Covariate Balance in Whites}
-
+\label{balPlotWhite}
 
 \begin{center}\includegraphics{Final-Draft_files/figure-latex/unnamed-chunk-13-1} \end{center}
 
@@ -627,4 +638,3 @@ Deciles are determined based on our preferred measure of deindustrialization: to
 \end{figure}
 
 \end{document}
-
